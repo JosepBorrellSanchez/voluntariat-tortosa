@@ -1,7 +1,12 @@
 # VOLUNTARIAT TORTOSA
 
-# DB
+Projecte de pràctiques a l'ajuntament de tortosa.
 
+Aplicació per a la gestió d'activitats de voluntariat de tortosa.
+
+Projecte creat amb Laravel i Vue.
+
+# Base de dades
 ## Notes
 
 - Les activitats preferents de cada voluntari vindràn de la relació entre la taula "voluntaris" i la taula "tipus_activitats"
