@@ -26,6 +26,7 @@
         "vue": "^2.5.7"
     },
     "dependencies": {
-        "loadash": "^1.0.0"
+        "loadash": "^1.0.0",
+        "vue-template-compiler": "^2.5.13"
     }
 }
