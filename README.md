@@ -42,6 +42,8 @@ Projecte creat amb Laravel i Vue.
 
 - Amb el camp "condicio_fisica" del camp voluntaris, quins possibles estats podriem trobar? (mobilitat reduïda, ...)
 
+- Com creem dos classes d'usuari?
+
 # Projecte PHP
 
 ## Migracions

@@ -1,0 +1,70 @@
+
+html, body, div {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: #4f4f4f;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+.container {
+  display: grid;
+  grid-template-rows: 40px 1fr 40px;
+  grid-template-columns: 150px 1fr 100px;
+}
+
+.logo {
+  background: red; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+}
+
+nav {
+  display: flex;
+  background: grey;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  grid-column: 2/4;
+  grid-row: 1;
+}
+
+nav ul {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  margin: 0;
+}
+
+nav ul li {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0 5px;
+}
+
+nav ul li:hover {
+  background: black;
+}
+
+nav ul li a {
+  margin: 0;
+  padding: 0;
+}
