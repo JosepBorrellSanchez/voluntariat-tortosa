@@ -1,23 +1,101 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
-  </div>
+  <v-app v-resize="onResize">
+    <v-toolbar
+      app
+      :clipped-left="clipped"
+    >
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <!-- <v-btn icon @click.stop="miniVariant = !miniVariant">
+        <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
+      </v-btn> -->
+      <!-- <v-btn icon @click.stop="clipped = !clipped">
+        <v-icon>web</v-icon>
+      </v-btn>-->
+      <!-- <v-btn icon @click.stop="fixed = !fixed">
+        <v-icon>remove</v-icon>
+      </v-btn>-->
+      <v-toolbar-title v-text="title"></v-toolbar-title>
+      <v-spacer></v-spacer>
+    </v-toolbar>
+    <v-navigation-drawer
+      persistent
+      :mini-variant="miniVariant"
+      v-model="drawer"
+      :mobile-break-point="mobileBreakPoint"
+      enable-resize-watcher
+      :clipped="clipped"
+      :fixed="fixed"
+      temporary
+      hide-overlay
+      app
+    >
+      <v-list>
+        <v-list-tile
+          value="true"
+          v-for="(item, i) in items"
+          :key="i"
+        >
+          <v-list-tile-action>
+            <v-icon v-html="item.icon"></v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title v-text="item.title"></v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+    </v-navigation-drawer>
+    <v-content>
+      <router-view/>
+    </v-content>
+    <v-footer :fixed="fixed" app>
+      <span>&copy; 2017</span>
+    </v-footer>
+  </v-app>
 </template>
 
 <script>
 export default {
+  data () {
+    return {
+      clipped: true,
+      clippedLeft: false,
+      drawer: true,
+      fixed: false,
+      mobileBreakPoint: 900,
+      items: [
+        { icon: 'bubble_chart', title: 'Inspire' },
+        { icon: 'home', title: 'Dashboard' }
+      ],
+      miniVariant: false,
+      right: true,
+      rightDrawer: false,
+      title: 'Voluntariat Tortosa',
+      windowSize: {
+        x: 0,
+        y: 0
+      }
+    }
+  },
+  watch: {
+    /* windowSize (x, y) {
+      if (this.windowSize.x < this.mobileBreakPoint) {
+        this.fixed = false
+        this.clipped = true
+      } else {
+        this.fixed = true
+        this.clipped = false
+      }
+    } */
+  },
+  methods: {
+    onResize () {
+      this.windowSize = { x: window.innerWidth, y: window.innerHeight }
+    }
+  },
+  mounted () {
+    this.onResize()
+  },
   name: 'App'
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

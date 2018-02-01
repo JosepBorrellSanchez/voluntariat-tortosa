@@ -11,12 +11,19 @@
 |
 */
 
+/* Route::get('/', function () {
+    return view('welcome');
+});
+ */
+
+Auth::routes();
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/activitats', 'ActivitatsController');
+
+Route::view('/voluntariat-container', 'voluntariat.index');
