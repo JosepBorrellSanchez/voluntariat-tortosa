@@ -1,8 +1,36 @@
 <template>
   <v-app v-resize="onResize">
+    <v-navigation-drawer
+      persistent
+      :mini-variant="miniVariant"
+      v-model="drawer"
+      :mobile-break-point="mobileBreakPoint"
+      enable-resize-watcher
+      :clipped="clipped"
+      hide-overlay
+      absolute
+      app
+    >
+      <v-list>
+        <v-list-tile
+          value="true"
+          v-for="(item, i) in items"
+          :key="i"
+          router :to="item.href"
+        >
+          <v-list-tile-action>
+            <v-icon v-html="item.icon"></v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title v-text="item.title"></v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+    </v-navigation-drawer> 
     <v-toolbar
       app
       :clipped-left="clipped"
+      absolute
     >
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <!-- <v-btn icon @click.stop="miniVariant = !miniVariant">
@@ -17,33 +45,6 @@
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
     </v-toolbar>
-    <v-navigation-drawer
-      persistent
-      :mini-variant="miniVariant"
-      v-model="drawer"
-      :mobile-break-point="mobileBreakPoint"
-      enable-resize-watcher
-      :clipped="clipped"
-      :fixed="fixed"
-      temporary
-      hide-overlay
-      app
-    >
-      <v-list>
-        <v-list-tile
-          value="true"
-          v-for="(item, i) in items"
-          :key="i"
-        >
-          <v-list-tile-action>
-            <v-icon v-html="item.icon"></v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title v-text="item.title"></v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
     <v-content>
       <router-view/>
     </v-content>
@@ -64,7 +65,9 @@ export default {
       mobileBreakPoint: 900,
       items: [
         { icon: 'bubble_chart', title: 'Inspire' },
-        { icon: 'home', title: 'Dashboard' }
+        { icon: 'home', title: 'Dashboard', href: '/' },
+        { icon: 'assignment', title: 'Les meves activitats', href: 'Activitats' },
+        { icon: 'account_box', title: 'El meu compte' }
       ],
       miniVariant: false,
       right: true,
