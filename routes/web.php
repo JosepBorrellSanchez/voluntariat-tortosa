@@ -18,12 +18,12 @@
 
 Auth::routes();
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/activitats', 'ActivitatsController');
 
-Route::view('/voluntariat-container', 'voluntariat.index');
+Route::view('/', 'voluntariat.index');

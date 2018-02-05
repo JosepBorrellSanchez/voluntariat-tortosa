@@ -10,8 +10,11 @@
           class="elevation-1"
         >
           <template slot="items" slot-scope="props">
-            <td>{{ props.item.name }}</td>
-            <td>{{ props.item.desc }}</td>
+            <td class="text-xs-left">{{ props.item.nom }}</td>
+            <td class="text-xs-left">{{ props.item.destinataris }}</td>
+            <td class="text-xs-right">{{ props.item.hora_inici }}</td>
+            <td class="text-xs-right">{{ props.item.hora_fi }}</td>
+            <td class="text-xs-right">{{ props.item.num_voluntaris_necessaris }}</td>
           </template>
         </v-data-table>
       </v-layout>
@@ -27,13 +30,11 @@
     data () {
       return {
         headers: [
-          {
-            text: 'Name',
-            align: 'left',
-            sortable: false,
-            value: 'name'
-          },
-          { text: 'Description', value: 'desc', align: 'left' }
+          { text: 'Nom', value: 'nom', align: 'left' },
+          { text: 'Destinataris', value: 'destinataris', align: 'left' },
+          { text: 'Hora Inici', value: 'hora_inici' },
+          { text: 'Hora Fi', value: 'hora_fi' },
+          { text: 'Voluntaris necessaris', value: 'num_voluntaris_necessaris' }
         ]
       }
     },

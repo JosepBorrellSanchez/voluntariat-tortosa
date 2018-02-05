@@ -7,26 +7,16 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
 
     <title>{{ config('app.name', 'Voluntariat') }}</title>
 
-    <!-- Styles -->
-    <link href="{{ asset('css/main.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <header class="logo">
-            <a href="/">Voluntariat</a>
-        </header>
-        <nav class="">
-                <svg class="hamburger" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/activitats">Activitats</a></li>
-            </ul>
-        </nav>
-
-        <aside class="left-side-bar">Left</aside>
+    <div id="app">
+        @yield('content')
     </div>
+
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

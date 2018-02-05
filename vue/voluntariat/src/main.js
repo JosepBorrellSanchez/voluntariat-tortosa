@@ -6,7 +6,7 @@ import router from './router'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import Vuex from 'vuex'
-// import axios from 'axios'
+import axios from 'axios'
 
 Vue.use(Vuetify)
 Vue.use(Vuex)
@@ -34,25 +34,18 @@ const store = new Vuex.Store({
     }
   },
   actions: {
-    // fetchActivitats (context) {
-    //   axios.get('api/activitats').then((response) => {
-    //     let activitats = response.data
-    //     context.commit('activitats', activitats)
-    //   }).catch((error) => {
-    //     console.log(error)
-    //   })
-    // }
     fetchActivitats (context) {
-      let activitats = [
-        { 'nome': 'hola', 'desc': 'va be?' },
-        { 'nom': 'adeu', 'desc': 'nose' }
-      ]
-      context.commit('activitats', activitats)
+      axios.get('api/activitats').then((response) => {
+        console.log(response)
+        let activitats = response.data
+        context.commit('activitats', activitats)
+      }).catch((error) => {
+        console.log(error)
+      })
     }
   }
 })
 
-/* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,

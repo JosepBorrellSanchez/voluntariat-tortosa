@@ -1,9 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.voluntariat')
 
-@section('main-content')
+@section('content')
 
-    <div id="app">
-        <router-view></router-view>
-    </div>
+    <app-voluntariat></app-voluntariat>
 
 @endsection
