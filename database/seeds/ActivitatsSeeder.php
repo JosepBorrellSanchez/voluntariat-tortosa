@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Activitats;
+use App\Activitat;
 
 class ActivitatsSeeder extends Seeder
 {
@@ -12,6 +12,6 @@ class ActivitatsSeeder extends Seeder
      */
     public function run()
     {
-        factory(Activitats::class, 10)->create();
+        factory(Activitat::class, 10)->create();
     }
 }

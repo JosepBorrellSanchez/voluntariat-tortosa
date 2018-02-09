@@ -1,0 +1,3 @@
+
+export const FETCH_ACTIVITATS = 'FETCH_ACTIVITATS'
+export const GET_ACTIVITAT = 'GET_ACTIVITAT'

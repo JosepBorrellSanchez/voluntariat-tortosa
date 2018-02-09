@@ -23,7 +23,7 @@
   import { mapActions } from 'vuex'
 
   export default {
-    name: 'Activitats',
+    name: 'Activitat',
     data () {
       return {
         headers: [

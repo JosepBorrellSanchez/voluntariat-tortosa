@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Activitats::class, function (Faker $faker) {
+$factory->define(App\Activitat::class, function (Faker $faker) {
     return [
         'nom' => $faker->name,
         'ambit' => 'Escolar',

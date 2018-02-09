@@ -11,41 +11,11 @@ window.Vue = require('vue');
 
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
-import Vuex from 'vuex'
-import axios from 'axios'
 import router from './voluntariat/router'
 import App from './voluntariat/App'
+import store from './voluntariat/store'
 
 Vue.use(Vuetify)
-Vue.use(Vuex)
-
-const store = new Vuex.Store({
-    strict: true,
-    state: {
-      activitats: [],
-    },
-    getters: {
-      activitats: state => {
-        return state.activitats
-      }
-    },
-    mutations: {
-      activitats (state, activitats) {
-        state.activitats = activitats
-      }
-    },
-    actions: {
-      fetchActivitats (context) {
-        axios.get('api/activitats').then((response) => {
-          let activitats = response.data
-          context.commit('activitats', activitats)
-          context.commit('activitats', activitats)
-        }).catch((error) => {
-          console.log(error)
-        })
-      }
-    }
-  })
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

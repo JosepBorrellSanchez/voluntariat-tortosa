@@ -15,6 +15,10 @@
             <td class="text-xs-right">{{ props.item.hora_inici }}</td>
             <td class="text-xs-right">{{ props.item.hora_fi }}</td>
             <td class="text-xs-right">{{ props.item.num_voluntaris_necessaris }}</td>
+            <td>
+              <router-link :to="{ path: '/activitats/' + props.item.id  }"><v-icon>mode_edit</v-icon></router-link>
+              <v-icon @click="sendEmit('delete', props.item)">delete_forever</v-icon>
+            </td>
           </template>
         </v-data-table>
       </v-layout>
@@ -23,12 +27,15 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex'
+
+  import * as actionTypes from '../store/action-types'
+  import * as mutationTypes from '../store/mutation-types'
 
   export default {
-    name: 'Activitats',
+    name: 'Activitat',
     data () {
       return {
+        dialog: false,
         headers: [
           { text: 'Nom', value: 'nom', align: 'left' },
           { text: 'Destinataris', value: 'destinataris', align: 'left' },
@@ -44,15 +51,17 @@
           return this.$store.state.activitats
         },
         set (value) {
-          this.$store.commit('activitats', value)
+          this.$store.commit(mutationTypes.SET_ACTIVITATS, value)
         }
       }
     },
     methods: {
-      ...mapActions(['fetchActivitats'])
+      sendEmit(message, value) {
+        this.$emit(message, value)
+      }
     },
     mounted () {
-      this.$store.dispatch('fetchActivitats')
+      this.$store.dispatch(actionTypes.FETCH_ACTIVITATS)
     }
   }
 </script>

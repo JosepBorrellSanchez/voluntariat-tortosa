@@ -66,7 +66,7 @@ export default {
       items: [
         { icon: 'bubble_chart', title: 'Inspire' },
         { icon: 'home', title: 'Dashboard', href: '/' },
-        { icon: 'assignment', title: 'Les meves activitats', href: 'Activitats' },
+        { icon: 'assignment', title: 'Les meves activitats', href: 'Activitat' },
         { icon: 'account_box', title: 'El meu compte' }
       ],
       miniVariant: false,

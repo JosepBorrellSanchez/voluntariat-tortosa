@@ -5,7 +5,7 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Activitats;
+use App\Activitat;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ActivitatsTest extends TestCase
@@ -22,12 +22,12 @@ class ActivitatsTest extends TestCase
     /** @test */
     public function can_list_activities()
     {
-        $activitats = factory(Activitats::class, 10)->create();
+        $activitats = factory(Activitat::class, 10)->create();
 
         $response = $this->get('/activitats');
 
         $response->assertSuccessful();
-        $response->assertSee('Activitats');
+        $response->assertSee('Activitat');
 
         foreach ($activitats as $activitat) {
             $response->assertSee($activitat->nom);
@@ -44,7 +44,7 @@ class ActivitatsTest extends TestCase
     /** @test */
     public function can_show_an_activity()
     {
-        $activitat = factory(Activitats::class)->create();
+        $activitat = factory(Activitat::class)->create();
         
         $response = $this->get('/activitats/' . $activitat->id);
 
