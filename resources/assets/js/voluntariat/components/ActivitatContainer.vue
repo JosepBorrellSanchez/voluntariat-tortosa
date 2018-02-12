@@ -1,16 +1,22 @@
 <template>
   <v-app>
-    <router-view :activitat="this.activitat"></router-view>
+    <router-view :activitat="activitat"></router-view>
   </v-app>
 </template>
 
 <script>
   import * as actionTypes from '../store/action-types'
+  import * as mutationTypes from '../store/mutation-types'
 
   export default {
-    data () {
-      return {
-        activitat: this.$store.state.activitat
+    computed: {
+      activitat: {
+        get() {
+          return this.$store.state.activitat
+        },
+        set(value) {
+          this.$store.commit(mutationTypes.SET_ACTIVITAT, value)
+        }
       }
     },
     props: ['id'],

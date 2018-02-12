@@ -12,6 +12,7 @@ const store = new Vuex.Store({
     state: {
         activitats: [],
         activitat: [],
+        loading: false
     },
     getters,
     mutations,

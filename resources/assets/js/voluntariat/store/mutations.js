@@ -7,5 +7,8 @@ export default {
     },
     [types.SET_ACTIVITAT]: (state, activitat) => {
         state.activitat = activitat
+    },
+    [types.SET_LOADING]: (state, loading) => {
+        state.loading = loading
     }
 }

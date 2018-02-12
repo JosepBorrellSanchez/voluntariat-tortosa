@@ -47,16 +47,6 @@
                 show: false,
             }
         },
-        // computed: {
-        //     activitat: {
-        //         get () {
-        //             return this.$store.state.activitat
-        //         },
-        //         set (value) {
-        //             this.$state.commit([mutationTypes.SET_ACTIVITAT], value)
-        //         }
-        //     }
-        // },
         props: ['activitat'],
     }
 </script>

@@ -2,9 +2,20 @@
   <v-app>
     <transition name="fade">
       <router-view
+        :activitats="activitats"
+        :loading="loading"
         @delete="deleteActivitat">
       </router-view>
     </transition>
+    <v-dialog v-model="dialog" persistent max-width="290">
+      <v-card>
+        <v-card-title class="headline">Segur que vols eliminar aquesta activitat?</v-card-title>
+        <v-card-actions>
+          <v-btn color="green darken-1" flat @click.native="dialog = false">Cancel·la</v-btn>
+          <v-btn color="green darken-1" @click="destroy(activitat)" flat @click.native="dialog = false">Elimina</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-app>
 </template>
 
@@ -16,18 +27,38 @@
   const crud = createApi('/api/activitats')
 
   export default {
-    methods: {
-      reloadActivitats: () => {
-        this.$store.dispatch([actionTypes.FETCH_ACTIVITATS])
-      },
-      deleteActivitat: (activitat) => {
-        crud.delete(activitat).then((response) => {
-          this.reloadActivitats()
-          console.log('Activitat eliminada');
-        }).catch((error) => {
-          console.log(error);
-        });
+    data () {
+      return {
+        dialog: false,
+        activitat: null
       }
+    },
+    computed: {
+      activitats: {
+        get () {
+          return this.$store.state.activitats
+        },
+        set (value) {
+          this.$store.commit(mutationTypes.SET_ACTIVITATS, value)
+        }
+      },
+      loading: {
+        get() {
+          return this.$store.state.loading
+        },
+        set(value) {
+          this.$store.commit(mutationTypes.SET_LOADING, value)
+        }
+      }
+    },
+    methods: {
+      deleteActivitat: function (activitat) {
+        this.dialog = true
+        this.activitat = activitat
+      },
+      destroy: function (activitat) {
+        this.$store.dispatch(actionTypes.DELETE_ACTIVITAT, activitat)
+      },
     }
   }
 </script>

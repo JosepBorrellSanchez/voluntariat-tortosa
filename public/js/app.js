@@ -487,28 +487,32 @@ module.exports = function normalizeComponent (
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FETCH_ACTIVITATS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return GET_ACTIVITAT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return FETCH_ACTIVITATS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return GET_ACTIVITAT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DELETE_ACTIVITAT; });
 
 var FETCH_ACTIVITATS = 'FETCH_ACTIVITATS';
 var GET_ACTIVITAT = 'GET_ACTIVITAT';
+var DELETE_ACTIVITAT = 'DELETE_ACTIVITAT';
 
 /***/ }),
 /* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(24);
+
+/***/ }),
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return SET_ACTIVITATS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SET_ACTIVITAT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return SET_LOADING; });
 
 var SET_ACTIVITATS = 'SET_ACTIVITATS';
 var SET_ACTIVITAT = 'SET_ACTIVITAT';
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(24);
+var SET_LOADING = 'SET_LOADING';
 
 /***/ }),
 /* 5 */
@@ -12000,7 +12004,7 @@ function toComment(sourceMap) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = createApi;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -12174,7 +12178,7 @@ try {
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = __webpack_require__(4);
+window.axios = __webpack_require__(3);
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -60665,9 +60669,10 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
     component: __WEBPACK_IMPORTED_MODULE_5__components_ActivitatContainer___default.a,
     props: true,
     children: [{
-      path: '/activitat/:id',
+      path: '/activitats/:id',
       name: 'ShowActivitat',
-      component: __WEBPACK_IMPORTED_MODULE_6__components_Activitat___default.a
+      component: __WEBPACK_IMPORTED_MODULE_6__components_Activitat___default.a,
+      props: true
     }]
   }]
 }));
@@ -63355,12 +63360,21 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__store_action_types__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__api_api_crud_activitats__ = __webpack_require__(15);
-var _this = this;
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -63379,17 +63393,38 @@ var _this = this;
 var crud = Object(__WEBPACK_IMPORTED_MODULE_2__api_api_crud_activitats__["a" /* default */])('/api/activitats');
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  methods: {
-    reloadActivitats: function reloadActivitats() {
-      _this.$store.dispatch([__WEBPACK_IMPORTED_MODULE_1__store_action_types__["a" /* FETCH_ACTIVITATS */]]);
+  data: function data() {
+    return {
+      dialog: false,
+      activitat: null
+    };
+  },
+
+  computed: {
+    activitats: {
+      get: function get() {
+        return this.$store.state.activitats;
+      },
+      set: function set(value) {
+        this.$store.commit(mutationTypes.SET_ACTIVITATS, value);
+      }
     },
+    loading: {
+      get: function get() {
+        return this.$store.state.loading;
+      },
+      set: function set(value) {
+        this.$store.commit(mutationTypes.SET_LOADING, value);
+      }
+    }
+  },
+  methods: {
     deleteActivitat: function deleteActivitat(activitat) {
-      crud.delete(activitat).then(function (response) {
-        _this.reloadActivitats();
-        console.log('Activitat eliminada');
-      }).catch(function (error) {
-        console.log(error);
-      });
+      this.dialog = true;
+      this.activitat = activitat;
+    },
+    destroy: function destroy(activitat) {
+      this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_1__store_action_types__["a" /* DELETE_ACTIVITAT */], activitat);
     }
   }
 });
@@ -63408,7 +63443,75 @@ var render = function() {
       _c(
         "transition",
         { attrs: { name: "fade" } },
-        [_c("router-view", { on: { delete: _vm.deleteActivitat } })],
+        [
+          _c("router-view", {
+            attrs: { activitats: _vm.activitats, loading: _vm.loading },
+            on: { delete: _vm.deleteActivitat }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-dialog",
+        {
+          attrs: { persistent: "", "max-width": "290" },
+          model: {
+            value: _vm.dialog,
+            callback: function($$v) {
+              _vm.dialog = $$v
+            },
+            expression: "dialog"
+          }
+        },
+        [
+          _c(
+            "v-card",
+            [
+              _c("v-card-title", { staticClass: "headline" }, [
+                _vm._v("Segur que vols eliminar aquesta activitat?")
+              ]),
+              _vm._v(" "),
+              _c(
+                "v-card-actions",
+                [
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "green darken-1", flat: "" },
+                      nativeOn: {
+                        click: function($event) {
+                          _vm.dialog = false
+                        }
+                      }
+                    },
+                    [_vm._v("Cancel·la")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "green darken-1", flat: "" },
+                      on: {
+                        click: function($event) {
+                          _vm.destroy(_vm.activitat)
+                        }
+                      },
+                      nativeOn: {
+                        click: function($event) {
+                          _vm.dialog = false
+                        }
+                      }
+                    },
+                    [_vm._v("Elimina")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
         1
       )
     ],
@@ -63430,6 +63533,10 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(88)
+}
 var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(55)
@@ -63438,7 +63545,7 @@ var __vue_template__ = __webpack_require__(56)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -63479,7 +63586,28 @@ module.exports = Component.exports
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store_action_types__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__store_mutation_types__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__store_mutation_types__ = __webpack_require__(4);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -63514,31 +63642,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Activitat',
+  name: 'Activitats',
   data: function data() {
-    return {
+    return _defineProperty({
       dialog: false,
       headers: [{ text: 'Nom', value: 'nom', align: 'left' }, { text: 'Destinataris', value: 'destinataris', align: 'left' }, { text: 'Hora Inici', value: 'hora_inici' }, { text: 'Hora Fi', value: 'hora_fi' }, { text: 'Voluntaris necessaris', value: 'num_voluntaris_necessaris' }]
-    };
+    }, 'dialog', false);
   },
 
-  computed: {
-    activitats: {
-      get: function get() {
-        return this.$store.state.activitats;
-      },
-      set: function set(value) {
-        this.$store.commit(__WEBPACK_IMPORTED_MODULE_1__store_mutation_types__["b" /* SET_ACTIVITATS */], value);
-      }
-    }
-  },
+  props: ['activitats', 'loading'],
   methods: {
     sendEmit: function sendEmit(message, value) {
       this.$emit(message, value);
     }
   },
   mounted: function mounted() {
-    this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_0__store_action_types__["a" /* FETCH_ACTIVITATS */]);
+    this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_0__store_action_types__["b" /* FETCH_ACTIVITATS */]);
   }
 });
 
@@ -63560,9 +63679,25 @@ var render = function() {
         [
           _c(
             "v-layout",
-            { attrs: { column: "", "align-center": "" } },
+            {
+              staticClass: "contains",
+              attrs: { column: "", "align-center": "" }
+            },
             [
               _c("h1", [_vm._v("Activitats")]),
+              _vm._v(" "),
+              _vm.loading
+                ? _c(
+                    "div",
+                    [
+                      _c("v-progress-circular", {
+                        staticClass: "load",
+                        attrs: { indeterminate: "", fill: "" }
+                      })
+                    ],
+                    1
+                  )
+                : _vm._e(),
               _vm._v(" "),
               _c("v-data-table", {
                 staticClass: "elevation-1",
@@ -63611,15 +63746,22 @@ var render = function() {
                             ),
                             _vm._v(" "),
                             _c(
-                              "v-icon",
-                              {
-                                on: {
-                                  click: function($event) {
-                                    _vm.sendEmit("delete", props.item)
-                                  }
-                                }
-                              },
-                              [_vm._v("delete_forever")]
+                              "router-link",
+                              { attrs: { to: "#" } },
+                              [
+                                _c(
+                                  "v-icon",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        _vm.sendEmit("delete", props.item)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("delete_forever")]
+                                )
+                              ],
+                              1
                             )
                           ],
                           1
@@ -63812,25 +63954,31 @@ module.exports = Component.exports
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store_action_types__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__store_mutation_types__ = __webpack_require__(4);
 //
 //
 //
 //
 //
 //
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      activitat: this.$store.state.activitat
-    };
+  computed: {
+    activitat: {
+      get: function get() {
+        return this.$store.state.activitat;
+      },
+      set: function set(value) {
+        this.$store.commit(__WEBPACK_IMPORTED_MODULE_1__store_mutation_types__["a" /* SET_ACTIVITAT */], value);
+      }
+    }
   },
-
   props: ['id'],
   mounted: function mounted() {
-    this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_0__store_action_types__["b" /* GET_ACTIVITAT */], this.id);
+    this.$store.dispatch(__WEBPACK_IMPORTED_MODULE_0__store_action_types__["c" /* GET_ACTIVITAT */], this.id);
   }
 });
 
@@ -63844,7 +63992,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-app",
-    [_c("router-view", { attrs: { activitat: this.activitat } })],
+    [_c("router-view", { attrs: { activitat: _vm.activitat } })],
     1
   )
 }
@@ -64210,7 +64358,7 @@ module.exports = function listToStyles (parentId, list) {
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store_action_types__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__store_mutation_types__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__store_mutation_types__ = __webpack_require__(4);
 //
 //
 //
@@ -64261,16 +64409,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
-    // computed: {
-    //     activitat: {
-    //         get () {
-    //             return this.$store.state.activitat
-    //         },
-    //         set (value) {
-    //             this.$state.commit([mutationTypes.SET_ACTIVITAT], value)
-    //         }
-    //     }
-    // },
     props: ['activitat']
 });
 
@@ -64619,7 +64757,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     strict: true,
     state: {
         activitats: [],
-        activitat: []
+        activitat: [],
+        loading: false
     },
     getters: __WEBPACK_IMPORTED_MODULE_2__getters__,
     mutations: __WEBPACK_IMPORTED_MODULE_3__mutations__["a" /* default */],
@@ -65586,8 +65725,8 @@ var activitats = function activitats(state) {
     return state.activitats;
 };
 
-var activitat = function activitat(state, id) {
-    return state.activitats[id];
+var activitat = function activitat(state) {
+    return state.activitat;
 };
 
 /***/ }),
@@ -65595,7 +65734,7 @@ var activitat = function activitat(state, id) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mutation_types__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mutation_types__ = __webpack_require__(4);
 var _types$SET_ACTIVITATS;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -65606,6 +65745,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     state.activitats = activitats;
 }), _defineProperty(_types$SET_ACTIVITATS, __WEBPACK_IMPORTED_MODULE_0__mutation_types__["a" /* SET_ACTIVITAT */], function (state, activitat) {
     state.activitat = activitat;
+}), _defineProperty(_types$SET_ACTIVITATS, __WEBPACK_IMPORTED_MODULE_0__mutation_types__["c" /* SET_LOADING */], function (state, loading) {
+    state.loading = loading;
 }), _types$SET_ACTIVITATS);
 
 /***/ }),
@@ -65613,10 +65754,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__action_types_js__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mutation_types_js__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mutation_types_js__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__api_api_crud_activitats__ = __webpack_require__(15);
 var _actionTypes$FETCH_AC;
 
@@ -65627,19 +65768,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var crud = Object(__WEBPACK_IMPORTED_MODULE_3__api_api_crud_activitats__["a" /* default */])('/api/activitats');
+var crud = Object(__WEBPACK_IMPORTED_MODULE_3__api_api_crud_activitats__["a" /* default */])('api/activitats');
 
-/* harmony default export */ __webpack_exports__["a"] = (_actionTypes$FETCH_AC = {}, _defineProperty(_actionTypes$FETCH_AC, __WEBPACK_IMPORTED_MODULE_1__action_types_js__["a" /* FETCH_ACTIVITATS */], function (context) {
+/* harmony default export */ __webpack_exports__["a"] = (_actionTypes$FETCH_AC = {}, _defineProperty(_actionTypes$FETCH_AC, __WEBPACK_IMPORTED_MODULE_1__action_types_js__["b" /* FETCH_ACTIVITATS */], function (context) {
+    context.commit(__WEBPACK_IMPORTED_MODULE_2__mutation_types_js__["c" /* SET_LOADING */], true);
     crud.getAll().then(function (response) {
         var activitats = response.data;
         context.commit(__WEBPACK_IMPORTED_MODULE_2__mutation_types_js__["b" /* SET_ACTIVITATS */], activitats);
     }).catch(function (error) {
         console.log(error);
+    }).then(function () {
+        context.commit(__WEBPACK_IMPORTED_MODULE_2__mutation_types_js__["c" /* SET_LOADING */], false);
     });
-}), _defineProperty(_actionTypes$FETCH_AC, __WEBPACK_IMPORTED_MODULE_1__action_types_js__["b" /* GET_ACTIVITAT */], function (context, id) {
+}), _defineProperty(_actionTypes$FETCH_AC, __WEBPACK_IMPORTED_MODULE_1__action_types_js__["c" /* GET_ACTIVITAT */], function (context, id) {
     crud.get(id).then(function (response) {
         var activitat = response.data;
         context.commit(__WEBPACK_IMPORTED_MODULE_2__mutation_types_js__["a" /* SET_ACTIVITAT */], activitat);
+    });
+}), _defineProperty(_actionTypes$FETCH_AC, __WEBPACK_IMPORTED_MODULE_1__action_types_js__["a" /* DELETE_ACTIVITAT */], function (context, activitat) {
+    crud.delete(activitat).then(function (response) {
+        context.dispatch(__WEBPACK_IMPORTED_MODULE_1__action_types_js__["b" /* FETCH_ACTIVITATS */]);
+    }).catch(function (error) {
+        console.log(error);
     });
 }), _actionTypes$FETCH_AC);
 
@@ -65767,6 +65917,53 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 81 */,
+/* 82 */,
+/* 83 */,
+/* 84 */,
+/* 85 */,
+/* 86 */,
+/* 87 */,
+/* 88 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(89);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(66)("62c59d90", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-85f8973e\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Activitats.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-85f8973e\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Activitats.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 89 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(14)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.contains {\n  position: relative;\n}\n.load {\n  position: absolute;\n  top: 50%;\n}\n", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);

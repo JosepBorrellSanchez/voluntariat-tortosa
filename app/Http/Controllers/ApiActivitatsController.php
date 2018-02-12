@@ -80,8 +80,8 @@ class ApiActivitatsController extends Controller
      */
     public function destroy(Activitat $activitat)
     {
-      $activitat->delete();
+        $activitat->delete();
 
-      return $activitat;
+        return $activitat;
     }
 }
