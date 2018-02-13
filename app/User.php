@@ -26,4 +26,34 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function entitats()
+    {
+        return $this->belongsToMany(Entitat::class);
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function assignEntitat($entitat)
+    {
+        return $this->entitats()->save($entitat);
+    }
+
+    public function assignRole($role)
+    {
+        if (is_string($role)) {
+            $role = Role::where('nom', $role)->first();
+        }
+        return $this->roles()->save($role);
+    }
+
+    public function hasRole($role)
+    {
+        if (is_string($role)) {
+            return $this->roles->contains('nom', $role);
+        }
+    }
 }
