@@ -1,6 +1,6 @@
 <template>
    <v-app>
-       <transition name="component-fade" appear>
+       <!--<transition name="component-fade" appear>-->
        <v-container>
            <v-layout row>
                <v-flex d-flex xs12>
@@ -20,7 +20,7 @@
                </v-flex>
            </v-layout>
        </v-container>
-       </transition>
+       <!--</transition>-->
    </v-app>
 </template>
 

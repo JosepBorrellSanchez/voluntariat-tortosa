@@ -11,19 +11,32 @@
 |
 */
 
-/* Route::get('/', function () {
-    return view('welcome');
-});
- */
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+//Route::get('/', 'HomeController@index')->name('home');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', function () {
+  return view('welcome');
+})->name('/');
 
-Route::resource('/activitats', 'ActivitatsController');
+Route::group(['middleware' => 'web'], function () {
+  Route::group(['middleware' => 'auth:web'], function () {
+    Route::resource('/activitats', 'ActivitatsController');
+//    Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+    Route::view('/home', 'voluntariat.index');
 
-Route::view('/', 'voluntariat.index');
+    Route::get('/homes', 'HomeController@index')->name('home');
+
+//    Route::get('user/active', function () {
+//      $user = Auth::user();
+//      return $user;
+//    });
+  });
+});
+
+Auth::routes();
+
+//Route::get('/home', 'HomeController@index')->name('home');

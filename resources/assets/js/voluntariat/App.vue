@@ -35,9 +35,44 @@
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-toolbar-items>
+        <v-menu
+          offset-x
+          :close-on-content-click="false"
+          :nudge-width="200"
+          v-model="menu"
+        >
+          <v-btn flat slot="activator">User</v-btn>
+          <v-card>
+            <v-list>
+              <v-list-tile avatar>
+                <v-list-tile-avatar>
+                  <img src="https://vuetifyjs.com/static/doc-images/john.jpg" alt="John">
+                </v-list-tile-avatar>
+                <v-list-tile-content>
+                  <v-list-tile-title>{{ user.name }}</v-list-tile-title>
+                  <v-list-tile-sub-title>{{ user.email }}</v-list-tile-sub-title>
+                </v-list-tile-content>
+              </v-list-tile>
+            </v-list>
+            <v-divider></v-divider>
+            <v-list>
+              <v-list-tile>
+                <v-list-tile-action>
+                  <v-btn flat href="/" @click="logout">
+                    Logout
+                  </v-btn>
+                </v-list-tile-action>
+              </v-list-tile>
+            </v-list>
+          </v-card>
+        </v-menu>
+      </v-toolbar-items>
     </v-toolbar>
     <v-content>
-      <router-view/>
+      <v-slide-x-transition>
+        <router-view/>
+      </v-slide-x-transition>
     </v-content>
     <v-footer :fixed="fixed" app>
       <span>&copy; 2017</span>
@@ -46,6 +81,10 @@
 </template>
 
 <script>
+  import axios from 'axios'
+  import * as mutationTypes from './store/mutation-types'
+  import * as actionTypes from './store/action-types'
+
 export default {
   name: 'app',
   data () {
@@ -57,6 +96,7 @@ export default {
       mobileBreakPoint: 900,
       items: [
         { icon: 'home', title: 'Dashboard', href: '/' },
+        { icon: 'inbox', title: 'inbox', href: '/inbox' },
         { icon: 'assignment', title: 'Les meves activitats', href: '/activitats' },
         { icon: 'account_box', title: 'El meu compte' }
       ],
@@ -67,27 +107,43 @@ export default {
       windowSize: {
         x: 0,
         y: 0
-      }
+      },
+      menu: false,
+      // user: this.$store.state.user
     }
   },
-  watch: {
-    /* windowSize (x, y) {
-      if (this.windowSize.x < this.mobileBreakPoint) {
-        this.fixed = false
-        this.clipped = true
-      } else {
-        this.fixed = true
-        this.clipped = false
+  computed: {
+    user: {
+      get() {
+        return this.$store.state.user
+      },
+      set(value) {
+        this.$store.commit(mutationTypes.SET_USER, value)
       }
-    } */
+    }
   },
   methods: {
     onResize () {
       this.windowSize = { x: window.innerWidth, y: window.innerHeight }
+    },
+    logout () {
+      // let config = {
+      //   headers: { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') }
+      // }
+
+      let config = {
+        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+      }
+      axios.post('api/logout', config).then((response) => {
+        console.log('Logout!')
+      }).catch((error) => {
+        console.log(error);
+      });
     }
   },
   mounted () {
     this.onResize()
+    this.$store.dispatch(actionTypes.FETCH_USER, 1);
   },
   name: 'App'
 }

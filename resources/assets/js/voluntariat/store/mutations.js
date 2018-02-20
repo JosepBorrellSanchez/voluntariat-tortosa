@@ -9,6 +9,9 @@ export default {
         state.activitat = activitat
     },
     [types.SET_LOADING]: (state, loading) => {
-        state.loading = loading
+      state.loading = loading
+    },
+    [types.SET_USER]: (state, user) => {
+        state.user = user
     }
 }

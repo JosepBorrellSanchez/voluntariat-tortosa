@@ -29,5 +29,19 @@ export default {
         }).catch((error) => {
           console.log(error);
         })
+    },
+    [actionTypes.FETCH_USER]: (context) => {
+      axios.get('api/user').then((response) => {
+          console.log(response.data)
+      }).catch((error) => {
+          console.log(error)
+      })
+       // axios.get('api/user/active').then((response) => {
+       //      console.log(response);
+       //     let user = response.data
+       //     context.commit(mutationTypes.SET_USER, user)
+       // }).catch((error) => {
+       //     console.log(error)
+       // }) ;
     }
 }

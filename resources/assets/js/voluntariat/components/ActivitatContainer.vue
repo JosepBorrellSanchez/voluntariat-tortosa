@@ -1,6 +1,10 @@
 <template>
   <v-app>
-    <router-view :activitat="activitat"></router-view>
+    <v-menu transition="slide-x-transition">
+      <!--<v-slide-x-transition>-->
+        <router-view :activitat="activitat"></router-view>
+      <!--</v-slide-x-transition>-->
+    </v-menu>
   </v-app>
 </template>
 

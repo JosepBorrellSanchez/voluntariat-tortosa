@@ -12,7 +12,8 @@ const store = new Vuex.Store({
     state: {
         activitats: [],
         activitat: [],
-        loading: false
+        loading: false,
+        user: []
     },
     getters,
     mutations,
