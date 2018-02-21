@@ -67,9 +67,27 @@ class ApiActivitatsController extends Controller
      * @param  \App\Activitat  $activitats
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Activitat $activitats)
+    public function update(Request $request, Activitat $activitat)
     {
-        //
+      $activitat->nom =  $request->nom;
+      $activitat->ambit = $request->ambit;
+      $activitat->descripcio = $request->descripcio;
+      $activitat->destinataris = $request->destinataris;
+      $activitat->hora_inici = $request->hora_inici;
+      $activitat->hora_fi = $request->hora_fi;
+      $activitat->tipus_horari = $request->tipus_horari;
+      $activitat->num_voluntaris_necessaris = $request->num_voluntaris_necessaris;
+      $activitat->coneixements_req = $request->coneixements_req;
+      $activitat->habilitats_req = $request->habilitats_req;
+      $activitat->experiencia_req = $request->experiencia_req;
+      $activitat->titols_formacio_req = $request->titols_formacio_req;
+      $activitat->idiomes_req = $request->idiomes_req;
+      $activitat->disponibilitat_vehicle_req = $request->disponibilitat_vehicle_req;
+      $activitat->condicio_fisica_req = $request->condicio_fisica_req;
+      $activitat->sexe_req = $request->sexe_req;
+      $activitat->save();
+
+      return $activitat;
     }
 
     /**

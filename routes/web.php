@@ -30,10 +30,12 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('/homes', 'HomeController@index')->name('home');
 
-//    Route::get('user/active', function () {
-//      $user = Auth::user();
-//      return $user;
-//    });
+    Route::get('user/active', function () {
+      $user = Auth::user();
+      return $user;
+    });
+
+    Route::post('logout', 'Auth\LoginController@logout')->name('logout');
   });
 });
 

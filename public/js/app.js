@@ -64705,7 +64705,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var config = {
         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
       };
-      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('api/logout', config).then(function (response) {
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('logout').then(function (response) {
         console.log('Logout!');
       }).catch(function (error) {
         console.log(error);
@@ -66010,18 +66010,13 @@ var crud = Object(__WEBPACK_IMPORTED_MODULE_3__api_api_crud_activitats__["a" /* 
         console.log(error);
     });
 }), _defineProperty(_actionTypes$FETCH_AC, __WEBPACK_IMPORTED_MODULE_1__action_types_js__["c" /* FETCH_USER */], function (context) {
-    __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('api/user').then(function (response) {
-        console.log(response.data);
+    __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('user/active').then(function (response) {
+        console.log(response);
+        var user = response.data;
+        context.commit(__WEBPACK_IMPORTED_MODULE_2__mutation_types_js__["d" /* SET_USER */], user);
     }).catch(function (error) {
         console.log(error);
     });
-    // axios.get('api/user/active').then((response) => {
-    //      console.log(response);
-    //     let user = response.data
-    //     context.commit(mutationTypes.SET_USER, user)
-    // }).catch((error) => {
-    //     console.log(error)
-    // }) ;
 }), _actionTypes$FETCH_AC);
 
 /***/ }),

@@ -134,7 +134,7 @@ export default {
       let config = {
         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
       }
-      axios.post('api/logout', config).then((response) => {
+      axios.post('logout').then((response) => {
         console.log('Logout!')
       }).catch((error) => {
         console.log(error);

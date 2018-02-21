@@ -29,7 +29,7 @@ class CreateActivitatsTable extends Migration
             $table->string('titols_formacio_req');
             $table->string('idiomes_req');
             $table->boolean('disponibilitat_vehicle_req');
-            $table->enum('condicio_fisica_req', ['Atlètica', 'Normal', 'Qualsevol']);
+            $table->enum('condicio_fisica_req', ['Atletica', 'Normal', 'Qualsevol']);
             $table->enum('sexe_req', ['home', 'dona', 'qualsevol']);
             $table->timestamps();
         });
