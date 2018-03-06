@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use App\Activitat;
+use App\User;
+use Illuminate\Support\Collection;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -15,6 +17,8 @@ class ApiActivitatsTest extends TestCase
     public function setUp()
     {
       parent::setUp();
+      $user = factory(User::class)->create();
+      $this->actingAs($user, 'api');
       $this->withoutExceptionHandling();
     }
 
@@ -25,16 +29,21 @@ class ApiActivitatsTest extends TestCase
      */
     public function can_see_activitats()
     {
+
       $activitats = factory(Activitat::class, 5)->create();
 
-      $response = $this->get('api/activitats');
+      $response = $this->json( 'GET', 'api/activitats');
 
       $response->assertSuccessful();
+//      dump($activitats);
+//      dd($response->content());
+//      $response->assertJsonFragment($activitats->toArray());
       foreach ($activitats as $activitat) {
         $this->assertDatabaseHas('activitats', [
           'id' => $activitat->id,
           'nom' => $activitat->nom
         ]);
+        $response->assertJsonFragment($activitat->toArray());
       }
     }
 

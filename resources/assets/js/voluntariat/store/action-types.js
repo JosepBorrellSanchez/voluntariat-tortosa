@@ -3,3 +3,5 @@ export const FETCH_ACTIVITATS = 'FETCH_ACTIVITATS'
 export const GET_ACTIVITAT = 'GET_ACTIVITAT'
 export const DELETE_ACTIVITAT = 'DELETE_ACTIVITAT'
 export const FETCH_USER = 'FETCH_USER'
+
+export const LOGIN = 'LOGIN'

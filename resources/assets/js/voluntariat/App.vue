@@ -144,8 +144,7 @@ export default {
   mounted () {
     this.onResize()
     this.$store.dispatch(actionTypes.FETCH_USER, 1);
-  },
-  name: 'App'
+  }
 }
 </script>
 

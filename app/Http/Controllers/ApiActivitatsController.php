@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Activitat;
 use Illuminate\Http\Request;
+use League\Fractal\Resource\Collection;
 
 class ApiActivitatsController extends Controller
 {
@@ -14,7 +15,18 @@ class ApiActivitatsController extends Controller
      */
     public function index()
     {
-        return Activitat::all();
+
+        $activitats = Activitat::all();
+
+        $resource = new Collection($activitats, function (Activitat $activitat) {
+          return [
+            'id' => (int) $activitat->id,
+            'disponibilitat_vehicle_req' => "false"
+          ];
+        });
+//        return Activitat::all()->toArray();
+      dump($resource);
+        return \GuzzleHttp\json_encode($resource);
     }
 
     /**

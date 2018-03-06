@@ -2,6 +2,7 @@
 
 @section('content')
 
-    <app-voluntariat></app-voluntariat>
+    <router-view></router-view>
+    {{--<app-voluntariat></app-voluntariat>--}}
 
 @endsection

@@ -1,11 +1,32 @@
 import axios from 'axios'
 import * as actionTypes from './action-types.js'
-import * as mutationTypes from './mutation-types.js'
+import * as mutations from './mutation-types.js'
 import createApi from '../api/api_crud_activitats'
+import auth from '../api/auth'
 
 const crud = createApi('api/activitats')
 
 export default {
+    [ actionTypes.LOGIN ] (context, credentials) {
+      return new Promise((resolve, reject) => {
+        auth.login(credentials).then(response => {
+          context.commit(mutations.LOGGED, true)
+          const token = response.data.access_token
+          console.log('TOKEN:')
+          console.log(token)
+          if (token) {
+            if (window.localStorage) {
+              window.localStorage.setItem('token', token)
+            }
+            context.commit(mutations.TOKEN, token)
+            axios.defaults.headers.common['authorization'] = `Bearer ${token}`
+          }
+          resolve(response)
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
     [actionTypes.FETCH_ACTIVITATS]: function(context) {
         context.commit(mutationTypes.SET_LOADING, true)
         crud.getAll().then((response) => {
@@ -34,9 +55,9 @@ export default {
        axios.get('user/active').then((response) => {
             console.log(response);
            let user = response.data
-           context.commit(mutationTypes.SET_USER, user)
+           context.commit(mutations.SET_USER, user)
        }).catch((error) => {
            console.log(error)
-       }) ;
+       });
     }
 }

@@ -3,13 +3,19 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Auth\LoginProxy;
+use App\Http\Requests\LoginRequest;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use GuzzleHttp;
 
 class LoginController extends Controller
 {
+
     /*
     |--------------------------------------------------------------------------
     | Login Controller
@@ -29,25 +35,41 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = '/home';
+    public $successStatus = 200;
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
-    }
+//    /**
+//     * Create a new controller instance.
+//     *
+//     * @return void
+//     */
+//    public function __construct()
+//    {
+//        $this->middleware('guest')->except('logout');
+//    }
 
-    /**
-     * Log the user out of the application.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function logout(Request $request)
-    {
-      Auth::logout();
-    }
+//    public function login(Request $request) {
+////      dd(Auth::attempt(['email' => $request->email, 'password' => $request->password]));
+//      if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
+//        $user = Auth::user();
+//        $token =  $user->createToken('MyApp')->accessToken;
+//        $user->api_token = $token;
+//        $user->save();
+//        return response()->json(['token' => $token], $this->successStatus);
+//      }
+//      else{
+//        return response()->json(['error'=>'Unauthorised'], 401);
+//      }
+//
+//    }
+//
+//    /**
+//     * Log the user out of the application.
+//     *
+//     * @param  \Illuminate\Http\Request  $request
+//     * @return \Illuminate\Http\Response
+//     */
+//    public function logout(Request $request)
+//    {
+//      Auth::logout();
+//    }
 }

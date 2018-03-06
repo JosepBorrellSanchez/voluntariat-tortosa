@@ -19,19 +19,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::group(['prefix' => 'v1'], function () {
+  Route::post('/proxy/oauth/token', 'PasswordGrantProxyController@issueToken');
+});
+
 Route::group(['middleware' => 'api', 'middleware' => ['throttle', 'bindings']], function () {
     Route::group(['middleware' => 'auth:api'], function () {
-//      Route::resource('activitats', 'ApiActivitatsController');
+      Route::resource('activitats', 'ApiActivitatsController');
 
-      Route::get('user/active', function () {
-        $user = Auth::guard('api')->user();
-        return $user;
-      });
+//      Route::get('user/active', function () {
+//        $user = Auth::guard('api')->user();
+//        return $user;
+//      });
 
     });
-
-  Route::resource('activitats', 'ApiActivitatsController');
-
-    //Please do not remove this if you want adminlte:route and adminlte:link commands to works correctly.
-    //adminlte_api_routes
 });

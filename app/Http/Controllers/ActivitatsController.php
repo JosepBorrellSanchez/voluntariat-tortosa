@@ -16,7 +16,8 @@ class ActivitatsController extends Controller
     {
         $activitats = Activitat::all();
 
-        return view('activitats.index', compact('activitats'));
+//        return view('activitats.index', compact('activitats'));
+      return view('voluntariat.index');
     }
 
     /**

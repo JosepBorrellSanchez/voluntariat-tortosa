@@ -2,6 +2,12 @@
 import * as types from './mutation-types'
 
 export default {
+    [ types.LOGGED ] (state, logged) {
+        state.logged = logged
+    },
+    [ types.TOKEN ] (state, token) {
+        state.token = token
+    },
     [types.SET_ACTIVITATS]: (state, activitats) => {
         state.activitats = activitats
     },

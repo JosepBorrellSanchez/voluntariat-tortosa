@@ -3,8 +3,8 @@
 namespace Tests\Feature;
 
 use App\User;
+use Illuminate\Support\Facades\Session;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ApiAuthTest extends TestCase
@@ -17,18 +17,33 @@ class ApiAuthTest extends TestCase
       $this->withoutExceptionHandling();
     }
 
-    /**
-     * A basic test example.
-     * @test
-     * @return void
-     */
+    /** @test */
     public function user_can_authenticate()
     {
       $user = factory(User::class)->create();
-      $this->actingAs($user);
+      $this->actingAs($user, 'api');
 
-      $response = $this->get('user/active');
+      $response = $this->get('api/user/active');
 
       $response->assertSuccessful();
+      $response->assertJsonFragment($user->toArray());
+    }
+
+    /** @test */
+    public function user_recives_a_token() {
+      $user = User::create([
+        'name' => 'Gerard',
+        'email' => 'gerardrey@iesebre.com',
+        'password' => bcrypt('123456'),
+        'api_token' => str_random(60)
+      ]);
+
+      $response = $this->post('/login', [
+        'email' => $user->email,
+        'password' => $user->password,
+      ]);
+
+      $response->assertSuccessful();
+
     }
 }
