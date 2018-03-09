@@ -7,6 +7,9 @@ class Crud {
   getAll() {
     return axios.get(this.endPoint)
   }
+  getAllFromUser(id) {
+    return axios.get(this.endPoint + /user/ + id)
+  }
   get(id) {
     return axios.get(this.endPoint + '/' + id)
   }
@@ -14,7 +17,7 @@ class Crud {
     return axios.put(this.endPoint + '/' + activitat.id, activitat)
   }
   delete(activitat) {
-    return axios.delete(this.endPoint + '/' + activitat.id, activitat)
+    return axios.delete(this.endPoint + '/' + activitat.id)
   }
 }
 

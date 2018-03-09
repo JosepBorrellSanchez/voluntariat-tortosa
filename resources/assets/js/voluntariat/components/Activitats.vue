@@ -47,9 +47,6 @@
 
 <script>
 
-  import * as actionTypes from '../store/action-types'
-  import * as mutationTypes from '../store/mutation-types'
-
   export default {
     name: 'Activitats',
     data () {
@@ -73,9 +70,6 @@
       sendEmit(message, value) {
         this.$emit(message, value)
       }
-    },
-    mounted () {
-      this.$store.dispatch(actionTypes.FETCH_ACTIVITATS)
     }
   }
 </script>

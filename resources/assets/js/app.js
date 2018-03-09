@@ -15,6 +15,8 @@ import router from './voluntariat/router'
 import App from './voluntariat/App'
 import store from './voluntariat/store'
 
+import * as mutations from './voluntariat/store/mutation-types'
+
 Vue.use(Vuetify)
 
 /**
@@ -26,6 +28,20 @@ Vue.use(Vuetify)
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
 Vue.component('app-voluntariat', require('./voluntariat/App.vue'));
+
+if (window.localStorage) {
+  let token = window.localStorage.getItem('token') || null
+  if (token) {
+    // store.setTokenAction(token)
+    store.commit(mutations.TOKEN, token)
+    axios.defaults.headers.common['authorization'] = `Bearer ${token}`
+  }
+
+  let user = window.localStorage.getItem('user') || null
+  if (user) {
+    store.commit(mutations.SET_USER, JSON.parse(user))
+  }
+}
 
 const app = new Vue({
     el: '#app',

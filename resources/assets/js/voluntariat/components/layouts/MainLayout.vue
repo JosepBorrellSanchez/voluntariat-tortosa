@@ -42,7 +42,10 @@
           :nudge-width="200"
           v-model="menu"
         >
-          <v-btn flat slot="activator">User</v-btn>
+          <v-btn flat slot="activator">
+            <v-icon>account_circle</v-icon>
+            {{ user.name }}
+          </v-btn>
           <v-card>
             <v-list>
               <v-list-tile avatar>
@@ -131,20 +134,21 @@ export default {
       // let config = {
       //   headers: { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') }
       // }
+      this.$store.dispatch(actionTypes.LOGOUT)
 
-      let config = {
-        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
-      }
-      axios.post('logout').then((response) => {
-        console.log('Logout!')
-      }).catch((error) => {
-        console.log(error);
-      });
+      // let config = {
+      //   headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+      // }
+      // axios.post('logout').then((response) => {
+      //   console.log('Logout!')
+      // }).catch((error) => {
+      //   console.log(error);
+      // });
     }
   },
   mounted () {
     this.onResize()
-    this.$store.dispatch(actionTypes.FETCH_USER, 1);
+    // this.$store.dispatch(actionTypes.FETCH_USER, 1);
   }
 }
 </script>

@@ -1,9 +1,12 @@
 <?php
 
+use App\User;
 use Faker\Generator as Faker;
 
 $factory->define(App\Activitat::class, function (Faker $faker) {
     return [
+//        'user_id' => factory(User::class)->create()->id,
+        'user_id' => User::first(),
         'nom' => $faker->name,
         'ambit' => 'Escolar',
         'descripcio' => $faker->text,

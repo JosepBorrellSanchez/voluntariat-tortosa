@@ -11,6 +11,7 @@ const store = new Vuex.Store({
     strict: true,
     state: {
         activitats: [],
+        activitats_user: [],
         activitat: [],
         loading: false,
         user: [],

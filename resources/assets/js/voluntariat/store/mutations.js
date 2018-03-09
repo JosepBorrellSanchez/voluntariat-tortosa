@@ -11,6 +11,9 @@ export default {
     [types.SET_ACTIVITATS]: (state, activitats) => {
         state.activitats = activitats
     },
+    [ types.SET_ACTIVITATS_USER ]: (state, activitats) => {
+       state.activitats_user = activitats
+    },
     [types.SET_ACTIVITAT]: (state, activitat) => {
         state.activitat = activitat
     },

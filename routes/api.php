@@ -24,13 +24,23 @@ Route::group(['prefix' => 'v1'], function () {
 });
 
 Route::group(['middleware' => 'api', 'middleware' => ['throttle', 'bindings']], function () {
-    Route::group(['middleware' => 'auth:api'], function () {
-      Route::resource('activitats', 'ApiActivitatsController');
 
-//      Route::get('user/active', function () {
-//        $user = Auth::guard('api')->user();
-//        return $user;
-//      });
+  Route::get('activitats', 'ApiActivitatsController@index');
+  Route::get('activitats/user/{user}', 'ApiActivitatsController@userIndex');
+
+    Route::group(['middleware' => 'auth:api'], function () {
+
+      Route::post('activitats', 'ApiActivitatsController@store');
+      Route::get('activitats/create', 'ApiActivitatsController@create');
+      Route::get('activitats/{activitat}', 'ApiActivitatsController@show');
+      Route::put('activitats/{activitat}', 'ApiActivitatsController@update');
+      Route::delete('actvitiats/{activitat}', 'ApiActivitatsController@destroy');
+//      Route::resource('activitats', 'ApiActivitatsController');
+
+      Route::get('user/active', function () {
+        $user = Auth::guard('api')->user();
+        return $user;
+      });
 
     });
 });

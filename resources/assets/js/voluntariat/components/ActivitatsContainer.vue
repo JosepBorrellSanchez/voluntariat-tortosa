@@ -20,9 +20,9 @@
 </template>
 
 <script>
-  import axios from 'axios'
-  import * as actionTypes from '../store/action-types'
+  import * as actions from '../store/action-types'
   import createApi from '../api/api_crud_activitats'
+  import * as mutations from '../store/mutation-types'
 
   const crud = createApi('/api/activitats')
 
@@ -36,10 +36,10 @@
     computed: {
       activitats: {
         get () {
-          return this.$store.state.activitats
+          return this.$store.state.activitats_user
         },
         set (value) {
-          this.$store.commit(mutationTypes.SET_ACTIVITATS, value)
+          this.$store.commit(mutations.SET_ACTIVITATS_USER, value)
         }
       },
       loading: {
@@ -47,7 +47,7 @@
           return this.$store.state.loading
         },
         set(value) {
-          this.$store.commit(mutationTypes.SET_LOADING, value)
+          this.$store.commit(mutations.SET_LOADING, value)
         }
       }
     },
@@ -57,8 +57,11 @@
         this.activitat = activitat
       },
       destroy: function (activitat) {
-        this.$store.dispatch(actionTypes.DELETE_ACTIVITAT, activitat)
+        this.$store.dispatch(actions.DELETE_ACTIVITAT, activitat)
       },
+    },
+    mounted () {
+      this.$store.dispatch(actions.FETCH_ACTIVITATS_USER)
     }
   }
 </script>

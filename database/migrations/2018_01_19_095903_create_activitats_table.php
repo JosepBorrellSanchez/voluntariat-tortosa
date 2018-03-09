@@ -15,6 +15,7 @@ class CreateActivitatsTable extends Migration
     {
         Schema::create('activitats', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->unsigned();
             $table->string('nom');
             $table->enum('ambit', ['Cultura', 'Escolar', 'Artístic', 'Esportiu', 'Lleure', 'Suport']);
             $table->string('descripcio');

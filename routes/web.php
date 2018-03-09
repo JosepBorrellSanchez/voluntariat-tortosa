@@ -27,13 +27,10 @@ Route::view('/', 'voluntariat.index');
 Route::group(['middleware' => 'web'], function () {
   Route::group(['middleware' => 'auth:web'], function () {
     Route::resource('/activitats', 'ActivitatsController');
-//    Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
-
-    Route::get('user/active', function () {
-      $user = Auth::user();
-      return $user;
-    });
-
+//    Route::get('user/active', function () {
+//      $user = Auth::user();
+//      return $user;
+//    });
 
     Route::post('logout', 'Auth\LoginController@logout')->name('logout');
   });

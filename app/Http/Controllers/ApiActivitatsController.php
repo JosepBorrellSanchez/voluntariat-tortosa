@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Activitat;
+use App\User;
 use Illuminate\Http\Request;
 use League\Fractal\Resource\Collection;
 
 class ApiActivitatsController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Returns an array of all activities
      *
      * @return \Illuminate\Http\Response
      */
@@ -18,15 +19,25 @@ class ApiActivitatsController extends Controller
 
         $activitats = Activitat::all();
 
-        $resource = new Collection($activitats, function (Activitat $activitat) {
-          return [
-            'id' => (int) $activitat->id,
-            'disponibilitat_vehicle_req' => "false"
-          ];
-        });
-//        return Activitat::all()->toArray();
-      dump($resource);
-        return \GuzzleHttp\json_encode($resource);
+//        $resource = new Collection($activitats, function (Activitat $activitat) {
+//          return [
+//            'id' => (int) $activitat->id,
+//            'disponibilitat_vehicle_req' => "false"
+//          ];
+//        });
+        return $activitats->toArray();
+    }
+
+  /**
+   * Returns an array of all activities of a concrete user
+   *
+   * @param Request $request
+   * @param User $user
+   * @return mixed
+   */
+    public function userIndex(Request $request, User $user) {
+      $activiats = $user->activitats->all();
+      return $activiats;
     }
 
     /**
@@ -108,7 +119,7 @@ class ApiActivitatsController extends Controller
      * @param  \App\Activitat  $activitats
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Activitat $activitat)
+    public function destroy(Request $request, Activitat $activitat)
     {
         $activitat->delete();
 

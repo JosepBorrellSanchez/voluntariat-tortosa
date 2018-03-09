@@ -1,19 +1,21 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import ActivitatsContainer from '../components/ActivitatsContainer'
-import Activitats from '../components/Activitats'
-import Dashboard from '../components/Dashboard'
-import ActivitatContainer from '../components/ActivitatContainer'
-import Activitat from '../components/Activitat'
-import Landing from '../components/Landing'
-import Inbox from '../components/Inbox'
-import Login from '../components/Login'
-import MainLayout from '../components/layouts/MainLayout'
-import NotFoundComponent from '../components/NotFoundComponent'
-
 import store from '../store'
 
 Vue.use(Router)
+
+import Landing from '../components/Landing'
+import Login from '../components/Login'
+import MainLayout from '../components/layouts/MainLayout'
+import ActivitatsContainer from '../components/ActivitatsContainer'
+import Activitats from '../components/Activitats'
+import ActivitatContainer from '../components/ActivitatContainer'
+import Activitat from '../components/Activitat'
+import Dashboard from '../components/Dashboard'
+import Inbox from '../components/Inbox'
+
+import NotFoundComponent from '../components/NotFoundComponent'
+
 
 const router = new Router({
   routes: [
@@ -59,8 +61,7 @@ const router = new Router({
             {
               path: '/activitats/:id',
               name: 'ShowActivitat',
-              component: Activitat,
-              props: true
+              component: Activitat
             }
           ]
         },
@@ -76,7 +77,6 @@ const router = new Router({
       name: 'NotFound',
       component: NotFoundComponent
     }
-
   ]
 })
 

@@ -10,3 +10,7 @@ export const activitat = state => {
 export const token = state => {
     return state.token
 }
+
+export const user = state => {
+    return state.user
+}
