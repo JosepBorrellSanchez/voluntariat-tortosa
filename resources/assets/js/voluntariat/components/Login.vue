@@ -37,6 +37,8 @@
 <script>
 
   import * as actions from '../store/action-types'
+  import * as getters from '../store/getters'
+  import axios from 'axios'
 
   export default {
     name: 'login',
@@ -55,14 +57,27 @@
         }
         this.$store.dispatch(actions.LOGIN, credentials).then(response => {
           // this.loginLoading = false
-          this.$router.push('/dash')
+          // this.$router.push('/dash')
+          this.$store.dispatch(actions.DETERMINATE_ROLE)
+          let roles
+          axios.get('api/user/roles').then((response) => {
+            roles = response.data
+            console.log(roles)
+            if (roles.includes('admin')) {
+              this.$router.push('/admin')
+            } else {
+              this.$router.push('/dash')
+            }
+          }).catch((error) => {
+            console.log(error)
+          })
 //          window.location = '/home'  WEB!!!
         }).catch(error => {
           console.log(error)
           // this.loginErrorMessage = error.response.data.message
           // this.loginErrors = error.response.data.errors
         }).then(() => {
-          // this.loginLoading = false
+          // this.loginLoading = true
         })
       }
     }

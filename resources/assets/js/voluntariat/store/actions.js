@@ -25,6 +25,8 @@ export default {
           context.dispatch(actionTypes.FETCH_USER)
         }).catch(error => {
           reject(error)
+        }).then(() => {
+          context.dispatch(actionTypes.DETERMINATE_ROLE)
         })
       })
     },
@@ -33,12 +35,28 @@ export default {
       window.localStorage.removeItem('user')
       context.commit(mutations.TOKEN, '')
     },
-    [ actionTypes.FETCH_ACTIVITATS ] (context) {
-      crud.getAll().then((reponse) => {
+    [ actionTypes.DETERMINATE_ROLE ] (context) {
+      axios.get('api/user/roles').then((response) => {
+        const roles = response.data
+        if (roles) {
+          if (window.localStorage) {
+            window.localStorage.setItem('roles', roles)
+          }
+          context.commit(mutations.ROLES, roles)
+        }
+      }).catch((error) => {
+        console.log(error)
+      });
+    },
+    [ actionTypes.FETCH_ACTIVITATS ]: function (context) {
+      context.commit(mutations.SET_LOADING, true)
+      crud.getAll().then((response) => {
         let activitats = response.data
         context.commit(mutations.SET_ACTIVITATS, activitats)
       }).catch((error) => {
-        console.log(error.message)
+        console.log(error)
+      }).then(() => {
+        context.commit(mutations.SET_LOADING, false)
       })
     },
     [actionTypes.FETCH_ACTIVITATS_USER]: function(context) {

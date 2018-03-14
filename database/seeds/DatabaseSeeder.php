@@ -12,6 +12,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
+        initialize_permissions();
+
+        create_user();
+
+        first_user_as_manager();
+
         $this->call(UsersSeeder::class);
 
         $this->call(ActivitatsSeeder::class);

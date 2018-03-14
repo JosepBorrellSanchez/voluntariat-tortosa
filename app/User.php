@@ -5,10 +5,11 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable;
+    use HasApiTokens, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -39,28 +40,9 @@ class User extends Authenticatable
         return $this->hasMany(Activitat::class);
     }
 
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class);
-    }
-
     public function assignEntitat($entitat)
     {
         return $this->entitats()->save($entitat);
     }
 
-    public function assignRole($role)
-    {
-        if (is_string($role)) {
-            $role = Role::where('nom', $role)->first();
-        }
-        return $this->roles()->save($role);
-    }
-
-    public function hasRole($role)
-    {
-        if (is_string($role)) {
-            return $this->roles->contains('nom', $role);
-        }
-    }
 }

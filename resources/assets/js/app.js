@@ -41,6 +41,11 @@ if (window.localStorage) {
   if (user) {
     store.commit(mutations.SET_USER, JSON.parse(user))
   }
+
+  let roles = window.localStorage.getItem('roles') || null
+  if (roles) {
+    store.commit(mutations.ROLES, roles)
+  }
 }
 
 const app = new Vue({

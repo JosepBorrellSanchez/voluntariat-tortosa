@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Activitat;
+use App\Http\Requests\ListActivitats;
 use App\User;
 use Illuminate\Http\Request;
 use League\Fractal\Resource\Collection;
@@ -12,20 +13,12 @@ class ApiActivitatsController extends Controller
     /**
      * Returns an array of all activities
      *
-     * @return \Illuminate\Http\Response
+     *
      */
-    public function index()
+    public function index(ListActivitats $request)
     {
-
         $activitats = Activitat::all();
-
-//        $resource = new Collection($activitats, function (Activitat $activitat) {
-//          return [
-//            'id' => (int) $activitat->id,
-//            'disponibilitat_vehicle_req' => "false"
-//          ];
-//        });
-        return $activitats->toArray();
+        return $activitats;
     }
 
   /**
@@ -35,7 +28,7 @@ class ApiActivitatsController extends Controller
    * @param User $user
    * @return mixed
    */
-    public function userIndex(Request $request, User $user) {
+    public function userIndex(ListActivitats $request, User $user) {
       $activiats = $user->activitats->all();
       return $activiats;
     }

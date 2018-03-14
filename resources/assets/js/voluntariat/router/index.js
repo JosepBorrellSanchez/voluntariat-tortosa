@@ -14,6 +14,13 @@ import Activitat from '../components/Activitat'
 import Dashboard from '../components/Dashboard'
 import Inbox from '../components/Inbox'
 
+import AdminMainLayout from '../components/layouts/AdminMainLayout'
+import AdminDashboard from '../components/AdminDashboard'
+import AllActivitiesContainer from '../components/AllActivitiesContainer'
+import AllActivities from '../components/AllActivities'
+import EntitiesContainer from '../components/EntitiesContainer'
+import Entities from '../components/Entities'
+
 import NotFoundComponent from '../components/NotFoundComponent'
 
 
@@ -28,6 +35,39 @@ const router = new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/admin',
+      component: AdminMainLayout,
+      children: [
+        {
+          path: '/admin',
+          name: 'AdminDashboard',
+          component: AdminDashboard
+        },
+        {
+          path: '/activitats',
+          component: AllActivitiesContainer,
+          children: [
+            {
+              path: '/activitats',
+              name: 'AllActivities',
+              component: AllActivities
+            }
+          ]
+        },
+        {
+          path: '/entitats',
+          component: EntitiesContainer,
+          children: [
+            {
+              path: '/entitats',
+              name: 'Entities',
+              component: Entities
+            }
+          ]
+        }
+      ]
     },
     {
       path: '/app',

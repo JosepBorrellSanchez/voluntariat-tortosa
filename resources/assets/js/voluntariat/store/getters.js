@@ -14,3 +14,7 @@ export const token = state => {
 export const user = state => {
     return state.user
 }
+
+export const roles = state => {
+    return state.roles
+}

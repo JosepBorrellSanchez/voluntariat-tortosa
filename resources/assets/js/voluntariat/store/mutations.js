@@ -8,6 +8,9 @@ export default {
     [ types.TOKEN ] (state, token) {
         state.token = token
     },
+    [ types.ROLES ] (state, roles) {
+        state.roles = roles
+    },
     [types.SET_ACTIVITATS]: (state, activitats) => {
         state.activitats = activitats
     },

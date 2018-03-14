@@ -16,7 +16,8 @@ const store = new Vuex.Store({
         loading: false,
         user: [],
         logged: false,
-        token: null
+        token: null,
+        roles: null
     },
     getters,
     mutations,

@@ -27,21 +27,11 @@ Route::view('/', 'voluntariat.index');
 Route::group(['middleware' => 'web'], function () {
   Route::group(['middleware' => 'auth:web'], function () {
     Route::resource('/activitats', 'ActivitatsController');
-//    Route::get('user/active', function () {
-//      $user = Auth::user();
-//      return $user;
-//    });
 
     Route::post('logout', 'Auth\LoginController@logout')->name('logout');
   });
 
-//  Route::post('/login', 'Auth\LoginController@login');
-//
-//  Route::post('/login/refresh', 'Auth\LoginController@refresh');
 });
-
-//Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 
-//Route::get('/home', 'HomeController@index')->name('home');

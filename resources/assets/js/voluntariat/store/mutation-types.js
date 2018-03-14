@@ -7,3 +7,5 @@ export const SET_USER = 'SET_USER'
 
 export const LOGGED = 'LOGGED'
 export const TOKEN = 'TOKEN'
+
+export const ROLES = 'ROLES'

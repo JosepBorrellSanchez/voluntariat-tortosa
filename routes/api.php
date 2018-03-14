@@ -42,5 +42,9 @@ Route::group(['middleware' => 'api', 'middleware' => ['throttle', 'bindings']], 
         return $user;
       });
 
+      Route::get('user/roles', function () {
+        return json_encode(Auth::user()->getRoleNames());
+      });
+
     });
 });
