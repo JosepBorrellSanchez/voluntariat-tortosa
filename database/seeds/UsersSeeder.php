@@ -12,23 +12,21 @@ class UsersSeeder extends Seeder
    */
   public function run()
   {
-//    factory(User::class)->create([
-//      'name' => 'Gerard Rey',
-//      'email' => 'gerardrey@iesebre.com',
-//      'password' => bcrypt(env('USER_PWD'))
-//    ]);
 
-    factory(User::class)->create([
+    $entitat = factory(User::class)->create([
       'name' => 'User 1',
       'email' => 'user1@gmail.com',
       'password' => bcrypt(env('MANAGER_USER_PWD'))
     ]);
 
-    factory(User::class)->create([
+    $voluntari = factory(User::class)->create([
       'name' => 'User 2',
       'email' => 'user2@gmail.com',
       'password' => bcrypt(env('MANAGER_USER_PWD'))
     ]);
+
+    $entitat->assignRole('entitat');
+    $voluntari->assignRole('voluntari');
 
   }
 }

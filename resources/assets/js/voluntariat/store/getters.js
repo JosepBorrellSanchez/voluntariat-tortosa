@@ -7,6 +7,10 @@ export const activitat = state => {
     return state.activitat
 }
 
+export const entity = state => {
+    return state.entity
+}
+
 export const token = state => {
     return state.token
 }

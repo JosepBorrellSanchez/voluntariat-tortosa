@@ -8,18 +8,31 @@ if (!function_exists('initialize_permissions')) {
   function initialize_permissions()
   {
     Permission::firstOrCreate(['name' => 'list-activitats']);
-//    Permission::firstOrCreate(['name' => 'show-task']);
-//    Permission::firstOrCreate(['name' => 'store-task']);
-//    Permission::firstOrCreate(['name' => 'update-task']);
-//    Permission::firstOrCreate(['name' => 'destroy-task']);
+    Permission::firstOrCreate(['name' => 'list-entities']);
+    Permission::firstOrCreate(['name' => 'show-entities']);
+    Permission::firstOrCreate(['name' => 'delete-entity']);
+    Permission::firstOrCreate(['name' => 'list-volunteers']);
+    Permission::firstOrCreate(['name' => 'show-volunteer']);
+    Permission::firstOrCreate(['name' => 'delete-volunteer']);
+    Permission::firstOrCreate(['name' => 'list-admins']);
+    Permission::firstOrCreate(['name' => 'show-admin']);
+    Permission::firstOrCreate(['name' => 'delete-admin']);
 
     $role = Role::firstOrCreate(['name' => 'admin']);
+    $roleEntitat = Role::firstOrCreate(['name' => 'entitat']);
+    $roleVoluntari = Role::firstOrCreate(['name' => 'voluntari']);
 
     $role->givePermissionTo('list-activitats');
-//    $role->givePermissionTo('show-task');
-//    $role->givePermissionTo('store-task');
-//    $role->givePermissionTo('update-task');
-//    $role->givePermissionTo('destroy-task');
+    $role->givePermissionTo('list-entities');
+    $role->givePermissionTo('show-entities');
+    $role->givePermissionTo('delete-entity');
+    $role->givePermissionTo('list-volunteers');
+    $role->givePermissionTo('show-volunteer');
+    $role->givePermissionTo('delete-volunteer');
+    $role->givePermissionTo('list-admins');
+    $role->givePermissionTo('show-admin');
+    $role->givePermissionTo('delete-admin');
+    $roleEntitat->givePermissionTo('list-activitats');
   }
 }
 if (!function_exists('create_user')) {

@@ -99,11 +99,11 @@ export default {
       mobileBreakPoint: 900,
       items: [
         { icon: 'home', title: 'Landing', href: '/' },
-        { icon: 'home', title: 'Dashboard', href: '/dash' },
+        { icon: 'home', title: 'Dashboard', href: '/admin' },
         { icon: 'assignment', title: 'Activitats', href: '/activitats' },
         { icon: 'home', title: 'Entitats', href: '/entitats' },
-        { icon: 'home', title: 'Voluntaris' },
-        { icon: 'home', title: 'Administradors' },
+        { icon: 'home', title: 'Voluntaris', href: '/voluntaris'},
+        { icon: 'home', title: 'Administradors', href: '/admins'},
         { icon: 'account_box', title: 'El meu compte' }
       ],
       miniVariant: false,

@@ -20,6 +20,24 @@ export default {
     [types.SET_ACTIVITAT]: (state, activitat) => {
         state.activitat = activitat
     },
+    [ types.SET_ENTITIES]: (state, entities) => {
+        state.entities = entities
+    },
+    [ types.SET_ENTITY ]: (state, entity) => {
+        state.entity = entity
+    },
+    [ types.SET_VOLUNTEERS ]: (state, volunteers) => {
+        state.volunteers = volunteers
+    },
+    [ types.SET_VOLUNTEER ]: (state, volunteer) => {
+        state.volunteer = volunteer
+    },
+    [ types.SET_ADMINS ]: (state, admins) => {
+        state.admins = admins
+    },
+    [ types.SET_ADMIN ]: (state, admin) => {
+        state.admin = admin
+    },
     [types.SET_LOADING]: (state, loading) => {
       state.loading = loading
     },

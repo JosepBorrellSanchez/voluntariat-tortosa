@@ -2,24 +2,20 @@
   <v-container fluid>
     <v-slide-y-transition mode="out-in">
       <v-layout class="contains" column align-center>
-        <h1>Activitats</h1> 
+        <h1>Entitats</h1>
         <div v-if="loading">
           <v-progress-circular class="load" indeterminate fill></v-progress-circular>
         </div>
         <v-data-table
           v-bind:headers="headers"
-          :items="activitats"
+          :items="entities"
           hide-actions
           class="elevation-1"
         >
           <template slot="items" slot-scope="props">
-            <td class="text-xs-left">{{ props.item.nom }}</td>
-            <td class="text-xs-left">{{ props.item.destinataris }}</td>
-            <td class="text-xs-right">{{ props.item.hora_inici }}</td>
-            <td class="text-xs-right">{{ props.item.hora_fi }}</td>
-            <td class="text-xs-right">{{ props.item.num_voluntaris_necessaris }}</td>
+            <td class="text-xs-left">{{ props.item.name }}</td>
             <td>
-              <router-link :to="{ path: '/activitats/' + props.item.id  }">
+              <router-link :to="{ path: '/entitats/' + props.item.id  }">
                 <v-icon>mode_edit</v-icon>
               </router-link>
               <router-link to="#">
@@ -48,22 +44,22 @@
 <script>
 
   export default {
-    name: 'Activitats',
+    name: 'Entities',
     data () {
       return {
         dialog: false,
         headers: [
           { text: 'Nom', value: 'nom', align: 'left' },
-          { text: 'Destinataris', value: 'destinataris', align: 'left' },
-          { text: 'Hora Inici', value: 'hora_inici' },
-          { text: 'Hora Fi', value: 'hora_fi' },
-          { text: 'Voluntaris necessaris', value: 'num_voluntaris_necessaris' }
+          // { text: 'Destinataris', value: 'destinataris', align: 'left' },
+          // { text: 'Hora Inici', value: 'hora_inici' },
+          // { text: 'Hora Fi', value: 'hora_fi' },
+          // { text: 'Voluntaris necessaris', value: 'num_voluntaris_necessaris' }
         ],
         dialog: false
       }
     },
     props: [
-      'activitats',
+      'entities',
       'loading'
     ],
     methods: {

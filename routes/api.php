@@ -37,6 +37,18 @@ Route::group(['middleware' => 'api', 'middleware' => ['throttle', 'bindings']], 
       Route::delete('actvitiats/{activitat}', 'ApiActivitatsController@destroy');
 //      Route::resource('activitats', 'ApiActivitatsController');
 
+      Route::get('/entitats', 'ApiEntitiesController@index');
+      Route::get('/entitats/{user}', 'ApiEntitiesController@show');
+      Route::delete('/entitats/{user}', 'ApiEntitiesController@destroy');
+
+      Route::get('/voluntaris', 'ApiVolunteersController@index');
+      Route::get('/voluntaris/{user}', 'ApiVolunteersController@show');
+      Route::delete('/voluntaris/{user}', 'ApiVolunteersController@destroy');
+
+      Route::get('/admins', 'ApiAdminsController@index');
+      Route::get('/admins/{user}', 'ApiAdminsController@show');
+      Route::delete('/admins/{user}', 'ApiAdminsController@destroy');
+
       Route::get('user/active', function () {
         $user = Auth::guard('api')->user();
         return $user;

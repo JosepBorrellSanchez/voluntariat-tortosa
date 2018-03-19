@@ -2,7 +2,7 @@
   <v-app>
     <transition name="fade">
       <router-view
-        :activitats="activitats"
+        :entities="entities"
         :loading="loading"
         @delete="deleteActivitat">
       </router-view>
@@ -12,7 +12,7 @@
         <v-card-title class="headline">Segur que vols eliminar aquesta activitat?</v-card-title>
         <v-card-actions>
           <v-btn color="green darken-1" flat @click.native="dialog = false">Cancel·la</v-btn>
-          <v-btn color="green darken-1" @click="destroy(activitat)" flat @click.native="dialog = false">Elimina</v-btn>
+          <v-btn color="green darken-1" @click="destroy(entity)" flat @click.native="dialog = false">Elimina</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -30,16 +30,16 @@
     data () {
       return {
         dialog: false,
-        activitat: null
+        entity: null
       }
     },
     computed: {
-      activitats: {
+      entities: {
         get () {
-          return this.$store.state.activitats
+          return this.$store.state.entities
         },
         set (value) {
-          this.$store.commit(mutations.SET_ACTIVITATS, value)
+          this.$store.commit(mutations.SET_ENTITY, value)
         }
       },
       loading: {
@@ -52,16 +52,16 @@
       }
     },
     methods: {
-      deleteActivitat: function (activitat) {
+      deleteActivitat: function (entity) {
         this.dialog = true
-        this.activitat = activitat
+        this.entity = entity
       },
-      destroy: function (activitat) {
-        this.$store.dispatch(actions.DELETE_ACTIVITAT, activitat)
+      destroy: function (entity) {
+        this.$store.dispatch(actions.DELETE_ENTITY, entity.id)
       },
     },
     mounted () {
-      this.$store.dispatch(actions.FETCH_ACTIVITATS)
+      this.$store.dispatch(actions.FETCH_ENTITIES)
     }
   }
 </script>

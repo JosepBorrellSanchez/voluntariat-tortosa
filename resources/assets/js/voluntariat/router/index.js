@@ -20,6 +20,16 @@ import AllActivitiesContainer from '../components/AllActivitiesContainer'
 import AllActivities from '../components/AllActivities'
 import EntitiesContainer from '../components/EntitiesContainer'
 import Entities from '../components/Entities'
+import EntityContainer from '../components/EntityContainer'
+import Entity from '../components/Entity'
+import VolunteersContainer from '../components/VolunteersContainer'
+import Volunteers from '../components/Volunteers'
+import VolunteerContainer from '../components/VolunteerContainer'
+import Volunteer from '../components/Volunteer'
+import AdminsContainer from '../components/AdminsContainer'
+import Admins from '../components/Admins'
+import AdminContainer from '../components/AdminContainer'
+import Admin from '../components/Admin'
 
 import NotFoundComponent from '../components/NotFoundComponent'
 
@@ -57,6 +67,18 @@ const router = new Router({
           ]
         },
         {
+          path: '/activitats/:id',
+          component: ActivitatContainer,
+          props: true,
+          children: [
+            {
+              path: '/activitats/:id',
+              name: 'Activitat',
+              component: Activitat
+            }
+          ]
+        },
+        {
           path: '/entitats',
           component: EntitiesContainer,
           children: [
@@ -64,6 +86,64 @@ const router = new Router({
               path: '/entitats',
               name: 'Entities',
               component: Entities
+            }
+          ]
+        },
+        {
+          path: '/entitats/:id',
+          component: EntityContainer,
+          props: true,
+          children: [
+            {
+              path: '/entitats/:id',
+              name: 'Entity',
+              component: Entity
+            }
+          ]
+        },
+        {
+          path: '/voluntaris',
+          component: VolunteersContainer,
+          children: [
+            {
+              path: '/voluntaris',
+              name: 'Volunteers',
+              component: Volunteers
+            }
+          ]
+        },
+        {
+          path: '/voluntaris/:id',
+          component: VolunteerContainer,
+          props: true,
+          children: [
+            {
+              path: '/voluntaris/:id',
+              name: 'Volunteer',
+              component: Volunteer
+            }
+          ]
+        },
+        {
+          path: '/admins',
+          component: AdminsContainer,
+          children: [
+            {
+              path: '/admins',
+              name: 'Admins',
+              component: Admins
+            }
+          ]
+        },
+        {
+          path: '/admins/:id',
+          component: AdminContainer,
+          props: true,
+          children: [
+            {
+              path: '/admins/:id',
+              name: 'Admin',
+              component: Admin
             }
           ]
         }

@@ -13,8 +13,5 @@
 <script>
   export default {
     name: 'AdminDashboard',
-    mounted () {
-      console.log('Component mounted')
-    }
   }
 </script>
