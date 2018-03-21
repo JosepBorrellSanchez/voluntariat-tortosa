@@ -45,4 +45,16 @@ class User extends Authenticatable
         return $this->entitats()->save($entitat);
     }
 
+    public function info() {
+      $rolename = $this->getRoleNames()->first();
+      switch($rolename) {
+        case 'admin':     return $this->hasOne(AdminInfo::class);
+                          break;
+        case 'entity':    return $this->hasOne(EntityInfo::class);
+                          break;
+      case 'volunteer':   return $this->hasOne(VolunteerInfo::class);
+                          break;
+      }
+    }
+
 }

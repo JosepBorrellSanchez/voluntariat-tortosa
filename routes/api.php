@@ -28,35 +28,35 @@ Route::group(['middleware' => 'api', 'middleware' => ['throttle', 'bindings']], 
   Route::get('activitats', 'ApiActivitatsController@index');
   Route::get('activitats/user/{user}', 'ApiActivitatsController@userIndex');
 
-    Route::group(['middleware' => 'auth:api'], function () {
+  Route::group(['middleware' => 'auth:api'], function () {
 
-      Route::post('activitats', 'ApiActivitatsController@store');
-      Route::get('activitats/create', 'ApiActivitatsController@create');
-      Route::get('activitats/{activitat}', 'ApiActivitatsController@show');
-      Route::put('activitats/{activitat}', 'ApiActivitatsController@update');
-      Route::delete('actvitiats/{activitat}', 'ApiActivitatsController@destroy');
+    Route::post('activitats', 'ApiActivitatsController@store');
+    Route::get('activitats/create', 'ApiActivitatsController@create');
+    Route::get('activitats/{activitat}', 'ApiActivitatsController@show');
+    Route::put('activitats/{activitat}', 'ApiActivitatsController@update');
+    Route::delete('actvitiats/{activitat}', 'ApiActivitatsController@destroy');
 //      Route::resource('activitats', 'ApiActivitatsController');
 
-      Route::get('/entitats', 'ApiEntitiesController@index');
-      Route::get('/entitats/{user}', 'ApiEntitiesController@show');
-      Route::delete('/entitats/{user}', 'ApiEntitiesController@destroy');
+    Route::get('/entitats', 'ApiEntitiesController@index');
+    Route::get('/entitats/{user}', 'ApiEntitiesController@show');
+    Route::delete('/entitats/{user}', 'ApiEntitiesController@destroy');
 
-      Route::get('/voluntaris', 'ApiVolunteersController@index');
-      Route::get('/voluntaris/{user}', 'ApiVolunteersController@show');
-      Route::delete('/voluntaris/{user}', 'ApiVolunteersController@destroy');
+    Route::get('/voluntaris', 'ApiVolunteersController@index');
+    Route::get('/voluntaris/{user}', 'ApiVolunteersController@show');
+    Route::delete('/voluntaris/{user}', 'ApiVolunteersController@destroy');
 
-      Route::get('/admins', 'ApiAdminsController@index');
-      Route::get('/admins/{user}', 'ApiAdminsController@show');
-      Route::delete('/admins/{user}', 'ApiAdminsController@destroy');
+    Route::get('/admins', 'ApiAdminsController@index');
+    Route::get('/admins/{user}', 'ApiAdminsController@show');
+    Route::delete('/admins/{user}', 'ApiAdminsController@destroy');
 
-      Route::get('user/active', function () {
-        $user = Auth::guard('api')->user();
-        return $user;
-      });
-
-      Route::get('user/roles', function () {
-        return json_encode(Auth::user()->getRoleNames());
-      });
-
+    Route::get('user/active', function () {
+      $user = Auth::guard('api')->user();
+      return $user;
     });
+
+    Route::get('user/roles', function () {
+      return json_encode(Auth::user()->getRoleNames());
+    });
+
+  });
 });

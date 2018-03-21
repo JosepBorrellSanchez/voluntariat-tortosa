@@ -19,8 +19,8 @@ if (!function_exists('initialize_permissions')) {
     Permission::firstOrCreate(['name' => 'delete-admin']);
 
     $role = Role::firstOrCreate(['name' => 'admin']);
-    $roleEntitat = Role::firstOrCreate(['name' => 'entitat']);
-    $roleVoluntari = Role::firstOrCreate(['name' => 'voluntari']);
+    $roleEntitat = Role::firstOrCreate(['name' => 'entity']);
+    $roleVoluntari = Role::firstOrCreate(['name' => 'volunteer']);
 
     $role->givePermissionTo('list-activitats');
     $role->givePermissionTo('list-entities');

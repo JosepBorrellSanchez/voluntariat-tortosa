@@ -25,8 +25,8 @@ class UsersSeeder extends Seeder
       'password' => bcrypt(env('MANAGER_USER_PWD'))
     ]);
 
-    $entitat->assignRole('entitat');
-    $voluntari->assignRole('voluntari');
+    $entitat->assignRole('entity');
+    $voluntari->assignRole('volunteer');
 
   }
 }
