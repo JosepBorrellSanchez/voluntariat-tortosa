@@ -17,6 +17,7 @@ const store = new Vuex.Store({
         entity: [],
         volunteers: [],
         volunteer: [],
+        info: [],
         admins: [],
         admin: [],
         loading: false,

@@ -9,19 +9,21 @@
         <v-data-table
           v-bind:headers="headers"
           :items="volunteers"
-          hide-actions
           class="elevation-1"
         >
           <template slot="items" slot-scope="props">
-            <td class="text-xs-left">{{ props.item.name }}</td>
-            <td>
-              <router-link :to="{ path: '/voluntaris/' + props.item.id  }">
-                <v-icon>mode_edit</v-icon>
-              </router-link>
-              <router-link to="#">
+            <tr @click="sendEmit('redirect', props.item.id)">
+              <td class="text-xs-left">{{ props.item.name }}</td>
+              <td class="text-xs-left">{{ props.item.email }}</td>
+              <td class="text-xs-right">
+                <router-link :to="{ path: '/voluntaris/' + props.item.id  }">
+                  <v-icon>mode_edit</v-icon>
+                </router-link>
+                <router-link to="#">
                   <v-icon @click="sendEmit('delete', props.item)">delete_forever</v-icon>
-              </router-link>
-            </td>
+                </router-link>
+              </td>
+            </tr>
           </template>
         </v-data-table>
       </v-layout>
@@ -50,6 +52,7 @@
         dialog: false,
         headers: [
           { text: 'Nom', value: 'nom', align: 'left' },
+          { text: 'Email', value: 'email', align: 'left'}
           // { text: 'Destinataris', value: 'destinataris', align: 'left' },
           // { text: 'Hora Inici', value: 'hora_inici' },
           // { text: 'Hora Fi', value: 'hora_fi' },

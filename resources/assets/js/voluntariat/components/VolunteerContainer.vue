@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <router-view :volunteer="volunteer"></router-view>
+    <router-view :volunteer="volunteer" :info="info"></router-view>
   </v-app>
 </template>
 
@@ -17,11 +17,20 @@
         set(value) {
           this.$store.commit(mutationTypes.SET_VOLUNTEER, value)
         }
+      },
+      info: {
+        get() {
+          return this.$store.state.info
+        },
+        set(value) {
+          this.$store.commit(mutationTypes.SET_INFO, value)
+        }
       }
     },
     props: ['id'],
     mounted () {
       this.$store.dispatch(actionTypes.GET_VOLUNTEER, this.id)
+      this.$store.dispatch(actionTypes.GET_INFO, this.id)
     }
   }
 </script>

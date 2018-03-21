@@ -4,7 +4,8 @@
       <router-view
         :volunteers="volunteers"
         :loading="loading"
-        @delete="deleteVolunteer">
+        @delete="deleteVolunteer"
+        @redirect="redirect">
       </router-view>
     </transition>
     <v-dialog v-model="dialog" persistent max-width="290">
@@ -56,6 +57,10 @@
       destroy: function (volunteer) {
         this.$store.dispatch(actions.DELETE_VOLUNTEER, volunteer.id)
       },
+      redirect: function (id) {
+        let path = '/voluntaris/' + id;
+        this.$router.push({ path: path })
+      }
     },
     mounted () {
       this.$store.dispatch(actions.FETCH_VOLUNTEERS)

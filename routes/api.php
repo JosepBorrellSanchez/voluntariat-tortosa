@@ -45,6 +45,8 @@ Route::group(['middleware' => 'api', 'middleware' => ['throttle', 'bindings']], 
     Route::get('/voluntaris/{user}', 'ApiVolunteersController@show');
     Route::delete('/voluntaris/{user}', 'ApiVolunteersController@destroy');
 
+    Route::get('/info/{user}', 'ApiInfoController@show');
+
     Route::get('/admins', 'ApiAdminsController@index');
     Route::get('/admins/{user}', 'ApiAdminsController@show');
     Route::delete('/admins/{user}', 'ApiAdminsController@destroy');

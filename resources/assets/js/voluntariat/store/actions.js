@@ -134,6 +134,14 @@ export default {
         console.log(error.message)
       })
     },
+    [ actionTypes.GET_INFO ]: (context, id) => {
+      axios.get('api/info/' + id).then((response) => {
+        let info = response.data
+        context.commit(mutations.SET_INFO, info)
+      }).catch((error) => {
+        console.log(error.message)
+      })
+    },
     [ actionTypes.DELETE_VOLUNTEER ]: (context, id) => {
       axios.delete('api/voluntaris/' + id).then((response) => {
         context.dispatch(actionTypes.FETCH_VOLUNTEERS)

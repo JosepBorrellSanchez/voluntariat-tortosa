@@ -15,7 +15,7 @@ class CreateVolunteerInfosTable extends Migration
     {
         Schema::create('volunteer_infos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('info');
+            $table->string('info')->nullable();
             $table->integer('user_id');
             $table->timestamps();
         });

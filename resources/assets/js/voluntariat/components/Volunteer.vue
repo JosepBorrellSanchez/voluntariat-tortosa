@@ -2,8 +2,8 @@
    <v-app>
        <!--<transition name="component-fade" appear>-->
        <v-container>
-           <v-layout row>
-               <v-flex d-flex xs12>
+           <v-layout>
+               <v-flex xs12>
                    <v-card class="ma-1">
                        <v-card-title class="display-1 green lighten-1">{{ volunteer.name }}</v-card-title>
                        <v-layout row>
@@ -13,6 +13,20 @@
                                </ul>
                            </v-card-text>
                        </v-layout>
+                   </v-card>
+               </v-flex>
+           </v-layout>
+           <v-layout>
+               <v-flex xs12 lg6>
+                   <v-card class="ma-1">
+                       <v-card-title>
+                           <h2>Info</h2>
+                       </v-card-title>
+                       <v-card-text>
+                           <ul class="ul-list">
+                               <li>Nom: {{ info.info }}</li>
+                           </ul>
+                       </v-card-text>
                    </v-card>
                </v-flex>
            </v-layout>
@@ -42,6 +56,9 @@
                 show: false,
             }
         },
-        props: ['volunteer'],
+        props: [
+          'volunteer',
+          'info'
+        ],
     }
 </script>

@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class ApiVolunteersController extends Controller
 {
   public function index(ListVolunteers $request) {
-    $volunteers = User::role('voluntari')->get();
+    $volunteers = User::role('volunteer')->get();
     return $volunteers;
   }
 

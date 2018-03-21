@@ -9,7 +9,6 @@
         <v-data-table
           v-bind:headers="headers"
           :items="activitats"
-          hide-actions
           class="elevation-1"
         >
           <template slot="items" slot-scope="props">

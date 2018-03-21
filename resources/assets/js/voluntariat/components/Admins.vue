@@ -14,7 +14,8 @@
         >
           <template slot="items" slot-scope="props">
             <td class="text-xs-left">{{ props.item.name }}</td>
-            <td>
+            <td class="text-xs-left">{{ props.item.email }}</td>
+            <td class="text-xs-right">
               <router-link :to="{ path: '/admins/' + props.item.id  }">
                 <v-icon>mode_edit</v-icon>
               </router-link>
@@ -50,6 +51,7 @@
         dialog: false,
         headers: [
           { text: 'Nom', value: 'nom', align: 'left' },
+          { text: 'Email', value: 'email', align: 'left'}
           // { text: 'Destinataris', value: 'destinataris', align: 'left' },
           // { text: 'Hora Inici', value: 'hora_inici' },
           // { text: 'Hora Fi', value: 'hora_fi' },

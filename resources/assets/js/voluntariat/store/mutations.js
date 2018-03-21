@@ -32,6 +32,9 @@ export default {
     [ types.SET_VOLUNTEER ]: (state, volunteer) => {
         state.volunteer = volunteer
     },
+    [ types.SET_INFO ]: (state, info) => {
+        state.info = info
+    },
     [ types.SET_ADMINS ]: (state, admins) => {
         state.admins = admins
     },

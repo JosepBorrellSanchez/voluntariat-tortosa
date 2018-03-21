@@ -22,3 +22,7 @@ export const user = state => {
 export const roles = state => {
     return state.roles
 }
+
+export const info = state => {
+    return state.info
+}

@@ -10,12 +10,12 @@ use Illuminate\Http\Request;
 class ApiEntitiesController extends Controller
 {
   public function index(ListEntities $request) {
-    $entitats = User::role('entitat')->get();
+    $entitats = User::role('entity')->get();
     return $entitats;
   }
 
   public function show(ShowEntity $request, User $user) {
-    if($user->HasRole('entitat')) {
+    if($user->HasRole('entity')) {
       return $user->toArray();
     } else {
       abort(404);
