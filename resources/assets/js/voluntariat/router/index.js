@@ -163,23 +163,23 @@ const router = new Router({
           component: Dashboard,
         },
         {
-          path: '/activitats',
+          path: '/activitats_user',
           component: ActivitatsContainer,
           children: [
             {
-              path: '/activitats',
+              path: '/activitats_user',
               name: 'Activitats',
               component: Activitats
             }
           ]
         },
         {
-          path: '/activitats/:id',
+          path: '/activitats_user/:id',
           component: ActivitatContainer,
           props: true,
           children: [
             {
-              path: '/activitats/:id',
+              path: '/activitats_user/:id',
               name: 'ShowActivitat',
               component: Activitat
             }

@@ -42,7 +42,7 @@ export default {
           if (window.localStorage) {
             window.localStorage.setItem('roles', roles)
           }
-          context.commit(mutations.ROLES, roles)
+          context.commit(mutations.ROLES, roles[0])
         }
       }).catch((error) => {
         console.log(error)
@@ -59,10 +59,9 @@ export default {
         context.commit(mutations.SET_LOADING, false)
       })
     },
-    [actionTypes.FETCH_ACTIVITATS_USER]: function(context) {
-        let user = context.getters.user
+    [actionTypes.FETCH_ACTIVITATS_USER]: function(context, id) {
         context.commit(mutations.SET_LOADING, true)
-        crud.getAllFromUser(user.id).then((response) => {
+        crud.getAllFromUser(id).then((response) => {
             let activitats = response.data
             context.commit(mutations.SET_ACTIVITATS_USER, activitats)
         }).catch((error) => {
@@ -83,6 +82,12 @@ export default {
         }).catch((error) => {
           console.log(error);
         })
+    },
+    [ actionTypes.DETACH_ACTIVITY ] (context, activitat) {
+      axios.delete('api/activitats/activitat/' + activitat.id).then((response) => {
+        let user = context.state.user
+        context.dispatch(actionTypes.FETCH_ACTIVITATS_USER, user.id)
+      })
     },
     [actionTypes.FETCH_USER]: (context) => {
        axios.get('api/user/active').then((response) => {

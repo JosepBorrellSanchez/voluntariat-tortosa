@@ -56,9 +56,8 @@
           'password': this.password
         }
         this.$store.dispatch(actions.LOGIN, credentials).then(response => {
-          // this.loginLoading = false
-          // this.$router.push('/dash')
           this.$store.dispatch(actions.DETERMINATE_ROLE)
+          this.$store.dispatch(actions.FETCH_USER)
           let roles
           axios.get('api/user/roles').then((response) => {
             roles = response.data

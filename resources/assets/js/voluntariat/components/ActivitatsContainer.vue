@@ -4,6 +4,7 @@
       <router-view
         :activitats="activitats"
         :loading="loading"
+        @redirect="redirect"
         @delete="deleteActivitat">
       </router-view>
     </transition>
@@ -57,11 +58,21 @@
         this.activitat = activitat
       },
       destroy: function (activitat) {
-        this.$store.dispatch(actions.DELETE_ACTIVITAT, activitat)
+        let roles = this.$store.state.roles
+        if(roles === "volunteer") {
+          this.$store.dispatch(actions.DETACH_ACTIVITY, activitat)
+        } else {
+          this.$store.dispatch(actions.DELETE_ACTIVITAT, activitat)
+        }
       },
+      redirect: function (id) {
+        let path = '/activitats_user/' + id;
+        this.$router.push({ path: path })
+      }
     },
     mounted () {
-      this.$store.dispatch(actions.FETCH_ACTIVITATS_USER)
+      let user = this.$store.state.user
+      this.$store.dispatch(actions.FETCH_ACTIVITATS_USER, user.id)
     }
   }
 </script>

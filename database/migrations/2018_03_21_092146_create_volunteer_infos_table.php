@@ -15,8 +15,24 @@ class CreateVolunteerInfosTable extends Migration
     {
         Schema::create('volunteer_infos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('info')->nullable();
             $table->integer('user_id');
+            $table->string('cognoms')->nullable();
+            $table->string('dni')->nullable();
+            $table->string('adreca')->nullable();
+            $table->date('data_naixement')->nullable();
+            $table->string('nacionalitat')->nullable();
+            $table->integer('codi_postal')->nullable();
+            $table->string('poblacio')->nullable();
+            $table->integer('telefon')->nullable();
+            $table->string('llengues')->nullable();
+            $table->string('disponibilitat_mensual')->nullable();
+            $table->string('disponibilitat_setmanal')->nullable();
+            $table->string('disponibilitat_diaria')->nullable();
+            $table->string('disponibilitat_horaria')->nullable();
+            $table->boolean('disponibilitat_vehicle')->nullable();
+            $table->string('franges_edat_preferents')->nullable();
+            $table->string('condicio_fisica')->nullable();
+            $table->boolean('validat')->default(false);
             $table->timestamps();
         });
     }

@@ -101,7 +101,7 @@ export default {
         { icon: 'home', title: 'Landing', href: '/' },
         { icon: 'home', title: 'Dashboard', href: '/dash' },
         { icon: 'inbox', title: 'inbox', href: '/inbox' },
-        { icon: 'assignment', title: 'Les meves activitats', href: '/activitats' },
+        { icon: 'assignment', title: 'Activitats pendents', href: '/activitats_user' },
         { icon: 'account_box', title: 'El meu compte' }
       ],
       miniVariant: false,

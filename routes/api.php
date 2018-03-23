@@ -26,7 +26,8 @@ Route::group(['prefix' => 'v1'], function () {
 Route::group(['middleware' => 'api', 'middleware' => ['throttle', 'bindings']], function () {
 
   Route::get('activitats', 'ApiActivitatsController@index');
-  Route::get('activitats/user/{user}', 'ApiActivitatsController@userIndex');
+  Route::get('activitats/user/{user}', 'ApiUserActivitiesController@index');
+  Route::delete('activitats/activitat/{activitat}', 'ApiUserActivitiesController@destroy');
 
   Route::group(['middleware' => 'auth:api'], function () {
 

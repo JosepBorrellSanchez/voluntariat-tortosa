@@ -33,6 +33,7 @@ if (!function_exists('initialize_permissions')) {
     $role->givePermissionTo('show-admin');
     $role->givePermissionTo('delete-admin');
     $roleEntitat->givePermissionTo('list-activitats');
+    $roleVoluntari->givePermissionTo('list-activitats');
   }
 }
 if (!function_exists('create_user')) {

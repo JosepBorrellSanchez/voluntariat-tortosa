@@ -40,6 +40,10 @@ class User extends Authenticatable
         return $this->hasMany(Activitat::class);
     }
 
+    public function registeredActivities() {
+      return $this->belongsToMany(Activitat::class, 'activitat_user');
+    }
+
     public function assignEntitat($entitat)
     {
         return $this->entitats()->save($entitat);

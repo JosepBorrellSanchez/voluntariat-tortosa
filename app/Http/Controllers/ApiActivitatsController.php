@@ -21,18 +21,6 @@ class ApiActivitatsController extends Controller
         return $activitats;
     }
 
-  /**
-   * Returns an array of all activities of a concrete user
-   *
-   * @param Request $request
-   * @param User $user
-   * @return mixed
-   */
-    public function userIndex(ListActivitats $request, User $user) {
-      $activiats = $user->activitats->all();
-      return $activiats;
-    }
-
     /**
      * Show the form for creating a new resource.
      *
