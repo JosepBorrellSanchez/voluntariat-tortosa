@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\EntityInfo;
 use App\VolunteerInfo;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -26,8 +27,17 @@ class CreateInfo
      */
     public function handle($event)
     {
-      VolunteerInfo::create([
-        'user_id' => $event->user->id
-      ]);
+      $user = $event->user;
+      if($user->hasRole('entity')) {
+        EntityInfo::create([
+          'user_id' => $user->id
+        ]);
+      } else if ($user->hasRole('volunteer')) {
+        VolunteerInfo::create([
+          'user_id' => $user->id
+        ]);
+      } else {
+        //  TODO ERROR
+      }
     }
 }

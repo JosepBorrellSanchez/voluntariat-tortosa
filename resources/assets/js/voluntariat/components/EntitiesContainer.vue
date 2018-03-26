@@ -4,6 +4,7 @@
       <router-view
         :entities="entities"
         :loading="loading"
+        @redirect="redirect"
         @delete="deleteActivitat">
       </router-view>
     </transition>
@@ -59,6 +60,10 @@
       destroy: function (entity) {
         this.$store.dispatch(actions.DELETE_ENTITY, entity.id)
       },
+      redirect(id) {
+        let path = '/entitats/' + id
+        this.$router.push({ path: path })
+      }
     },
     mounted () {
       this.$store.dispatch(actions.FETCH_ENTITIES)

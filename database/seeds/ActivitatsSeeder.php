@@ -1,5 +1,6 @@
 <?php
 
+use App\User;
 use Illuminate\Database\Seeder;
 use App\Activitat;
 
@@ -12,6 +13,12 @@ class ActivitatsSeeder extends Seeder
      */
     public function run()
     {
-        factory(Activitat::class, 10)->create();
+        $activitatsUser = factory(Activitat::class, 3)->create(['user_id' => 2]);
+        factory(Activitat::class, 7)->create(['user_id' => 2]);
+
+        foreach ($activitatsUser as $activitat) {
+          User::find(3)->registeredActivities()->attach($activitat);
+        }
+
     }
 }

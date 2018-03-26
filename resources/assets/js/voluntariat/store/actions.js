@@ -61,7 +61,7 @@ export default {
     },
     [actionTypes.FETCH_ACTIVITATS_USER]: function(context, id) {
         context.commit(mutations.SET_LOADING, true)
-        crud.getAllFromUser(id).then((response) => {
+        axios.get('api/activitats/user/' + id).then((response) => {
             let activitats = response.data
             context.commit(mutations.SET_ACTIVITATS_USER, activitats)
         }).catch((error) => {
@@ -70,17 +70,32 @@ export default {
             context.commit(mutations.SET_LOADING, false)
         })
     },
+    [ actionTypes.FETCH_ENTITY_ACTIVITIES ]: function (context, id) {
+      context.commit(mutations.SET_LOADING, true)
+      axios.get('api/activitats/entitat/' + id).then((response) => {
+        let activitats = response.data
+        context.commit(mutations.SET_ACTIVITATS_USER, activitats)
+      }).catch((error) => {
+        console.log(error)
+      }).then(() => {
+        context.commit(mutations.SET_LOADING, false)
+      })
+    },
     [actionTypes.GET_ACTIVITAT]: (context, id) => {
         crud.get(id).then((response) => {
             let activitat = response.data
             context.commit(mutations.SET_ACTIVITAT, activitat)
         })
     },
-    [actionTypes.DELETE_ACTIVITAT]: function(context, activitat) {
-        crud.delete(activitat).then((response) => {
-            context.dispatch(actionTypes.FETCH_ACTIVITATS_USER)
+    [actionTypes.DELETE_ACTIVITAT]: function(context, { activitat, user_id }) {
+        context.commit(mutations.SET_LOADING, true)
+        axios.delete('api/activitats/' + activitat.id).then((response) => {
+            context.dispatch(actionTypes.FETCH_ACTIVITATS_USER, user_id)
+            context.dispatch(actionTypes.FETCH_ENTITY_ACTIVITIES, user_id)
         }).catch((error) => {
           console.log(error);
+        }).then(() => {
+          context.commit(mutations.SET_LOADING, false)
         })
     },
     [ actionTypes.DETACH_ACTIVITY ] (context, activitat) {

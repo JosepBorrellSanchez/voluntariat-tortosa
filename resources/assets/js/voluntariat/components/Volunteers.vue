@@ -20,7 +20,7 @@
                   <v-icon>mode_edit</v-icon>
                 </router-link>
                 <router-link to="#">
-                  <v-icon @click="sendEmit('delete', props.item)">delete_forever</v-icon>
+                  <v-icon @click.stop="sendEmit('delete', props.item)">delete_forever</v-icon>
                 </router-link>
               </td>
             </tr>
@@ -53,10 +53,6 @@
         headers: [
           { text: 'Nom', value: 'nom', align: 'left' },
           { text: 'Email', value: 'email', align: 'left'}
-          // { text: 'Destinataris', value: 'destinataris', align: 'left' },
-          // { text: 'Hora Inici', value: 'hora_inici' },
-          // { text: 'Hora Fi', value: 'hora_fi' },
-          // { text: 'Voluntaris necessaris', value: 'num_voluntaris_necessaris' }
         ],
         dialog: false
       }

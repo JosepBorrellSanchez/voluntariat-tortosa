@@ -93,9 +93,6 @@
         show: false,
         headers: [
           { text: 'Nom', align: 'left', value: 'name' },
-        ],
-        items: [
-          { name: 'Prova' }
         ]
       }
     },

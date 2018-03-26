@@ -1,5 +1,6 @@
 <?php
 
+use App\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
 
@@ -24,11 +25,6 @@ class DatabaseSeeder extends Seeder
         $this->call(InfoSeeder::class);
 
         $this->call(ActivitatsSeeder::class);
-
-        $activitat = \App\Activitat::first();
-        $user = \App\User::find(3);
-
-        $user->registeredActivities()->attach($activitat);
 
         Artisan::call('passport:install');
     }

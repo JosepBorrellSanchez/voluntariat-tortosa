@@ -43,12 +43,13 @@ if (!function_exists('create_user')) {
       'name'     => env('MANAGER_USER_NAME', 'Manager'),
       'email'    => env('MANAGER_USER_EMAIL', 'gerardrey@iesebre.com'),
       'password' => bcrypt(env('MANAGER_USER_PWD')),
+      'role' => 'admin'
     ]);
   }
 }
 if (!function_exists('first_user_as_manager')) {
   function first_user_as_manager()
   {
-    User::all()->first()->assignRole('admin');
+//    User::first()->syncRoles('admin');
   }
 }

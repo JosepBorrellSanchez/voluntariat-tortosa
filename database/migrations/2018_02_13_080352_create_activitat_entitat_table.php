@@ -13,19 +13,19 @@ class CreateActivitatEntitatTable extends Migration
      */
     public function up()
     {
-        Schema::create('activitat_entitat', function (Blueprint $table) {
-            $table->integer('activitat_id')->unsigned();
-            $table->integer('entitat_id')->unsigned();
-            $table->foreign('activitat_id')
-                ->references('id')
-                ->on('activitats')
-                ->onDelete('cascade');
-            $table->foreign('entitat_id')
-                ->references('id')
-                ->on('entitats')
-                ->onDelete('cascade');
-            $table->primary(['activitat_id', 'entitat_id']);
-        });
+//        Schema::create('activitat_entitat', function (Blueprint $table) {
+//            $table->integer('activitat_id')->unsigned();
+//            $table->integer('entitat_id')->unsigned();
+//            $table->foreign('activitat_id')
+//                ->references('id')
+//                ->on('activitats')
+//                ->onDelete('cascade');
+//            $table->foreign('entitat_id')
+//                ->references('id')
+//                ->on('entitats')
+//                ->onDelete('cascade');
+//            $table->primary(['activitat_id', 'entitat_id']);
+//        });
     }
 
     /**

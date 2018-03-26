@@ -2,6 +2,7 @@
 
 use App\VolunteerInfo;
 use Carbon\Carbon;
+use Faker\Factory;
 use Illuminate\Database\Seeder;
 
 class InfoSeeder extends Seeder
@@ -12,7 +13,12 @@ class InfoSeeder extends Seeder
    * @return void
    */
   public function run() {
-    $info = VolunteerInfo::find(3);
+    $this->seedVolunteerInfo();
+    $this->seedEntityInfo();
+  }
+
+  public function seedVolunteerInfo() {
+    $info = VolunteerInfo::first();
     $info->cognoms = 'User2 cognoms';
     $info->dni = '39944433W';
     $info->adreca = 'C/Algo 5';
@@ -27,6 +33,21 @@ class InfoSeeder extends Seeder
     $info->disponibilitat_vehicle = false;
     $info->franges_edat_preferents = '3-15';
     $info->condicio_fisica = 'atlètica';
+    $info->validat = true;
+    $info->save();
+  }
+
+  public function seedEntityInfo() {
+    $info = \App\EntityInfo::first();
+    $info->nif = 'ASBBFFDDCC23';
+    $info->persona_contacte = 'Miquel IZ';
+    $info->email = 'entity@entity.com';
+    $info->tel = 977343523;
+    $info->web = 'entity.com';
+    $info->adreca = 'C/ Misericordia 45';
+    $info->poblacio = 'Tortosa';
+    $info->codi_postal = '43500';
+    $info->tipus_activitat = Factory::create()->text;
     $info->validat = true;
     $info->save();
   }

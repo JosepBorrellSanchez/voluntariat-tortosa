@@ -50,13 +50,11 @@ class User extends Authenticatable
     }
 
     public function info() {
-      $rolename = $this->getRoleNames()->first();
+      $rolename = $this->role;
       switch($rolename) {
-        case 'admin':     return $this->hasOne(AdminInfo::class);
-                          break;
         case 'entity':    return $this->hasOne(EntityInfo::class);
                           break;
-      case 'volunteer':   return $this->hasOne(VolunteerInfo::class);
+        case 'volunteer': return $this->hasOne(VolunteerInfo::class);
                           break;
       }
     }

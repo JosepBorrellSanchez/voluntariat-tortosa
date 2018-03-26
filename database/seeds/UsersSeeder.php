@@ -14,18 +14,18 @@ class UsersSeeder extends Seeder
   {
 
     $entitat = factory(User::class)->create([
-      'name' => 'User 1',
+      'name' => 'Entity',
       'email' => 'user1@gmail.com',
-      'password' => bcrypt(env('MANAGER_USER_PWD'))
+      'password' => bcrypt(env('MANAGER_USER_PWD')),
+      'role' => 'entity'
     ]);
 
     $voluntari = factory(User::class)->create([
-      'name' => 'User 2',
+      'name' => 'Volunteer',
       'email' => 'user2@gmail.com',
-      'password' => bcrypt(env('MANAGER_USER_PWD'))
+      'password' => bcrypt(env('MANAGER_USER_PWD')),
+      'role' => 'volunteer'
     ]);
-
-    $entitat->assignRole('entity');
 
   }
 }

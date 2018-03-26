@@ -12,16 +12,18 @@
           class="elevation-1"
         >
           <template slot="items" slot-scope="props">
-            <td class="text-xs-left">{{ props.item.name }}</td>
-            <td class="text-xs-left">{{ props.item.email }}</td>
-            <td class="text-xs-right">
-              <router-link :to="{ path: '/entitats/' + props.item.id  }">
-                <v-icon>mode_edit</v-icon>
-              </router-link>
-              <router-link to="#">
-                  <v-icon @click="sendEmit('delete', props.item)">delete_forever</v-icon>
-              </router-link>
-            </td>
+            <tr @click="sendEmit('redirect', props.item.id)">
+              <td class="text-xs-left">{{ props.item.name }}</td>
+              <td class="text-xs-left">{{ props.item.email }}</td>
+              <td class="text-xs-right">
+                <router-link :to="{ path: '/entitats/' + props.item.id  }">
+                  <v-icon>mode_edit</v-icon>
+                </router-link>
+                <router-link to="#">
+                  <v-icon @click.stop="sendEmit('delete', props.item)">delete_forever</v-icon>
+                </router-link>
+              </td>
+            </tr>
           </template>
         </v-data-table>
       </v-layout>

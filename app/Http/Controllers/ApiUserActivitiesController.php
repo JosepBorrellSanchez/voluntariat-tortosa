@@ -11,11 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class ApiUserActivitiesController extends Controller
 {
   public function index(ListActivitats $request, User $user) {
-    if($user->hasRole('entity')) {
-      $activitats = $user->activitats;
-    } else if ($user->hasRole('volunteer')) {
-      $activitats = $user->registeredActivities;
-    }
+    $activitats = $user->registeredActivities;
     return $activitats;
   }
 

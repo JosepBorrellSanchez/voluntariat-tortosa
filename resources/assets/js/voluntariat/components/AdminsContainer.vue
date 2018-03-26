@@ -4,6 +4,7 @@
       <router-view
         :admins="admins"
         :loading="loading"
+        @redirect="redirect"
         @delete="deleteAdmins">
       </router-view>
     </transition>
@@ -56,6 +57,10 @@
       destroy: function (admin) {
         this.$store.dispatch(actions.DELETE_ADMIN, admin.id)
       },
+      redirect(id) {
+        let path = '/admins/' + id
+        this.$router.push({ path: path })
+      }
     },
     mounted () {
       this.$store.dispatch(actions.FETCH_ADMINS)

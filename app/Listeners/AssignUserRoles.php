@@ -25,6 +25,7 @@ class AssignUserRoles
      */
     public function handle($event)
     {
-      $event->user->assignRole('volunteer');
+      $user = $event->user;
+      $user->syncRoles($user->role);
     }
 }
