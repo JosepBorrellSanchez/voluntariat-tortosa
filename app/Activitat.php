@@ -10,4 +10,8 @@ class Activitat extends Model
     {
         return $this->belongsToMany(Entitat::class);
     }
+
+    public function volunteers() {
+        return $this->belongsToMany(User::class, 'activitat_user');
+    }
 }

@@ -20,6 +20,9 @@ export default {
     [types.SET_ACTIVITAT]: (state, activitat) => {
         state.activitat = activitat
     },
+    [ types.SET_ACTIVITY_USERS ]: (state, users) => {
+        state.activity_volunteers = users
+    },
     [ types.SET_ENTITIES]: (state, entities) => {
         state.entities = entities
     },

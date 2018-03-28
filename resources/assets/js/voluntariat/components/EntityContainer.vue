@@ -5,6 +5,7 @@
       :info="info"
       :user_activities="user_activities"
       :loading="loading"
+      @redirect="redirect"
       @delete="deleteActivity">
     </router-view>
     <v-dialog v-model="dialog" persistent max-width="290">
@@ -71,6 +72,10 @@
       },
       destroy(activitat) {
         this.$store.dispatch(actions.DELETE_ACTIVITAT, { activitat: activitat, user_id: this.id })
+      },
+      redirect(id) {
+        let path = '/activitats/' + id
+        this.$router.push({ path: path })
       }
     },
     props: ['id'],

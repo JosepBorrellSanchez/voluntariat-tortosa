@@ -98,10 +98,26 @@ export default {
           context.commit(mutations.SET_LOADING, false)
         })
     },
-    [ actionTypes.DETACH_ACTIVITY ] (context, activitat) {
-      axios.delete('api/activitats/activitat/' + activitat.id).then((response) => {
-        let user = context.state.user
-        context.dispatch(actionTypes.FETCH_ACTIVITATS_USER, user.id)
+    [ actionTypes.DETACH_ACTIVITY ] (context,  { activity, user_id }) {
+      context.commit(mutations.SET_LOADING, true)
+      axios.delete('api/activitats/' + user_id + '/activitat/' + activity.id).then((response) => {
+        context.dispatch(actionTypes.FETCH_ACTIVITATS_USER, user_id)
+      }).catch((error) => {
+        console.log(error.message)
+      }).then(() => {
+        context.commit(mutations.SET_LOADING, false)
+      })
+    },
+    [ actionTypes.FETCH_ACTIVITY_USERS ]: (context, id) => {
+      context.commit(mutations.SET_LOADING, true)
+      axios.get('api/activitats/' + id + '/users').then((response) => {
+        let users = response.data
+        console.log(users)
+        context.commit(mutations.SET_ACTIVITY_USERS, users)
+      }).catch((error) => {
+        console.log(error.message)
+      }).then(() => {
+        context.commit(mutations.SET_LOADING, false)
       })
     },
     [actionTypes.FETCH_USER]: (context) => {

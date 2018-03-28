@@ -56,11 +56,13 @@
                          :items="user_activities"
                          class="elevation-1">
                          <template slot="items" slot-scope="props">
-                           <tr>
+                           <tr @click="sendEmit('redirect', props.item.id)">
                              <td>{{ props.item.nom }}</td>
-                               <td class="text-xs-right">
-                                   <v-icon>clear</v-icon>
-                               </td>
+                             <td class="text-xs-right">
+                                 <v-btn icon :loading="loading" @click.stop="sendEmit('delete', props.item)">
+                                     <v-icon>clear</v-icon>
+                                 </v-btn>
+                             </td>
                            </tr>
                          </template>
                        </v-data-table>
@@ -99,7 +101,13 @@
     props: [
       'volunteer',
       'info',
-      'user_activities'
+      'user_activities',
+      'loading'
     ],
+    methods: {
+      sendEmit(message, value) {
+        this.$emit(message, value)
+      }
+    }
   }
 </script>

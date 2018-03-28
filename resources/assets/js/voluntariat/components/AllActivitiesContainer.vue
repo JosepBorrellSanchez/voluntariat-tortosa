@@ -4,6 +4,7 @@
       <router-view
         :activitats="activitats"
         :loading="loading"
+        @redirect="redirect"
         @delete="deleteActivitat">
       </router-view>
     </transition>
@@ -59,6 +60,10 @@
       destroy: function (activitat) {
         this.$store.dispatch(actions.DELETE_ACTIVITAT, activitat)
       },
+      redirect(id) {
+        let path = '/activitats/' + id
+        this.$router.push({ path: path })
+      }
     },
     mounted () {
       this.$store.dispatch(actions.FETCH_ACTIVITATS)

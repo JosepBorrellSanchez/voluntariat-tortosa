@@ -15,8 +15,7 @@ class ApiUserActivitiesController extends Controller
     return $activitats;
   }
 
-  public function destroy(Activitat $activitat) {
-    $user = Auth::guard('api')->user();
-    $user->registeredActivities()->detach($activitat);
+  public function destroy(Request $request, User $user, Activitat $activitat) {
+    $user->registeredActivities()->detach($activitat->id);
   }
 }

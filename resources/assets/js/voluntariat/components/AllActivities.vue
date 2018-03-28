@@ -12,19 +12,21 @@
           class="elevation-1"
         >
           <template slot="items" slot-scope="props">
-            <td class="text-xs-left">{{ props.item.nom }}</td>
-            <td class="text-xs-left">{{ props.item.destinataris }}</td>
-            <td class="text-xs-right">{{ props.item.hora_inici }}</td>
-            <td class="text-xs-right">{{ props.item.hora_fi }}</td>
-            <td class="text-xs-right">{{ props.item.num_voluntaris_necessaris }}</td>
-            <td>
-              <router-link :to="{ path: '/activitats/' + props.item.id  }">
-                <v-icon>mode_edit</v-icon>
-              </router-link>
-              <router-link to="#">
-                  <v-icon @click="sendEmit('delete', props.item)">delete_forever</v-icon>
-              </router-link>
-            </td>
+            <tr @click="sendEmit('redirect', props.item.id)">
+              <td class="text-xs-left">{{ props.item.nom }}</td>
+              <td class="text-xs-left">{{ props.item.destinataris }}</td>
+              <td class="text-xs-right">{{ props.item.hora_inici }}</td>
+              <td class="text-xs-right">{{ props.item.hora_fi }}</td>
+              <td class="text-xs-right">{{ props.item.num_voluntaris_necessaris }}</td>
+              <td>
+                <router-link :to="{ path: '/activitats/' + props.item.id  }">
+                  <v-icon>mode_edit</v-icon>
+                </router-link>
+                <router-link to="#">
+                  <v-icon @click.stop="sendEmit('delete', props.item)">delete_forever</v-icon>
+                </router-link>
+              </td>
+            </tr>
           </template>
         </v-data-table>
       </v-layout>

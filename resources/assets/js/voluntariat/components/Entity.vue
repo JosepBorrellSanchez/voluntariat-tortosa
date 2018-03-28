@@ -50,7 +50,7 @@
                      :items="user_activities"
                      class="elevation-1">
                      <template slot="items" slot-scope="props">
-                       <tr>
+                       <tr @click="sendEmit('redirect', props.item.id)">
                          <td>{{ props.item.nom }}</td>
                          <td class="text-xs-right">
                            <v-btn icon :loading="loading" @click.stop="sendEmit('delete', props.item)">
