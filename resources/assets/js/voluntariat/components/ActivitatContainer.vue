@@ -2,7 +2,8 @@
   <v-app>
     <router-view
       :activitat="activitat"
-      :activity_volunteers="activity_volunteers">
+      :activity_volunteers="activity_volunteers"
+      @redirect="redirect">
     </router-view>
   </v-app>
 </template>
@@ -28,6 +29,12 @@
         set(value) {
           this.$store.commit(mutationTypes.SET_ACTIVITY_USERS, value)
         }
+      }
+    },
+    methods: {
+      redirect(id) {
+        let path = '/voluntaris/' + id
+        this.$router.push({ path: path })
       }
     },
     props: ['id'],

@@ -20,6 +20,9 @@ class EventServiceProvider extends ServiceProvider
           'App\Listeners\AssignUserRoles',
 //          'App\Listeners\SendWelcomeMail',
           'App\Listeners\CreateInfo'
+        ],
+        'App\Events\ActivityCreated' => [
+          'App\Listeners\AssignActivityProperty'
         ]
     ];
 

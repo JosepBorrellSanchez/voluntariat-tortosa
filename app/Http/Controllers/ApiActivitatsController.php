@@ -20,7 +20,6 @@ class ApiActivitatsController extends Controller
         $activitats = Activitat::all();
         return $activitats;
     }
-
     /**
      * Show the form for creating a new resource.
      *

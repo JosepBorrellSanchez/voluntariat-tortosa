@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 
 class ApiActivityUsersController extends Controller
 {
-  public function index(Activitat $activity) {
-    $users = $activity->volunteers;
+  public function index(Activitat $activitat) {
+    $users = $activitat->volunteers;
     return $users;
   }
 }

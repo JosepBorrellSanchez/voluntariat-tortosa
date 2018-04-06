@@ -29,14 +29,8 @@ class User extends Authenticatable
         'password', 'remember_token', 'api_token'
     ];
 
-    public function entitats()
-    {
-        return $this->belongsToMany(Entitat::class);
-    }
-
     public function activitats()
     {
-//        return $this->belongsToMany(Activitat::class);
         return $this->hasMany(Activitat::class);
     }
 

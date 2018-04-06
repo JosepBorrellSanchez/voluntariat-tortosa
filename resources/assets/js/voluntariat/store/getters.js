@@ -26,3 +26,7 @@ export const roles = state => {
 export const info = state => {
     return state.info
 }
+
+export const activity_volunteers = state => {
+    return state.activity_volunteers
+}

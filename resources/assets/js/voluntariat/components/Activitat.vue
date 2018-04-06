@@ -19,7 +19,7 @@
                                <ul class="ul-list">
                                    <li>Àmbit: {{ activitat.ambit}}</li>
                                    <li>Voluntaris necessaris: {{ activitat.num_voluntaris_necessaris }}</li>
-                                   <li>Horari: {{ activitat.hora_inici }} - {{ activitat.hora_fi }}</li>
+                                   <li>Horari: {{ String(activitat.hora_inici).substring(0, 5) }} - {{ String(activitat.hora_fi).substring(0, 5) }}</li>
                                </ul>
                            </v-card-text>
                            <v-card-text>{{ activitat.descripcio }}</v-card-text>
@@ -48,21 +48,24 @@
                        </v-card-text>
                    </v-card>
                </v-flex>
-               <v-flex xs6>
-                   <v-card>
+               <v-flex xs6 >
+                   <v-card class="ma-1">
                        <v-card-title>
                            <h3>Usuaris inscrits:</h3>
                        </v-card-title>
-                       <v-list>
-                           <v-list-tile avatar v-for="user in activity_volunteers" :key="user.name" @click="">
-                               <v-list-tile-avatar>
-                                   <img :src="user.avatar">
-                               </v-list-tile-avatar>
-                               <v-list-tile-content>
-                                   <v-list-tile-title v-text="user.name"></v-list-tile-title>
-                               </v-list-tile-content>
+                       <v-list v-for="user in activity_volunteers" :key="user.name" v-if="activity_volunteers.length > 0">
+                           <v-list-tile avatar @click="sendEmit('redirect', user.id)">
+                                   <v-list-tile-avatar>
+                                       <img :src="user.avatar">
+                                   </v-list-tile-avatar>
+                                   <v-list-tile-content>
+                                       <v-list-tile-title v-text="user.name"></v-list-tile-title>
+                                   </v-list-tile-content>
                            </v-list-tile>
                        </v-list>
+                       <v-card-text v-else>
+                           <span>No hi ha voluntaris registrats dins aquesta activitat</span>
+                       </v-card-text>
                    </v-card>
                </v-flex>
            </v-layout>
@@ -101,5 +104,10 @@
           'activitat',
           'activity_volunteers'
         ],
+        methods: {
+          sendEmit(message, value) {
+            this.$emit(message, value)
+          }
+        }
     }
 </script>

@@ -8,7 +8,7 @@ class Activitat extends Model
 {
     public function entitat()
     {
-        return $this->belongsToMany(Entitat::class);
+        return $this->belongsToMany(User::class, 'activity_entity');
     }
 
     public function volunteers() {
