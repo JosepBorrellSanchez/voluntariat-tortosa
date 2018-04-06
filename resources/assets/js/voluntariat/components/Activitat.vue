@@ -68,6 +68,26 @@
                        </v-card-text>
                    </v-card>
                </v-flex>
+               <v-flex xs6 >
+                   <v-card class="ma-1">
+                       <v-card-title>
+                           <h3>Entitats organitzatives:</h3>
+                       </v-card-title>
+                       <v-list v-for="entity in activity_entities" :key="entity.name" v-if="activity_entities.length > 0">
+                           <v-list-tile avatar @click="">
+                               <v-list-tile-avatar>
+                                   <img :src="entity.avatar">
+                               </v-list-tile-avatar>
+                               <v-list-tile-content>
+                                   <v-list-tile-title v-text="entity.name"></v-list-tile-title>
+                               </v-list-tile-content>
+                           </v-list-tile>
+                       </v-list>
+                       <v-card-text v-else>
+                           <span>No s'han trobat entitats organitzatives</span>
+                       </v-card-text>
+                   </v-card>
+               </v-flex>
            </v-layout>
        </v-container>
        <!--</transition>-->
@@ -102,7 +122,8 @@
         },
         props: [
           'activitat',
-          'activity_volunteers'
+          'activity_volunteers',
+          'activity_entities'
         ],
         methods: {
           sendEmit(message, value) {

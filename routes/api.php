@@ -40,6 +40,7 @@ Route::group(['middleware' => 'api', 'middleware' => ['throttle', 'bindings']], 
     Route::delete('activitats/{activitat}', 'ApiActivitatsController@destroy');
 
     Route::get('activitats/{activitat}/users', 'ApiActivityUsersController@index');
+    Route::get('activitats/{activitat}/entitats', 'ApiActivityEntitiesController@index');
 //      Route::resource('activitats', 'ApiActivitatsController');
 
     Route::get('/entitats', 'ApiEntitiesController@index');

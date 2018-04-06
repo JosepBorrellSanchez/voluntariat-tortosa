@@ -23,6 +23,9 @@ export default {
     [ types.SET_ACTIVITY_USERS ]: (state, users) => {
         state.activity_volunteers = users
     },
+    [ types.SET_ACTIVITY_ENTITIES ]: (state, entities) => {
+        state.activity_entities = entities
+    },
     [ types.SET_ENTITIES]: (state, entities) => {
         state.entities = entities
     },

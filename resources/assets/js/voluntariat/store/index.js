@@ -14,6 +14,7 @@ const store = new Vuex.Store({
         activitats_user: [],
         activitat: [],
         activity_volunteers: [],
+        activity_entities: [],
         entities: [],
         entity: [],
         volunteers: [],

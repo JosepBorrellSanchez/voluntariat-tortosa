@@ -120,6 +120,17 @@ export default {
         context.commit(mutations.SET_LOADING, false)
       })
     },
+    [ actionTypes.FETCH_ACTIVITY_ENTITIES ]: (context, id) => {
+      context.commit(mutations.SET_LOADING, true)
+      axios.get('api/activitats/' + id + '/entitats').then((response) => {
+        let entities = response.data
+        context.commit(mutations.SET_ACTIVITY_ENTITIES, entities)
+      }).catch((error) => {
+        console.log(error.message)
+      }).then(() => {
+        context.commit(mutations.SET_LOADING, false)
+      })
+    },
     [actionTypes.FETCH_USER]: (context) => {
        axios.get('api/user/active').then((response) => {
          let user = response.data

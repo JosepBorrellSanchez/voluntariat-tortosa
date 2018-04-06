@@ -30,3 +30,7 @@ export const info = state => {
 export const activity_volunteers = state => {
     return state.activity_volunteers
 }
+
+export const activity_entities = state => {
+    return state.activity_entities
+}

@@ -3,14 +3,15 @@
     <router-view
       :activitat="activitat"
       :activity_volunteers="activity_volunteers"
+      :activity_entities="activity_entities"
       @redirect="redirect">
     </router-view>
   </v-app>
 </template>
 
 <script>
-  import * as actionTypes from '../store/action-types'
-  import * as mutationTypes from '../store/mutation-types'
+  import * as actions from '../store/action-types'
+  import * as mutations from '../store/mutation-types'
 
   export default {
     computed: {
@@ -19,7 +20,7 @@
           return this.$store.state.activitat
         },
         set(value) {
-          this.$store.commit(mutationTypes.SET_ACTIVITAT, value)
+          this.$store.commit(mutations.SET_ACTIVITAT, value)
         }
       },
       activity_volunteers: {
@@ -27,7 +28,15 @@
           return this.$store.state.activity_volunteers
         },
         set(value) {
-          this.$store.commit(mutationTypes.SET_ACTIVITY_USERS, value)
+          this.$store.commit(mutations.SET_ACTIVITY_USERS, value)
+        }
+      },
+      activity_entities: {
+        get() {
+          return this.$store.state.activity_entities
+        },
+        set(value) {
+          this.$store.commit(mutations.SET_ACTIVITY_ENTITIES, value)
         }
       }
     },
@@ -39,8 +48,9 @@
     },
     props: ['id'],
     mounted () {
-      this.$store.dispatch(actionTypes.GET_ACTIVITAT, this.id)
-      this.$store.dispatch(actionTypes.FETCH_ACTIVITY_USERS, this.id)
+      this.$store.dispatch(actions.GET_ACTIVITAT, this.id)
+      this.$store.dispatch(actions.FETCH_ACTIVITY_USERS, this.id)
+      this.$store.dispatch(actions.FETCH_ACTIVITY_ENTITIES, this.id)
     }
   }
 </script>
