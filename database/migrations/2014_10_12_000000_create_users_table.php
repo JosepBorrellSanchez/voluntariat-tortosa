@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('api_token', 60)->unique();
-            $table->enum('role', ['admin', 'entity', 'volunteer']);
+            $table->enum('role', ['superAdmin', 'admin', 'entity', 'volunteer']);
             $table->rememberToken();
             $table->timestamps();
         });

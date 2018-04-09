@@ -4,7 +4,8 @@
       :activitat="activitat"
       :activity_volunteers="activity_volunteers"
       :activity_entities="activity_entities"
-      @redirect="redirect">
+      @redirectToVolunteer="redirectToVolunteer"
+      @redirectToEntity="redirectToEntity">
     </router-view>
   </v-app>
 </template>
@@ -41,8 +42,12 @@
       }
     },
     methods: {
-      redirect(id) {
+      redirectToVolunteer(id) {
         let path = '/voluntaris/' + id
+        this.$router.push({ path: path })
+      },
+      redirectToEntity(id) {
+        let path = '/entitats/' + id
         this.$router.push({ path: path })
       }
     },

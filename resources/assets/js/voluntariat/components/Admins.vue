@@ -17,12 +17,15 @@
               <td class="text-xs-left">{{ props.item.name }}</td>
               <td class="text-xs-left">{{ props.item.email }}</td>
               <td class="text-xs-right">
-                <router-link :to="{ path: '/admins/' + props.item.id  }">
-                  <v-icon>mode_edit</v-icon>
-                </router-link>
-                <router-link to="#">
-                  <v-icon @click.stop="sendEmit('delete', props.item)">delete_forever</v-icon>
-                </router-link>
+                <!--<router-link :to="{ path: '/admins/' + props.item.id  }">-->
+                  <!--<v-icon>mode_edit</v-icon>-->
+                <!--</router-link>-->
+                <!--<router-link to="#">-->
+                  <!--<v-icon @click.stop="sendEmit('delete', props.item)">delete_forever</v-icon>-->
+                <!--</router-link>-->
+                <v-btn icon :loading="loading" @click.stop="sendEmit('delete', props.item)">
+                  <v-icon>clear</v-icon>
+                </v-btn>
               </td>
             </tr>
           </template>

@@ -17,6 +17,7 @@
           v-for="(item, i) in items"
           :key="i"
           router :to="item.href"
+          v-if="(item.title === 'Administradors' && roles === 'superAdmin') || item.title !== 'Administradors'"
         >
           <v-list-tile-action>
             <v-icon v-html="item.icon"></v-icon>
@@ -125,6 +126,14 @@ export default {
       },
       set(value) {
         this.$store.commit(mutationTypes.SET_USER, value)
+      }
+    },
+    roles: {
+      get() {
+        return this.$store.state.roles
+      },
+      set(value) {
+        return value
       }
     }
   },

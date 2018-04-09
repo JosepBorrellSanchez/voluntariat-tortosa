@@ -87,6 +87,7 @@ export default {
             context.commit(mutations.SET_ACTIVITAT, activitat)
         })
     },
+    // Refactor: DELETE_USER_ACTIVITY
     [actionTypes.DELETE_ACTIVITAT]: function(context, { activitat, user_id }) {
         context.commit(mutations.SET_LOADING, true)
         axios.delete('api/activitats/' + activitat.id).then((response) => {
@@ -97,6 +98,16 @@ export default {
         }).then(() => {
           context.commit(mutations.SET_LOADING, false)
         })
+    },
+    [ actionTypes.DELETE_ACTIVITY ]: function (context, activitat) {
+      context.commit(mutations.SET_LOADING, true)
+      axios.delete('api/activitats/' + activitat.id).then((reponse) => {
+        context.dispatch(actionTypes.FETCH_ACTIVITATS)
+      }).catch((error) => {
+        console.log(error.message)
+      }).then(() => {
+        context.commit(mutations.SET_LOADING, false)
+      })
     },
     [ actionTypes.DETACH_ACTIVITY ] (context,  { activity, user_id }) {
       context.commit(mutations.SET_LOADING, true)

@@ -13,6 +13,13 @@ class UsersSeeder extends Seeder
   public function run()
   {
 
+    $admin = factory(User::class)->create([
+      'name' => 'Admin',
+      'email' => 'admin@gmail.com',
+      'password' => bcrypt(env('MANAGER_USER_PWD')),
+      'role' => 'admin'
+    ]);
+
     $entitat = factory(User::class)->create([
       'name' => 'Entity',
       'email' => 'user1@gmail.com',

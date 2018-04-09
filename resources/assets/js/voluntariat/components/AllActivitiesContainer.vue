@@ -54,11 +54,11 @@
     },
     methods: {
       deleteActivitat: function (activitat) {
-        this.dialog = true
         this.activitat = activitat
+        this.dialog = true
       },
       destroy: function (activitat) {
-        this.$store.dispatch(actions.DELETE_ACTIVITAT, activitat)
+        this.$store.dispatch(actions.DELETE_ACTIVITY, activitat)
       },
       redirect(id) {
         let path = '/activitats/' + id

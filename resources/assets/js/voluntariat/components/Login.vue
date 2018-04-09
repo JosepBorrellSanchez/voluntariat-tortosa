@@ -61,7 +61,7 @@
           let roles
           axios.get('api/user/roles').then((response) => {
             roles = response.data
-            if (roles.includes('admin')) {
+            if (roles.includes('admin') || roles.includes('superAdmin')) {
               this.$router.push('/admin')
             } else {
               this.$router.push('/dash')

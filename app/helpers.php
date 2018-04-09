@@ -18,20 +18,31 @@ if (!function_exists('initialize_permissions')) {
     Permission::firstOrCreate(['name' => 'show-admin']);
     Permission::firstOrCreate(['name' => 'delete-admin']);
 
+    $roleSuper = Role::firstOrCreate(['name' => 'superAdmin']);
     $role = Role::firstOrCreate(['name' => 'admin']);
     $roleEntitat = Role::firstOrCreate(['name' => 'entity']);
     $roleVoluntari = Role::firstOrCreate(['name' => 'volunteer']);
 
-    $role->givePermissionTo('list-activitats');
-    $role->givePermissionTo('list-entities');
-    $role->givePermissionTo('show-entities');
-    $role->givePermissionTo('delete-entity');
-    $role->givePermissionTo('list-volunteers');
-    $role->givePermissionTo('show-volunteer');
-    $role->givePermissionTo('delete-volunteer');
-    $role->givePermissionTo('list-admins');
-    $role->givePermissionTo('show-admin');
-    $role->givePermissionTo('delete-admin');
+    $role->givePermissionTo(
+      'list-activitats',
+      'list-entities',
+      'show-entities',
+      'delete-entity',
+      'list-volunteers',
+      'show-volunteer',
+      'delete-volunteer',
+      'list-admins');
+    $roleSuper->givePermissionTo(
+      'list-activitats',
+      'list-entities',
+      'show-entities',
+      'delete-entity',
+      'list-volunteers',
+      'show-volunteer',
+      'delete-volunteer',
+      'list-admins',
+      'delete-admin',
+      'show-admin');
     $roleEntitat->givePermissionTo('list-activitats');
     $roleVoluntari->givePermissionTo('list-activitats');
   }
@@ -43,7 +54,7 @@ if (!function_exists('create_user')) {
       'name'     => env('MANAGER_USER_NAME', 'Manager'),
       'email'    => env('MANAGER_USER_EMAIL', 'gerardrey@iesebre.com'),
       'password' => bcrypt(env('MANAGER_USER_PWD')),
-      'role' => 'admin'
+      'role' => 'superAdmin'
     ]);
   }
 }

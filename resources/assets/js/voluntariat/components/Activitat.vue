@@ -51,10 +51,13 @@
                <v-flex xs6 >
                    <v-card class="ma-1">
                        <v-card-title>
-                           <h3>Usuaris inscrits:</h3>
+                           <h3>Voluntaris inscrits:</h3>
                        </v-card-title>
-                       <v-list v-for="user in activity_volunteers" :key="user.name" v-if="activity_volunteers.length > 0">
-                           <v-list-tile avatar @click="sendEmit('redirect', user.id)">
+                       <v-card-text v-if="activity_volunteers.length === 0">
+                           <span>No hi ha voluntaris registrats dins aquesta activitat</span>
+                       </v-card-text>
+                       <v-list v-else v-for="user in activity_volunteers" :key="user.name">
+                           <v-list-tile avatar @click="sendEmit('redirectToVolunteer', user.id)">
                                    <v-list-tile-avatar>
                                        <img :src="user.avatar">
                                    </v-list-tile-avatar>
@@ -63,18 +66,16 @@
                                    </v-list-tile-content>
                            </v-list-tile>
                        </v-list>
-                       <v-card-text v-else>
-                           <span>No hi ha voluntaris registrats dins aquesta activitat</span>
-                       </v-card-text>
                    </v-card>
-               </v-flex>
-               <v-flex xs6 >
                    <v-card class="ma-1">
                        <v-card-title>
                            <h3>Entitats organitzatives:</h3>
                        </v-card-title>
-                       <v-list v-for="entity in activity_entities" :key="entity.name" v-if="activity_entities.length > 0">
-                           <v-list-tile avatar @click="">
+                       <v-card-text v-if="activity_entities.length === 0">
+                           <span>No s'han trobat entitats organitzatives</span>
+                       </v-card-text>
+                       <v-list v-else v-for="entity in activity_entities" :key="entity.name">
+                           <v-list-tile avatar @click="sendEmit('redirectToEntity', entity.id)">
                                <v-list-tile-avatar>
                                    <img :src="entity.avatar">
                                </v-list-tile-avatar>
@@ -83,11 +84,28 @@
                                </v-list-tile-content>
                            </v-list-tile>
                        </v-list>
-                       <v-card-text v-else>
-                           <span>No s'han trobat entitats organitzatives</span>
-                       </v-card-text>
                    </v-card>
                </v-flex>
+               <!--<v-flex xs6 >-->
+                   <!--<v-card class="ma-1">-->
+                       <!--<v-card-title>-->
+                           <!--<h3>Entitats organitzatives:</h3>-->
+                       <!--</v-card-title>-->
+                       <!--<v-card-text v-if="activity_entities.length === 0">-->
+                           <!--<span>No s'han trobat entitats organitzatives</span>-->
+                       <!--</v-card-text>-->
+                       <!--<v-list v-else v-for="entity in activity_entities" :key="entity.name">-->
+                           <!--<v-list-tile avatar @click="">-->
+                               <!--<v-list-tile-avatar>-->
+                                   <!--<img :src="entity.avatar">-->
+                               <!--</v-list-tile-avatar>-->
+                               <!--<v-list-tile-content>-->
+                                   <!--<v-list-tile-title v-text="entity.name"></v-list-tile-title>-->
+                               <!--</v-list-tile-content>-->
+                           <!--</v-list-tile>-->
+                       <!--</v-list>-->
+                   <!--</v-card>-->
+               <!--</v-flex>-->
            </v-layout>
        </v-container>
        <!--</transition>-->
