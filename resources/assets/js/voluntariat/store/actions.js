@@ -119,6 +119,14 @@ export default {
         context.commit(mutations.SET_LOADING, false)
       })
     },
+    [ actionTypes.DETACH_VOLUNTEER ]: (context, volunteer) => {
+      context.commit(mutations.SET_LOADING, true)
+      axios.delete('api/activitats/voluntaris/' + volunteer.id).then((response) => {
+        context.dispatch(actionTypes.FETCH_ACTIVITY_USERS)
+      }).catch((error) => {
+
+      })
+    },
     [ actionTypes.FETCH_ACTIVITY_USERS ]: (context, id) => {
       context.commit(mutations.SET_LOADING, true)
       axios.get('api/activitats/' + id + '/users').then((response) => {

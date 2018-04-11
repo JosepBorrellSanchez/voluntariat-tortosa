@@ -58,12 +58,17 @@
                        </v-card-text>
                        <v-list v-else v-for="user in activity_volunteers" :key="user.name">
                            <v-list-tile avatar @click="sendEmit('redirectToVolunteer', user.id)">
-                                   <v-list-tile-avatar>
-                                       <img :src="user.avatar">
-                                   </v-list-tile-avatar>
-                                   <v-list-tile-content>
-                                       <v-list-tile-title v-text="user.name"></v-list-tile-title>
-                                   </v-list-tile-content>
+                               <v-list-tile-avatar>
+                                   <img :src="user.avatar">
+                               </v-list-tile-avatar>
+                               <v-list-tile-content>
+                                   <v-list-tile-title v-text="user.name"></v-list-tile-title>
+                               </v-list-tile-content>
+                               <v-list-tile-action>
+                                  <v-btn icon :loading="loading" @click.stop="sendEmit('deleteUser', user)">
+                                      <v-icon>clear</v-icon>
+                                  </v-btn>
+                               </v-list-tile-action>
                            </v-list-tile>
                        </v-list>
                    </v-card>
@@ -82,6 +87,11 @@
                                <v-list-tile-content>
                                    <v-list-tile-title v-text="entity.name"></v-list-tile-title>
                                </v-list-tile-content>
+                               <v-list-tile-action>
+                                   <v-btn icon :loading="loading" @click.stop="sendEmit('deleteEntity', entity)">
+                                       <v-icon>clear</v-icon>
+                                   </v-btn>
+                               </v-list-tile-action>
                            </v-list-tile>
                        </v-list>
                    </v-card>
