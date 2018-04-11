@@ -49,6 +49,10 @@ const router = new Router({
     {
       path: '/admin',
       component: AdminMainLayout,
+      meta: {
+        requiresAuth: true,
+        admin: true
+      },
       children: [
         {
           path: '/admin',
@@ -127,6 +131,9 @@ const router = new Router({
         {
           path: '/admins',
           component: AdminsContainer,
+          meta: {
+            superAdmin: true
+          },
           children: [
             {
               path: '/admins',
@@ -139,6 +146,9 @@ const router = new Router({
           path: '/admins/:id',
           component: AdminContainer,
           props: true,
+          meta: {
+            superAdmin: true
+          },
           children: [
             {
               path: '/admins/:id',
@@ -201,17 +211,26 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth) && ( !store.state.token || store.state.token === null)) {
-    window.console.log('Not authenticated')
-    next({
-      path: '/login',
-      query: { redirect: to.fullPath }
-    })
+  if(to.matched.some(record => record.meta.admin) && (store.state.roles !== 'admin' && store.state.roles !== 'superAdmin')) {
+    window.console.log('Not allowed')
+    next({ path: '/dash' })
   } else {
-    next()
+    if(to.matched.some(record => record.meta.superAdmin) && store.state.roles !== 'superAdmin') {
+      console.log('Not allowed')
+      next({ path: '/admin' })
+    } else {
+      if (to.matched.some(record => record.meta.requiresAuth) && ( !store.state.token || store.state.token === null)) {
+        window.console.log('Not authenticated')
+        next({
+          path: '/login',
+          query: { redirect: to.fullPath }
+        })
+      } else {
+        next()
+      }
+    }
   }
+
 })
 
 export default router
-
-
