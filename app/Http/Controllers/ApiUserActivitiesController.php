@@ -11,7 +11,12 @@ use Illuminate\Support\Facades\Auth;
 class ApiUserActivitiesController extends Controller
 {
   public function index(ListActivitats $request, User $user) {
-    $activitats = $user->registeredActivities;
+    $rolename = $user->role;
+    if($rolename = 'entity') {
+      $activitats = $user->activitats;
+    } else {
+      $activitats = $user->registeredActivities;
+    }
     return $activitats;
   }
 

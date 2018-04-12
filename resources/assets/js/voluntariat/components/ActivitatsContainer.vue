@@ -31,7 +31,8 @@
     data () {
       return {
         dialog: false,
-        activitat: null
+        activitat: null,
+        user: null
       }
     },
     computed: {
@@ -60,9 +61,9 @@
       destroy: function (activitat) {
         let roles = this.$store.state.roles
         if(roles === "volunteer") {
-          this.$store.dispatch(actions.DETACH_ACTIVITY, activitat)
+          this.$store.dispatch(actions.DETACH_ACTIVITY, { activitat: activitat, user_id: this.user.id })
         } else {
-          this.$store.dispatch(actions.DELETE_ACTIVITAT, activitat)
+          this.$store.dispatch(actions.DELETE_ACTIVITAT, { activitat: activitat, user_id: this.user.id })
         }
       },
       redirect: function (id) {
@@ -71,8 +72,8 @@
       }
     },
     mounted () {
-      let user = this.$store.state.user
-      this.$store.dispatch(actions.FETCH_ACTIVITATS_USER, user.id)
+      this.user = this.$store.state.user
+      this.$store.dispatch(actions.FETCH_ACTIVITATS_USER, this.user.id)
     }
   }
 </script>

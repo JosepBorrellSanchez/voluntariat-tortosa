@@ -6,7 +6,7 @@ Vue.use(Router)
 
 import Landing from '../components/Landing'
 import Login from '../components/Login'
-import MainLayout from '../components/layouts/MainLayout'
+import EntityMainLayout from '../components/layouts/EntityMainLayout'
 import ActivitatsContainer from '../components/ActivitatsContainer'
 import Activitats from '../components/Activitats'
 import ActivitatContainer from '../components/ActivitatContainer'
@@ -160,15 +160,15 @@ const router = new Router({
       ]
     },
     {
-      path: '/app',
+      path: '/entity',
       name: 'Layout',
-      component: MainLayout,
+      component: EntityMainLayout,
       meta: {
         requiresAuth: true
       },
       children: [
         {
-          path: '/dash',
+          path: '/entity',
           name: 'Dashboard',
           component: Dashboard,
         },

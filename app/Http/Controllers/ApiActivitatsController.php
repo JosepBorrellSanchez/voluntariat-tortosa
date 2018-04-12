@@ -105,4 +105,12 @@ class ApiActivitatsController extends Controller
 
         return $activitat;
     }
+
+    public function detachVolunteer(Request $request, Activitat $activitat, User $user) {
+      $activitat->volunteers()->detach($user);
+    }
+
+    public function detachEntity(Request $request, Activitat $activitat, User $user) {
+      $activitat->entitat()->detach($user);
+    }
 }

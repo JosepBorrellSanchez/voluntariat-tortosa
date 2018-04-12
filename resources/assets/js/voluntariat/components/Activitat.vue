@@ -96,26 +96,6 @@
                        </v-list>
                    </v-card>
                </v-flex>
-               <!--<v-flex xs6 >-->
-                   <!--<v-card class="ma-1">-->
-                       <!--<v-card-title>-->
-                           <!--<h3>Entitats organitzatives:</h3>-->
-                       <!--</v-card-title>-->
-                       <!--<v-card-text v-if="activity_entities.length === 0">-->
-                           <!--<span>No s'han trobat entitats organitzatives</span>-->
-                       <!--</v-card-text>-->
-                       <!--<v-list v-else v-for="entity in activity_entities" :key="entity.name">-->
-                           <!--<v-list-tile avatar @click="">-->
-                               <!--<v-list-tile-avatar>-->
-                                   <!--<img :src="entity.avatar">-->
-                               <!--</v-list-tile-avatar>-->
-                               <!--<v-list-tile-content>-->
-                                   <!--<v-list-tile-title v-text="entity.name"></v-list-tile-title>-->
-                               <!--</v-list-tile-content>-->
-                           <!--</v-list-tile>-->
-                       <!--</v-list>-->
-                   <!--</v-card>-->
-               <!--</v-flex>-->
            </v-layout>
        </v-container>
        <!--</transition>-->
@@ -136,9 +116,6 @@
 </style>
 
 <script>
-    import * as actionTypes from '../store/action-types'
-    import * as mutationTypes from '../store/mutation-types'
-
     export default {
         data () {
             return {
@@ -151,7 +128,8 @@
         props: [
           'activitat',
           'activity_volunteers',
-          'activity_entities'
+          'activity_entities',
+          'loading'
         ],
         methods: {
           sendEmit(message, value) {

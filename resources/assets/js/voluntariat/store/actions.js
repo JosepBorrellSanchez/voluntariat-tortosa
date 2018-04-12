@@ -119,12 +119,24 @@ export default {
         context.commit(mutations.SET_LOADING, false)
       })
     },
-    [ actionTypes.DETACH_VOLUNTEER ]: (context, volunteer) => {
+    [ actionTypes.DETACH_VOLUNTEER ]: (context,  { user, activityId }) => {
       context.commit(mutations.SET_LOADING, true)
-      axios.delete('api/activitats/voluntaris/' + volunteer.id).then((response) => {
-        context.dispatch(actionTypes.FETCH_ACTIVITY_USERS)
+      axios.delete('api/activitats/' + activityId + '/voluntaris/' + user.id).then((response) => {
+        context.dispatch(actionTypes.FETCH_ACTIVITY_USERS, activityId)
       }).catch((error) => {
-
+        console.log(error.message)
+      }).then(() => {
+        context.commit(mutations.SET_LOADING, false)
+      })
+    },
+    [ actionTypes.DETACH_ENTITY ]: (context, { user, activityId}) => {
+      context.commit(mutations.SET_LOADING, true)
+      axios.delete('api/activitats/' + activityId + '/entitats/' + user.id).then((reponse) => {
+        context.dispatch(actionTypes.FETCH_ACTIVITY_ENTITIES, activityId)
+      }).catch((error) => {
+        console.log(error.message)
+      }).then(() => {
+        context.commit(mutations.SET_LOADING, false)
       })
     },
     [ actionTypes.FETCH_ACTIVITY_USERS ]: (context, id) => {

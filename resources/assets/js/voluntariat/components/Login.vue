@@ -63,17 +63,14 @@
             roles = response.data
             if (roles.includes('admin') || roles.includes('superAdmin')) {
               this.$router.push('/admin')
-            } else {
-              this.$router.push('/dash')
+            } else if (roles.includes('entity')){
+              this.$router.push('/entity')
             }
           }).catch((error) => {
             console.log(error)
           })
-//          window.location = '/home'  WEB!!!
         }).catch(error => {
           console.log(error)
-          // this.loginErrorMessage = error.response.data.message
-          // this.loginErrors = error.response.data.errors
         }).then(() => {
           // this.loginLoading = true
         })
