@@ -30,6 +30,7 @@ import AdminsContainer from '../components/AdminsContainer'
 import Admins from '../components/Admins'
 import AdminContainer from '../components/AdminContainer'
 import Admin from '../components/Admin'
+import CreateActivity from '../components/CreateActivity'
 
 import NotFoundComponent from '../components/NotFoundComponent'
 
@@ -194,6 +195,11 @@ const router = new Router({
               component: Activitat
             }
           ]
+        },
+        {
+          path: '/crear_activitat',
+          name: 'CrearActivitat',
+          component: CreateActivity
         },
         {
           path: '/inbox',
