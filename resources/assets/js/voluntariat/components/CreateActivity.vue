@@ -11,6 +11,7 @@
           </v-card-title>
           <v-card-text>
             <v-form v-model="valid">
+              <!--select user-->
               <v-layout row wrap v-if="this.role === 'superAdmin'">
                 <v-flex xs6>
                   <v-subheader>Entitat organitzadora</v-subheader>
@@ -18,24 +19,135 @@
                 <v-flex xs6>
                   <v-select
                     :items="entities"
-                    v-model="select"
+                    v-model="userSelected"
                     label="Select"
                     single-line
                     item-text="name"
                     return-object
-                    :hint="`${select.name}`"
-                    persistent-hint
-                  ></v-select>
+                    :hint="`${userSelected.name}`"
+                    persistent-hint>
+                  </v-select>
                 </v-flex>
               </v-layout>
-              <!--select user-->
               <!--input text nom activitat-->
+              <v-layout row wrap>
+                <v-text-field
+                  label="Name"
+                  v-model="entity.name"
+                  :rules="nameRules"
+                  :counter="40"
+                  required>
+                </v-text-field>
+              </v-layout>
               <!--select ambit-->
+              <v-layout row wrap>
+                <v-flex xs6>
+                  <v-subheader>Àmbit:</v-subheader>
+                </v-flex>
+                <v-flex xs6>
+                  <v-select
+                    :items="ambits"
+                    v-model="entity.ambit"
+                    label="Select"
+                    single-line
+                    item-text="name"
+                    return-object
+                    persistent-hint>
+                  </v-select>
+                </v-flex>
+              </v-layout>
               <!--input text descripcio-->
+              <v-layout row wrap>
+                <v-text-field
+                  label="Descripció"
+                  v-model="entity.description"
+                  :rules="descriptionRules"
+                  :counter="255">
+                </v-text-field>
+              </v-layout>
               <!--input text destinataris-->
+              <v-layout row wrap>
+                <v-text-field
+                  label="Destinataris"
+                  v-model="entity.destinataris"
+                  :rules="destinatarisRules"
+                  :counter="40"
+                  required>
+                </v-text-field>
+              </v-layout>
               <!--time hora_inici-->
-              <!--time hora_fi-->
+              <v-layout row wrap>
+                <v-flex xs12 md5>
+                  <v-menu
+                    ref="menu"
+                    lazy
+                    :close-on-content-click="false"
+                    v-model="menu1"
+                    transition="scale-transition"
+                    offset-y
+                    full-width
+                    :nudge-right="40"
+                    max-width="290px"
+                    min-width="290px"
+                    :return-value.sync="entity.hora_inici"
+                  >
+                    <v-text-field
+                      slot="activator"
+                      label="Hora inici"
+                      v-model="entity.hora_inici"
+                      prepend-icon="access_time"
+                      readonly>
+                    </v-text-field>
+                    <v-time-picker v-model="entity.hora_inici" @change="$refs.menu.save(entity.hora_inici)">
+                    </v-time-picker>
+                  </v-menu>
+                </v-flex>
+                <v-spacer>
+                </v-spacer>
+                <!--time hora_fi-->
+                <v-flex xs12 md5>
+                  <v-menu
+                    ref="menu"
+                    lazy
+                    :close-on-content-click="false"
+                    v-model="menu2"
+                    transition="scale-transition"
+                    offset-y
+                    full-width
+                    :nudge-right="40"
+                    max-width="290px"
+                    min-width="290px"
+                    :return-value.sync="entity.hora_fi"
+                  >
+                    <v-text-field
+                      slot="activator"
+                      label="Hora fi"
+                      v-model="entity.hora_fi"
+                      prepend-icon="access_time"
+                      readonly>
+                    </v-text-field>
+                    <v-time-picker v-model="entity.hora_fi" @change="$refs.menu.save(entity.hora_fi)">
+                    </v-time-picker>
+                  </v-menu>
+                </v-flex>
+              </v-layout>
               <!--select tipus_horari-->
+              <v-layout row wrap>
+                <v-flex xs6>
+                  <v-subheader>Tipus horari</v-subheader>
+                </v-flex>
+                <v-flex xs6>
+                  <v-select
+                    :items="tipus_horaris"
+                    v-model="entity.tipus_horari"
+                    label="Select"
+                    single-line
+                    item-text="name"
+                    return-object
+                    persistent-hint>
+                  </v-select>
+                </v-flex>
+              </v-layout>
               <!--input int num_voluntaris_necessaris-->
               <!--input text coneixements_req-->
               <!--input text habititats_req-->
@@ -63,12 +175,34 @@
     data() {
       return {
         valid: false,
-        select: { name: 'Entity' },
-        // items: [
-        //   { name: 'Pepe' },
-        //   { name: 'Josep' }
-        // ],
-        role: null
+        entity: {},
+        nameRules: [
+          v => !!v || 'Name is required',
+          v => (v && v.length <= 40) || 'Name must be less than 10 characters'
+        ],
+        descriptionRules: [
+          v => (v && v.length <= 255) || "La descripció no pot excedir els 255 caràcters"
+        ],
+        destinatarisRules: [
+          v => (v && v.length <= 40) || "Els destinataris no poden excedir els 40 caràcters"
+        ],
+        userSelected: { name: 'Entity' },
+        ambitSelected: { ambit: 'Default' },
+        ambits: [
+          { name: 'Cultura'},
+          { name: 'Escolar'},
+          { name: 'Artístic'},
+          { name: 'Esportiu'},
+          { name: 'Lleure' },
+          { name: 'Suport'}
+        ],
+        tipus_horaris: [
+          { name: 'Puntual' },
+          { name: 'Periòdic' }
+        ],
+        role: null,
+        menu1: false,
+        menu2: false,
       }
     },
     computed: {
