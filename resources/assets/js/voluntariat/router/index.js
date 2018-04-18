@@ -165,7 +165,8 @@ const router = new Router({
       name: 'Layout',
       component: EntityMainLayout,
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        // entity: true
       },
       children: [
         {

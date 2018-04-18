@@ -20,7 +20,7 @@ class CreateInfo
     }
 
     /**
-     * Handle the event.
+     * Crea una relació Usuari->info depenent del seu rol
      *
      * @param  object  $event
      * @return void

@@ -18,7 +18,7 @@ class AssignUserRoles
     }
 
     /**
-     * Handle the event.
+     * Assigna el rol a l'usuari
      *
      * @param  object  $event
      * @return void

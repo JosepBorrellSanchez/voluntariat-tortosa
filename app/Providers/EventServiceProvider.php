@@ -13,14 +13,16 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\Event' => [
-            'App\Listeners\EventListener',
-        ],
+//        'App\Events\Event' => [
+//            'App\Listeners\EventListener',
+//        ],
+        // Cada vegada que es dispara un event UserCreated s'executen el següent listeners
         'App\Events\UserCreated' => [
           'App\Listeners\AssignUserRoles',
 //          'App\Listeners\SendWelcomeMail',
           'App\Listeners\CreateInfo'
         ],
+        // Cada vegada que es dispara un event ActivityCreated s'executa el listener AssignActivityProperty
         'App\Events\ActivityCreated' => [
           'App\Listeners\AssignActivityProperty'
         ]

@@ -14,6 +14,10 @@ use App\User;
 
 class UserObserver
 {
+  /**
+   * Cada vegada que es crea un nou Usuari, aquesta funció dispara
+   * un nou Event UserCreated
+   */
   public function created(User $user) {
     event(new UserCreated($user));
   }

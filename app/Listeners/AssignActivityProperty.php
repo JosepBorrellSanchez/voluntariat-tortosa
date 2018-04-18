@@ -18,7 +18,7 @@ class AssignActivityProperty
     }
 
     /**
-     * Handle the event.
+     * Assigna la propietat de la nova activitat a l'usuari que l'ha creat
      *
      * @param  object  $event
      * @return void
