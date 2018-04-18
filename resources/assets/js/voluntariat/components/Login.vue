@@ -12,7 +12,8 @@
                 v-model="email"
                 id="email"
                 type="email"
-                required></v-text-field>
+                required>
+              </v-text-field>
             </v-flex>
             <v-flex>
               <v-text-field
@@ -21,7 +22,8 @@
                 v-model="password"
                 id="password"
                 type="password"
-                required></v-text-field>
+                required>
+              </v-text-field>
             </v-flex>
             <v-flex class="text-xs-center" mt-5>
               <v-btn primary type="submit">Login</v-btn>
@@ -37,7 +39,6 @@
 <script>
 
   import * as actions from '../store/action-types'
-  import * as getters from '../store/getters'
   import axios from 'axios'
 
   export default {

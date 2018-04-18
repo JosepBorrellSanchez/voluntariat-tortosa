@@ -46,21 +46,6 @@ Paquets i frameworks necessaris per a correr l'aplicació
 - Vue (JavaScript): https://vuejs.org/
 - Vuetify (JavaScript): https://vuetifyjs.com/ (Estils)
 
-# Fitxers i directoris d'interés
-
-- /App/Providers/AppServiceProvider.php [ més info ](https://laravel.com/docs/5.6/providers)
-- /App/Providers/EventServiceProvider.php [ més info ](https://laravel.com/docs/5.0/events)
-- /App/Listeners [ més info ](https://laravel.com/docs/5.6/events#defining-listeners)
-- /App/Observers [ més info ](https://laravel.com/docs/5.6/eloquent#events)
-- /App/Events [ més info ](https://laravel.com/docs/5.6/events)
-- /App/Http/Controllers [ més info ](https://laravel.com/docs/5.6/controllers)
-- /database/factories [ més info ](https://laravel.com/docs/5.6/seeding#using-model-factories)
-- /database [ más info ](https://laravel.com/docs/5.6/migrations)
-
-## Fitxers d'inici
-
-El primer fitxer encarregat de carregar
-
 # Instal·lació
 
 Obrir un terminal i accedir a la carpeta on es desarà el projecte i clonar el projecte amb la comanda clone:
@@ -85,11 +70,57 @@ En cas de voler omplir la base de dades amb dades de mostra, executarem aquesta 
 
 Trobaràs més informació sobre les dades de mostra aqui.
 
-# Usuaris
+# Fitxers i directoris d'interés
+
+- /App/Providers/AppServiceProvider.php [ més info ](https://laravel.com/docs/5.6/providers)
+- /App/Providers/EventServiceProvider.php [ més info ](https://laravel.com/docs/5.0/events)
+- /App/Listeners [ més info ](https://laravel.com/docs/5.6/events#defining-listeners)
+- /App/Observers [ més info ](https://laravel.com/docs/5.6/eloquent#events)
+- /App/Events [ més info ](https://laravel.com/docs/5.6/events)
+- /App/Http/Controllers [ més info ](https://laravel.com/docs/5.6/controllers)
+- /database/factories [ més info ](https://laravel.com/docs/5.6/seeding#using-model-factories)
+- /database [ más info ](https://laravel.com/docs/5.6/migrations)
+
+# Base de dades
+
+( Foto base de dades + petit analisi)
+
+# Models
+
+## User
 
 Els usuaris parteixen del mateix model `User.php`, que es troba al directory `/App`. [ Més informació sobre els models Eloquent ](https://laravel.com/docs/5.6/eloquent)
 
+### Model (/app/User.php)
 
+- Atributs: name, email, password, api_token
+
+#### Funcions
+ 
+- activitats: Retorna una [ col·lecció ](https://laravel.com/docs/5.6/collections) de les activitats pertanyents a un usuari amb el rol d'entitat
+
+- registeredActivities: Retorna un [ col·lecció ](https://laravel.com/docs/5.6/collections) de les activitats on es troba registrat un usuari amb el rol de voluntari
+
+- assignEntitat: Assigna un usuari amb un rol voluntari a un usuari amb rol entitat
+
+- info: Retorna un objecte EntityInfo/VolunteerInfo relacionat amb l'usuari depenent del seu rol
+
+### Rols
+
+Un usuari pertany a un únic rol (superAdmin, Admin, Entity o Volunteer) el qual li és assignat 
+a través de l'atribut `role` quan es crea el nou usuari.
+
+Exemple de creació d'usuari:
+
+    User::create([
+        'name' => 'New User',
+        'email' => 'user@email.com',
+        'password' => '123456', // preferiblement utilitzar funció bcrypt() i demanar contrasenya des de l'enviroment
+        'role' => 'admin'
+    ])
+
+Al crear l'usuari, l'`UserObserver`  llença l'event `UserCreated` que s'encarrega d'assignar el rol
+a través de l'atribut `role` amb el que s'ha creat l'usuari.
 
 # Rutes
 
