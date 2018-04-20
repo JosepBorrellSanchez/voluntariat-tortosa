@@ -9,27 +9,27 @@ Projecte creat amb Laravel i Vue.
 # INDEX
 
 - [ Eines ](#eines)
-    - Gestors de paquets
-    - Frameworks
-- Instal·lació
-- Fitxers i directoris d'interés
-- Models
-    - User
-        - Model
-        - Rols
-        - Info
-    - Activitat
-        - Model
-        - Dades
-    - EntityInfo
-        - Model
-        - Dades
-    - VolunteerInfo
-        - Model
-        - Dades
-- Base de dades 
-- Rutes
-- Components Vue
+    - [ Gestors de paquets ](#gestor-de-paquets)
+    - [ Frameworks ](#frameworks)
+- [ Instal·lació ](#instal·lació)
+- [ Fitxers i directoris d'interés ](#fitxers-i-directoris-d'interes)
+- [ Models ](#models)
+    - [ User ](#user)
+        - [ Model](#model-1)
+        - [ Rols ](#rols-1)
+        - [ Info ](#info-1)
+    - [ Activitat ](#activitat)
+        - [ Model ](#model-2)
+        - [ Dades ](#dades-1)
+    - [ EntityInfo ](#entityinfos)
+        - [ Model ](#model-3)
+        - [ Dades ](#dades-2)
+    - [ VolunteerInfo ](#volunteer-info)
+        - [ Model ](#model-4)
+        - [ Dades ](#dades-3)
+- [ Base de dades ](#base-de-dades)
+- [ Rutes ](#rutes)
+- [ Components Vue ](#components-vue)
 
 ## Eines
 
@@ -130,6 +130,16 @@ Exemple de creació d'usuari:
 
 Al crear l'usuari, l'`UserObserver`  llença l'event `UserCreated` que s'encarrega d'assignar el rol
 a través de l'atribut `role` amb el que s'ha creat l'usuari.
+
+## Activitat
+### Model
+### Dades
+## EntityInfo
+### Model
+### Dades
+## VolunteerInfo
+### Model
+### Dades
 
 # Base de dades
 
