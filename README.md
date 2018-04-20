@@ -13,7 +13,6 @@ Projecte creat amb Laravel i Vue.
     - Frameworks
 - Instal·lació
 - Fitxers i directoris d'interés
-- Base de dades 
 - Models
     - User
         - Model
@@ -28,6 +27,7 @@ Projecte creat amb Laravel i Vue.
     - VolunteerInfo
         - Model
         - Dades
+- Base de dades 
 - Rutes
 - Components Vue
 
@@ -89,11 +89,6 @@ Trobaràs més informació sobre les dades de mostra aqui.
 - /database/factories [ més info ](https://laravel.com/docs/5.6/seeding#using-model-factories)
 - /database [ más info ](https://laravel.com/docs/5.6/migrations)
 
-# Base de dades
-
-![database](database_croquis.png)
-( Foto base de dades + petit analisi)
-
 # Models
 
 ## User
@@ -135,6 +130,33 @@ Exemple de creació d'usuari:
 
 Al crear l'usuari, l'`UserObserver`  llença l'event `UserCreated` que s'encarrega d'assignar el rol
 a través de l'atribut `role` amb el que s'ha creat l'usuari.
+
+# Base de dades
+
+Cal destacar que el següent apartat descriu la DB i el seu funcionament en l'estat
+actual de l'aplicació, però és molt probable que la DB hagi de cambiar de forma o
+creixer.
+
+A continuació es mostra un petit resum de com funcionaria la base de dades, 
+però fa falta llegir les migracions per a entendre correctament el seu funcionament
+
+![database](database_croquis.png)
+
+Com es pot veure la taula principal és usuaris, l'aplicació depenent del rol de l'usuari determina quines
+realacions de taules hi haurà a la base de dades.
+
+Quan es crea un usuari amb el rol `admin` o `superAdmin`, unicament es crea un registre
+usuari sense cap tipus de relació.
+    
+En el cas de que es creï un usuari amb el rol `entitat`, l'aplicació s'encarrega de generar una
+nova entrada a la taula `entity_infos` relacionada amb l'usuari a través de l'id.
+Cada vegada que l'entitat creï una activitat, es genera una nova entrada a la taula 
+`activitats` relacionada amb l'usuari també a través del seu id.
+
+En el cas de que es creï un usuari amb el rol `volunteer`, l'aplicació s'encarrega
+de generar una nova entrada a la taula `volunteer_infos` relacionada amb l'usuari
+a través de l'id. Cada vegada que el voluntari creï s'inscriu a una activitat, es genera una nova
+entrada a la taula `activitat_usuaris` que relaciona el voluntari amb l'activitat.
 
 # Rutes
 
