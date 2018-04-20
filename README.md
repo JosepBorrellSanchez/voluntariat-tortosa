@@ -59,6 +59,14 @@ necessaris:
         $ composer install
         $ npm install
 
+Generem un nou enviroment executant:
+
+        $ cp .env.example .env
+
+I generem la key amb:
+
+        $ php artisan key:generate
+
 I per últim executem les migracions:
 
         $ php artisan migrate:fresh
@@ -83,6 +91,7 @@ Trobaràs més informació sobre les dades de mostra aqui.
 
 # Base de dades
 
+![database](database_croquis.png)
 ( Foto base de dades + petit analisi)
 
 # Models
@@ -107,6 +116,11 @@ Els usuaris parteixen del mateix model `User.php`, que es troba al directory `/A
 
 ### Rols
 
+- SuperAdmin: Controla tota l'aplicació i pot gestionar els administradors, entitats i voluntaris 
+- Admin: Controla tota l'aplicació menys la possibilitat de gestionar altres administradors i pot gestionar les entitats i voluntaris 
+- Entity: Controla el seu usuari, pot crear i gestionar les seves activitats
+- Volunteer: Controla el seu usuari, pot inscriures i desinscriure's d'una activitat
+
 Un usuari pertany a un únic rol (superAdmin, Admin, Entity o Volunteer) el qual li és assignat 
 a través de l'atribut `role` quan es crea el nou usuari.
 
@@ -115,7 +129,7 @@ Exemple de creació d'usuari:
     User::create([
         'name' => 'New User',
         'email' => 'user@email.com',
-        'password' => '123456', // preferiblement utilitzar funció bcrypt() i demanar contrasenya des de l'enviroment
+        'password' => '123456', // preferiblement utilitzar funció bcrypt() per encriptar la contrasenya 
         'role' => 'admin'
     ])
 
@@ -125,6 +139,7 @@ a través de l'atribut `role` amb el que s'ha creat l'usuari.
 # Rutes
 
 Gestionades per paquet [ vue-router ](https://router.vuejs.org/en/) es troben a `resources/assets/js/voluntariat/router/index.js`
+Els components vue són carregats amb [ Lazy loading ](https://router.vuejs.org/en/advanced/lazy-loading.html)
 
 - /: Landing.vue
 - (TODO)/register: Register.vue

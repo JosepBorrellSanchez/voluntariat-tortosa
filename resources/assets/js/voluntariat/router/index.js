@@ -4,35 +4,33 @@ import store from '../store'
 
 Vue.use(Router)
 
-import Landing from '../components/Landing'
-import Login from '../components/Login'
-import EntityMainLayout from '../components/layouts/EntityMainLayout'
-import ActivitatsContainer from '../components/ActivitatsContainer'
-import Activitats from '../components/Activitats'
-import ActivitatContainer from '../components/ActivitatContainer'
-import Activitat from '../components/Activitat'
-import Dashboard from '../components/Dashboard'
-import Inbox from '../components/Inbox'
-
-import AdminMainLayout from '../components/layouts/AdminMainLayout'
-import AdminDashboard from '../components/AdminDashboard'
-import AllActivitiesContainer from '../components/AllActivitiesContainer'
-import AllActivities from '../components/AllActivities'
-import EntitiesContainer from '../components/EntitiesContainer'
-import Entities from '../components/Entities'
-import EntityContainer from '../components/EntityContainer'
-import Entity from '../components/Entity'
-import VolunteersContainer from '../components/VolunteersContainer'
-import Volunteers from '../components/Volunteers'
-import VolunteerContainer from '../components/VolunteerContainer'
-import Volunteer from '../components/Volunteer'
-import AdminsContainer from '../components/AdminsContainer'
-import Admins from '../components/Admins'
-import AdminContainer from '../components/AdminContainer'
-import Admin from '../components/Admin'
-import CreateActivity from '../components/CreateActivity'
-
-import NotFoundComponent from '../components/NotFoundComponent'
+const Landing = () => System.import('../components/Landing.vue');
+const Login = () => System.import('../components/Login')
+const EntityMainLayout = () => System.import('../components/layouts/EntityMainLayout')
+const ActivitatsContainer = () => System.import('../components/ActivitatsContainer')
+const Activitats = () => System.import('../components/Activitats')
+const ActivitatContainer = () => System.import('../components/ActivitatContainer')
+const Activitat = () => System.import('../components/Activitat')
+const Dashboard = () => System.import('../components/Dashboard')
+const Inbox = () => System.import('../components/Inbox')
+const AdminMainLayout = () => System.import('../components/layouts/AdminMainLayout')
+const AdminDashboard = () => System.import('../components/AdminDashboard')
+const AllActivitiesContainer = () => System.import('../components/AllActivitiesContainer')
+const AllActivities = () => System.import('../components/AllActivities')
+const EntitiesContainer = () => System.import('../components/EntitiesContainer')
+const Entities = () => System.import('../components/Entities')
+const EntityContainer = () => System.import('../components/EntityContainer')
+const Entity = () => System.import('../components/Entity')
+const VolunteersContainer = () => System.import('../components/VolunteersContainer')
+const Volunteers = () => System.import('../components/Volunteers')
+const VolunteerContainer = () => System.import('../components/VolunteerContainer')
+const Volunteer = () => System.import('../components/Volunteer')
+const AdminsContainer = () => System.import('../components/AdminsContainer')
+const Admins = () => System.import('../components/Admins')
+const AdminContainer = () => System.import('../components/AdminContainer')
+const Admin = () => System.import('../components/Admin')
+const CreateActivity = () => System.import('../components/CreateActivity')
+const NotFoundComponent = () => System.import('../components/NotFoundComponent')
 
 
 const router = new Router({
