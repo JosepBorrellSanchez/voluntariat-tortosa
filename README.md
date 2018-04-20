@@ -15,7 +15,7 @@ Projecte creat amb Laravel i Vue.
 - [ Fitxers i directoris d'interés ](#fitxers-i-directoris-d'interes)
 - [ Models ](#models)
     - [ User ](#user)
-        - [ Model](#model-1)
+        - [ Model ](#model-1)
         - [ Rols ](#rols-1)
         - [ Info ](#info-1)
     - [ Activitat ](#activitat)
