@@ -108,13 +108,13 @@ A continuació és fa un petit resum de cadascun: ([ informació més detallada 
 
 - actions.js: Conté totes les [ actions ](https://vuex.vuejs.org/en/actions.html) disponibles per a ús de l'aplicació
 
-- action-types.js: Conté tots els noms de totes les [ actions ](https://vuex.vuejs.org/en/actions.html) definides al fitxer "actions.js", actua d'enllaç entre el
-fitxer "actions.js" i qualsevol component que vulgui utilitzar alguna "action".
+- action-types.js: Conté tots els noms de totes les [ actions ](https://vuex.vuejs.org/en/actions.html) definides al fitxer `actions.js`, actua d'enllaç entre el
+fitxer `actions.js` i qualsevol component que vulgui utilitzar alguna "action".
 
 - mutations.js: Conté totes les [ mutations ](https://vuex.vuejs.org/en/mutations.html) disponibles per a ús de l'aplicació
 
-- mutation-types.js: Conté tots els noms de totes les [ mutations ](https://vuex.vuejs.org/en/mutations.html)  definides al fitxer "mutations.js", actua d'enllaç entre
-el fitxer "mutations.js" i qualsevol component que vulgui fer ús de qualsevol mutació
+- mutation-types.js: Conté tots els noms de totes les [ mutations ](https://vuex.vuejs.org/en/mutations.html)  definides al fitxer `mutations.js`, actua d'enllaç entre
+el fitxer `mutations.js` i qualsevol component que vulgui fer ús de qualsevol "mutació"
 
 - getters.js: Conté tots els [ getters ](https://vuex.vuejs.org/en/getters.html) per a cada una de les variables d'state
 
