@@ -45,8 +45,11 @@ export default {
           router.push('/admin')
         } else if (roles.includes('entity')){
           router.push('/entity')
-        } else {
+        } else if (roles.includes('volunteer')) {
           router.push('*')
+          // router.push('/volunteer')
+        } else {
+          router.push('/login')
         }
       }).catch((error) => {
         console.log(error)

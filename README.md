@@ -46,6 +46,11 @@ Paquets i frameworks necessaris per a correr l'aplicació
 - Vue (JavaScript): https://vuejs.org/
 - Vuetify (JavaScript): https://vuetifyjs.com/ (Estils)
 
+### Altres paquets importants
+
+- Vue-router (js): https://router.vuejs.org/en/
+- Vuex (js): https://vuex.vuejs.org/en/
+
 # Instal·lació
 
 (Important tenir composer i node.js abans d'instal·lar el projecte)
@@ -90,6 +95,28 @@ Trobaràs més informació sobre les dades de mostra aqui.
 - /App/Http/Controllers [ més info ](https://laravel.com/docs/5.6/controllers)
 - /database/factories [ més info ](https://laravel.com/docs/5.6/seeding#using-model-factories)
 - /database [ más info ](https://laravel.com/docs/5.6/migrations)
+
+# Estructura de dades Store (Vuex)
+
+El fitxer principal que carrega aquest paquet es troba a `resources/assets/js/voluntariat/store/index.js`, aquest és 
+el que conté totes les variables dins l'[ state ](https://vuex.vuejs.org/en/state.html) i el qual carrega els demes fitxers necessaris. Els quals es troben tots
+a dins la mateixa carpeta `resources/assets/js/voluntariat/store/`.
+
+A continuació és fa un petit resum de cadascun: ([ informació més detallada sobre el funcionament d'aquest paquet ](https://vuex.vuejs.org/en/))
+
+- index.js: Carrega tots els fitxers i conté tots els valors que requereix l'aplicació
+
+- actions.js: Conté totes les [ actions ](https://vuex.vuejs.org/en/actions.html) disponibles per a ús de l'aplicació
+
+- action-types.js: Conté tots els noms de totes les [ actions ](https://vuex.vuejs.org/en/actions.html) definides al fitxer "actions.js", actua d'enllaç entre el
+fitxer "actions.js" i qualsevol component que vulgui utilitzar alguna "action".
+
+- mutations.js: Conté totes les [ mutations ](https://vuex.vuejs.org/en/mutations.html) disponibles per a ús de l'aplicació
+
+- mutation-types.js: Conté tots els noms de totes les [ mutations ](https://vuex.vuejs.org/en/mutations.html)  definides al fitxer "mutations.js", actua d'enllaç entre
+el fitxer "mutations.js" i qualsevol component que vulgui fer ús de qualsevol mutació
+
+- getters.js: Conté tots els [ getters ](https://vuex.vuejs.org/en/getters.html) per a cada una de les variables d'state
 
 # Models
 
@@ -186,33 +213,83 @@ Funció LOGIN del Store:
 Funció DETERMINATE_ROLE del Store:
 
     [ actionTypes.DETERMINATE_ROLE ] (context, router) {
+      // Es crida a la api per agafar el rol de l'usuari logat
       axios.get('api/user/roles').then((response) => {
         const roles = response.data
+        // Si la resposta conté el rol, aquest s'emmagatzema al localStorage
         if (roles) {
           if (window.localStorage) {
             window.localStorage.setItem('roles', roles)
           }
-          context.commit(mutations.ROLES, roles[0])
+          context.commit(mutations.ROLES, roles[0]) // Es desa el rol a la variable roles del "Store"
         }
+        // Depenent del rol, redirigeix a la pàgina que pertany a l'usuari
         if (roles.includes('admin') || roles.includes('superAdmin')) {
           router.push('/admin')
         } else if (roles.includes('entity')){
           router.push('/entity')
-        } else {
+        } else if (roles.includes('volunteer')) {
           router.push('*')
+          // router.push('/volunteer') // TODO
+        } else {
+          router.push('/login')
         }
       }).catch((error) => {
         console.log(error)
       });
     },
 
-
 # Activitat
+
+Les activitats parteixen del mateix model `Activitat.php`, que es troba al directory `/App`. [ Més informació sobre els models Eloquent ](https://laravel.com/docs/5.6/eloquent)
+
 ### Model
-### Dades
+
+- Atributs: 
+    - user_id
+    - nom
+    - ambit
+    - descripcio
+    - destinataris
+    - hora_inici
+    - hora_fi
+    - tipus_horari
+    - num_voluntaris_necessaris
+    - coneixements_req
+    - habilitats_req
+    - experiencia_req
+    - titols_formacio_req
+    - idiomes_req
+    - disponibilitat_vehicle_req
+    - condicio_fisica_req
+    - sexe_req
+    
+#### Funcions
+
+- entitat: Retorna una [ col·lecció ](https://laravel.com/docs/5.6/collections) de totes les entitats propietàries de l'activitat
+
+- volunteers: Retorna una [ col·lecció ](https://laravel.com/docs/5.6/collections) de tots els voluntaris inscrits a l'activitat
+
 ## EntityInfo
+
+Les activitats parteixen del mateix model `Activitat.php`, que es troba al directory `/App`. [ Més informació sobre els models Eloquent ](https://laravel.com/docs/5.6/eloquent)
+
 ### Model
-### Dades
+
+Atributs:
+    - user_id
+    - nif
+    - persona_contacte
+    - email
+    - tel
+    - web
+    - adreca
+    - poblacio
+    - codi_postal
+    - tipus_activitat
+    - validat
+
+
 ## VolunteerInfo
 ### Model
 ### Dades

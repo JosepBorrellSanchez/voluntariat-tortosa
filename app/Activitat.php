@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Activitat extends Model
 {
+
     public function entitat()
     {
         return $this->belongsToMany(User::class, 'activity_entity');
