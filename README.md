@@ -98,6 +98,9 @@ Trobaràs més informació sobre les dades de mostra aqui.
 
 # Estructura de dades Store (Vuex)
 
+Aquest paquet ajuda a l'hora de tenir variables i funcions globals, que podran ser obtenides i executades 
+des de qualsevol component vue que ho requereixi.
+
 El fitxer principal que carrega aquest paquet es troba a `resources/assets/js/voluntariat/store/index.js`, aquest és 
 el que conté totes les variables dins l'[ state ](https://vuex.vuejs.org/en/state.html) i el qual carrega els demes fitxers necessaris. Els quals es troben tots
 a dins la mateixa carpeta `resources/assets/js/voluntariat/store/`.
