@@ -12,8 +12,6 @@ export default {
         auth.login(credentials).then(response => {
           context.commit(mutations.LOGGED, true)
           const token = response.data.access_token
-          // console.log('TOKEN:')
-          // console.log(token)
           if (token) {
             if (window.localStorage) {
               window.localStorage.setItem('token', token)
@@ -22,11 +20,10 @@ export default {
             axios.defaults.headers.common['authorization'] = `Bearer ${token}`
           }
           resolve(response)
-          context.dispatch(actionTypes.FETCH_USER)
         }).catch(error => {
           reject(error)
         }).then(() => {
-          context.dispatch(actionTypes.DETERMINATE_ROLE)
+          context.dispatch(actionTypes.FETCH_USER)
         })
       })
     },
@@ -35,7 +32,7 @@ export default {
       window.localStorage.removeItem('user')
       context.commit(mutations.TOKEN, '')
     },
-    [ actionTypes.DETERMINATE_ROLE ] (context) {
+    [ actionTypes.DETERMINATE_ROLE ] (context, router) {
       axios.get('api/user/roles').then((response) => {
         const roles = response.data
         if (roles) {
@@ -43,6 +40,13 @@ export default {
             window.localStorage.setItem('roles', roles)
           }
           context.commit(mutations.ROLES, roles[0])
+        }
+        if (roles.includes('admin') || roles.includes('superAdmin')) {
+          router.push('/admin')
+        } else if (roles.includes('entity')){
+          router.push('/entity')
+        } else {
+          router.push('*')
         }
       }).catch((error) => {
         console.log(error)

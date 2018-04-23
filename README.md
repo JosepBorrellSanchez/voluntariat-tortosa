@@ -48,6 +48,8 @@ Paquets i frameworks necessaris per a correr l'aplicació
 
 # Instal·lació
 
+(Important tenir composer i node.js abans d'instal·lar el projecte)
+
 Obrir un terminal i accedir a la carpeta on es desarà el projecte i clonar el projecte amb la comanda clone:
         
         $ git clone git@github.com:GreyGonz/voluntariat-tortosa.git
@@ -114,7 +116,7 @@ Els usuaris parteixen del mateix model `User.php`, que es troba al directory `/A
 - SuperAdmin: Controla tota l'aplicació i pot gestionar els administradors, entitats i voluntaris 
 - Admin: Controla tota l'aplicació menys la possibilitat de gestionar altres administradors i pot gestionar les entitats i voluntaris 
 - Entity: Controla el seu usuari, pot crear i gestionar les seves activitats
-- Volunteer: Controla el seu usuari, pot inscriures i desinscriure's d'una activitat
+- Volunteer: Controla el seu usuari, pot inscriures i desinscriure's de vàries activitat
 
 Un usuari pertany a un únic rol (superAdmin, Admin, Entity o Volunteer) el qual li és assignat 
 a través de l'atribut `role` quan es crea el nou usuari.
@@ -131,7 +133,81 @@ Exemple de creació d'usuari:
 Al crear l'usuari, l'`UserObserver`  llença l'event `UserCreated` que s'encarrega d'assignar el rol
 a través de l'atribut `role` amb el que s'ha creat l'usuari.
 
-## Activitat
+### Autentificació
+
+Quan l'usuari es dirigeix a la ruta `/login` es carrega el component `resources/assets/js/voluntariat/components/Login.vue`.
+Apareix un formulari simple que demana email i contrasenya, un cop insertats, al prèmer el botó `Login`, sexecuta la funció 
+que es mostra a continuació.
+
+      login () {
+        // Es desen els valors del formulari a la variable credentials
+        const credentials = {
+          'username': this.email,
+          'password': this.password
+        }
+        // Es crida la funció "LOGIN" del "store" passant-li el valor de credentials, aquesta funció retorna una
+        // Promise, d'aquesta manera ens assegurem que tot hagi anat bé abans d'executar la funció "DETERMINATE_ROLE"
+        this.$store.dispatch(actions.LOGIN, credentials).then(response => {
+          // Es crida la funció "DETERMINATE_ROLE" del "store" passant-li l'objecte $router ja que dins de la funció
+          // es necessita fer una redirecció amb el router
+          this.$store.dispatch(actions.DETERMINATE_ROLE, this.$router) 
+        }).catch(error => {
+          console.log(error)
+        })
+      }
+
+Funció LOGIN del Store:
+
+    [ actionTypes.LOGIN ] (context, credentials) {
+      return new Promise((resolve, reject) => {
+        // Prova de fer el login amb els valors de credentials
+        auth.login(credentials).then(response => {
+          // Si tot va bé cambia el valor logged del "store" a true
+          context.commit(mutations.LOGGED, true)
+          const token = response.data.access_token // Agafa el valor del access_token generat
+          // Si existeix el token, el guarda al localStorage per a que no es perdi al fer un 
+          // refresh a la pàgina
+          if (token) {
+            if (window.localStorage) {
+              window.localStorage.setItem('token', token)
+            }
+            context.commit(mutations.TOKEN, token) // Es desa el token a la variable token del "store"
+            axios.defaults.headers.common['authorization'] = `Bearer ${token}` // S'aplica el toquen al header per autentificar la conexió
+          }
+          resolve(response) // Agafa la resposta del login i la llença a la Promise per a poder recollir-la des del component "Login.vue"
+        }).catch(error => {
+          reject(error) // Agafa l'error del login i el llença a la Promise per a poder recollir l'error des del component Login.vue
+        }).then(() => {
+          context.dispatch(actionTypes.FETCH_USER) // Guarda l'usuari a la variable user del "store"
+        })
+      })
+    },
+
+Funció DETERMINATE_ROLE del Store:
+
+    [ actionTypes.DETERMINATE_ROLE ] (context, router) {
+      axios.get('api/user/roles').then((response) => {
+        const roles = response.data
+        if (roles) {
+          if (window.localStorage) {
+            window.localStorage.setItem('roles', roles)
+          }
+          context.commit(mutations.ROLES, roles[0])
+        }
+        if (roles.includes('admin') || roles.includes('superAdmin')) {
+          router.push('/admin')
+        } else if (roles.includes('entity')){
+          router.push('/entity')
+        } else {
+          router.push('*')
+        }
+      }).catch((error) => {
+        console.log(error)
+      });
+    },
+
+
+# Activitat
 ### Model
 ### Dades
 ## EntityInfo

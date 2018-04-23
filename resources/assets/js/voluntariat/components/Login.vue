@@ -57,23 +57,9 @@
           'password': this.password
         }
         this.$store.dispatch(actions.LOGIN, credentials).then(response => {
-          this.$store.dispatch(actions.DETERMINATE_ROLE)
-          this.$store.dispatch(actions.FETCH_USER)
-          let roles
-          axios.get('api/user/roles').then((response) => {
-            roles = response.data
-            if (roles.includes('admin') || roles.includes('superAdmin')) {
-              this.$router.push('/admin')
-            } else if (roles.includes('entity')){
-              this.$router.push('/entity')
-            }
-          }).catch((error) => {
-            console.log(error)
-          })
+            this.$store.dispatch(actions.DETERMINATE_ROLE, this.$router)
         }).catch(error => {
           console.log(error)
-        }).then(() => {
-          // this.loginLoading = true
         })
       }
     }
