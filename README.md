@@ -18,7 +18,7 @@ Projecte creat amb Laravel i Vue.
       - [ Model ](#model)
           - [Funcions](#funcions)
         - [ Rols ](#rols)
-        - [ Autentificació ](#autentificacio)
+        - [ Autentificació ](#autentificació)
   - [ Activitat ](#activitat)
       - [ Model ](#model-1)
           - [Funcions](#funcions-1)
