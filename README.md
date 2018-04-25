@@ -15,18 +15,17 @@ Projecte creat amb Laravel i Vue.
 - [ Fitxers i directoris d'interés ](#fitxers-i-directoris-d'interes)
 - [ Models ](#models)
     - [ User ](#user)
-        - [ Model ](#model-1)
-        - [ Rols ](#rols-1)
-        - [ Info ](#info-1)
-    - [ Activitat ](#activitat)
-        - [ Model ](#model-2)
-        - [ Dades ](#dades-1)
-    - [ EntityInfo ](#entityinfos)
-        - [ Model ](#model-3)
-        - [ Dades ](#dades-2)
-    - [ VolunteerInfo ](#volunteer-info)
-        - [ Model ](#model-4)
-        - [ Dades ](#dades-3)
+      - [ Model ](#model)
+          - [Funcions](#funcions)
+        - [ Rols ](#rols)
+        - [ Autentificació ](#autentificacio)
+  - [ Activitat ](#activitat)
+      - [ Model ](#model-1)
+          - [Funcions](#funcions-1)
+  - [ EntityInfo ](#entityinfos)
+      - [ Model](#model-2)
+  - [ VolunteerInfo ](#volunteer-info)
+      - [ Model ](#model-3)
 - [ Base de dades ](#base-de-dades)
 - [ Rutes ](#rutes)
 - [ Components Vue ](#components-vue)
@@ -132,7 +131,7 @@ Els usuaris parteixen del mateix model `User.php`, que es troba al directory `/A
 - Atributs: name, email, password, api_token
 
 #### Funcions
- 
+
 - activitats: Retorna una [ col·lecció ](https://laravel.com/docs/5.6/collections) de les activitats pertanyents a un usuari amb el rol d'entitat
 
 - registeredActivities: Retorna un [ col·lecció ](https://laravel.com/docs/5.6/collections) de les activitats on es troba registrat un usuari amb el rol de voluntari
@@ -248,25 +247,25 @@ Les activitats parteixen del mateix model `Activitat.php`, que es troba al direc
 
 ### Model
 
-- Atributs: 
-    - user_id
-    - nom
-    - ambit
-    - descripcio
-    - destinataris
-    - hora_inici
-    - hora_fi
-    - tipus_horari
-    - num_voluntaris_necessaris
-    - coneixements_req
-    - habilitats_req
-    - experiencia_req
-    - titols_formacio_req
-    - idiomes_req
-    - disponibilitat_vehicle_req
-    - condicio_fisica_req
-    - sexe_req
-    
+Atributs: 
+
+- user_id
+- nom
+- ambit: el tipus de grup amb el que es treballarà (infants, joves, adults, grups ètnics, etc... )
+- descripcio
+- destinataris
+- hora_inici
+- hora_fi
+- tipus_horari: Si l'activitat es realitzarà un dia concret o periòdicament
+- num_voluntaris_necessaris
+- coneixements_req
+- habilitats_req
+- experiencia_req
+- titols_formacio_req
+- idiomes_req
+- disponibilitat_vehicle_req
+- condicio_fisica_req
+- sexe_req
 #### Funcions
 
 - entitat: Retorna una [ col·lecció ](https://laravel.com/docs/5.6/collections) de totes les entitats propietàries de l'activitat
@@ -275,27 +274,72 @@ Les activitats parteixen del mateix model `Activitat.php`, que es troba al direc
 
 ## EntityInfo
 
-Les activitats parteixen del mateix model `Activitat.php`, que es troba al directory `/App`. [ Més informació sobre els models Eloquent ](https://laravel.com/docs/5.6/eloquent)
+Els objectes EntityInfo parteixen del mateix model `EntityInfo.php`, que es troba al directory `/App`. [ Més informació sobre els models Eloquent ](https://laravel.com/docs/5.6/eloquent)
+
+Aquest objecte serveix per a omplir la informació d'un usuari amb el rol `entity`. Quan un usuari és creat amb el rol `entity`, l'aplicació automàticament genera un nou model `EntityInfo` i és relaciona amb l'usuari creat. [ Trobarás una explicació més detallada aquí ](#base-de-dades)
 
 ### Model
 
 Atributs:
-    - user_id
-    - nif
-    - persona_contacte
-    - email
-    - tel
-    - web
-    - adreca
-    - poblacio
-    - codi_postal
-    - tipus_activitat
-    - validat
+
+- user_id
+
+
+- nif
+
+
+- persona_contacte
+
+
+- email
+
+
+- tel
+
+
+- web
+
+
+- adreca
+
+
+- poblacio
+
+
+- codi_postal
+
+
+- ipus_activitat
+
+
+- validat: És un boleà guardat a `false` per defecte, i que unicament hauría de passar a true en cas de que l'usuari validi les seves dades des del correu
 
 
 ## VolunteerInfo
+Els objectes VolunteerInfo parteixen del mateix model `VolunteerInfo.php`, que es troba al directory `/App`. [ Més informació sobre els models Eloquent ](https://laravel.com/docs/5.6/eloquent)
+
+Aquest objecte serveix per a omplir la informació d'un usuari amb el rol `volunteer`. Quan un usuari és creat amb el rol `volunteer`, l'aplicació automàticament genera un nou model `VolunteerInfo` i és relaciona amb l'usuari creat. [ Trobarás una explicació més detallada aquí ](#base-de-dades)
+
 ### Model
-### Dades
+
+Atributs:
+
+ - user_id
+ - cognoms
+ - dni
+ - adreca
+ - data_naixement
+ - nacionalitat
+ - codi_postal
+ - poblacio
+ - telefon
+ - llengues: Idiomes que domina el voluntari
+ - disponibilitat_mensual
+ - disponibilitat_setmanal
+ - disponibilitat_vehicle
+ - franges_edat_preferents: Les franges d'edat amb les quals l'usuari esta disposat a treballar
+ - condicio_fisica
+ - validat: És un boleà guardat a `false` per defecte, i que unicament hauría de passar a true en cas de que l'usuari validi les seves dades des del correu
 
 # Base de dades
 
@@ -348,9 +392,9 @@ Els components vue són carregats amb [ Lazy loading ](https://router.vuejs.org/
     - /activitats_user/:id : ActivitatContainer.vue -> Activitat.vue
     - /crear_activitat: CreateActivity.vue
 - '*' : NotFoundComponent.vue
- 
+
 ## Components Vue (Pàgines)
- 
+
 ### Landing.vue (TODO)
 Pàgina web principal de presentació.
 
