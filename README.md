@@ -126,7 +126,7 @@ el fitxer `mutations.js` i qualsevol component que vulgui fer ús de qualsevol "
 
 Els usuaris parteixen del mateix model `User.php`, que es troba al directory `/App`. [ Més informació sobre els models Eloquent ](https://laravel.com/docs/5.6/eloquent)
 
-### Model (/app/User.php)
+### Model
 
 - Atributs: name, email, password, api_token
 
