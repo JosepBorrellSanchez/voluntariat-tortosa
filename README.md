@@ -451,12 +451,12 @@ Aquesta component encara s'ha de crear, però hauría de ser un senzill formular
 
 Pàgina de login senzilla amb formulari d'accés (email i contrasenya) (Possibilitat de social login amb google)
 
-####Atributs
+#### Atributs
 
 - **email**: Contindrà l'email passat a través del formulari
 - **password**: Contindrà el password passat a través del formulari
 
-####Estructura
+#### Estructura
 
 El component consta d'un formulari molt senzill. Consta de 2 `v-text-field`, un que demana l'**email** i l'altre demana la **password**:
 
@@ -486,7 +486,7 @@ A continuació s'expliquen resumidament els atributs de `v-text-field`:
 
 - **login**: agafa els valors dels atributs **email** i **password** i li passa a la funció `LOGIN` del fitxer `actions.js` per a que fagi el login. Si el login es correcte, a continuació executa la funció `DETERMINATE_ROLE` del `actions.js` que redireccionarà a l'usuari a la seva pàgina. En cas de fallar durant el login mostra un error per consola.
 
-###AdminMainLayout.vue
+### AdminMainLayout.vue
 
 Layout de la part administrativa. Conté el menú de navegació amb tots els links disponibles i la barra superior amb un botó d'usuari que al clicar-lo apareix informacíó de l'usuari i un botó de `logout`.
 
@@ -643,7 +643,7 @@ Formulari que es mostrarà per crear una nova activitat
 
 Notificacions d'usuari
 
-###NotFoundComponent(TODO)
+### NotFoundComponent(TODO)
 
 Component que mostrarà una pàgina tipus **404** en cas d'intentar accedir a una ruta que no estigui definida al fitxer `index.js` del **Router**.
 
