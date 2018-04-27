@@ -663,7 +663,7 @@ El `v-template` actua com una mena de "foreach", agafa els objectes passats per 
 
 Com es veu a la taula hi ha afegida una columna de més amb un `v-btn` per cada línia de la taula, que no és més que una simple icona que al clicar-la crida a la funció **sendEmit** amb els atributs 'delete' i l'activitat pertanyent a la fila.
 
-####Mètodes
+#### Mètodes
 
 - **sendEmit**: Envia un event al component pare, en aquest cas **AllActivitiesContainer.vue** passant 2 paràmetres, `message` que serà el nom del event, i `value` que serà el valor que es passa per paràmetre. [més informació sobre $emits](https://vuejs.org/v2/api/#vm-emit)
 
