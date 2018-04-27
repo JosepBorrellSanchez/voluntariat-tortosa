@@ -492,18 +492,27 @@ Layout de la part administrativa. Conté el menú de navegació amb tots els lin
 
 #### Atributs
 
-- **clipped**:
-- **clippedLeft**:
-- **drawer**:
-- **fixed**:
-- **mobileBreakPoint**:
-- **items**:
-- **miniVariant**:
-- **title**:
-- **windowSize**:
-- **menu**:
+- **clipped**: Boolean que determina si el `v-navigation-drawer` ha d'estar per sobre de la toolbar o al revés. (Atribut del `v-navigation-drawer`)
+- **clippedLeft**: Boolean que assigna el `v-navigation-drawer` a l'esquerra. ( Propietat del `v-toolbar`)
+- **drawer**: Boolean que serveix per mostrar o amagar el `v-navigation-drawer`.
+- **fixed**: Boolean que determina si el peu de pàgina serà fixe o responsive.
+- **mobileBreakPoint**: Determina a quina mida el model de l'aplicació cambiarà de desktop a mòbil.
+- **items**: Objectes que apareixeran al `v-list` del drawer (Barra de navegació) com a links als diferents apartats de l'aplicació. Els objectes **item** consta de 3 parts:
+  - icon: icona que apareixerà davant el nom. (Vue utilitza [Font awesome](https://fontawesome.com/) per defecte)
+  - title: Títol que apareixerà com a opció
+  - href: Ruta a la que fa referencia
+- **miniVariant**: Boolean que determina si es farà servir l'opció "petita" del drawer, la qual només mostra les icones dels links. (False per defecte)
+- **title**: Títol del `v-toolbar`.
+- **menu**: Boolean que serveix per mostrar o amagar el `v-menú` amb la informació d'usuari i el botó de logout.
+
+#### Computed
+
+- **user**: Objecte que conté l'usuari loguejat per obtindre les seves dades i utilitzar-les a l'aplicació.
+- **roles**: String que conté el rol de l'usuari, ja que depenent si és `admin` o `superAdmin` es mostrarà o no el **item** admins. Que porta a la pàgina d'administració d'admins.
 
 #### Estructura
+
+Aquest component ve a ser la template que faran servir tots els components d'administració, bé a ser una barra de navegació lateral amb una [v-list](https://vuetifyjs.com/en/components/lists) amb tots els links als diferents components, una [v-toolbar](https://vuetifyjs.com/en/components/toolbars) amb un menú d'usuari, un [v-footer](https://vuetifyjs.com/en/components/footer) i un `router-view` que carregarà el component seleccionat. [més informació sobre router-view](https://router.vuejs.org/en/essentials/nested-routes.html)
 
 L'estructura d'aquest component ve a ser una mica més complexa encara que la podem resumir en:
 
@@ -535,29 +544,128 @@ L'estructura d'aquest component ve a ser una mica més complexa encara que la po
 
 - **v-navigation-drawer**: És la barra de navegació lateral, conté un `v-list` amb tants `v-list-tile` com **items**.
 - **v-list-tile-action**: Dins aquest tag insertarem l'icona de l'**item** (`item.icon`) la qual apareixerà a la part esquerra de la llista.
-- **v-list-tile-content**: Dins aquest altre tag insertarem el nom de l'**item** (`item.title`) que apareixerà a la part dreta de l'icona
-- **v-toolbar**: Conté l'icona per fer apareixer la barra de navegació  (`v-toolbar-side-icon`), el títol (`v-toolbar-title`) de la pàgina i un menú d'usuari
+- **v-list-tile-content**: Dins aquest altre tag insertarem el nom de l'**item** (`item.title`) que apareixerà a la part dreta de l'icona.
+- **v-toolbar**: Conté l'icona per fer apareixer la barra de navegació  (`v-toolbar-side-icon`), el títol (`v-toolbar-title`) de la pàgina i un menú d'usuari.
 - **v-menu**: Aquest menú consta d'un botó "activator" (`v-btn`) que al clicar-lo mostra o amaga el component `v-card` que trobem també dins del `v-menu`. 
 - **v-card**: Aquest v-card conté l'avatar i el nom de l'usuari ademes d'un botó de logout que executa la funció **logout**.
 - **v-content**: Conté el contingut de la pàgina, que com es pot veure deleguem al **Router** amb el tag `router-view` que depenent de quina ruta executem, s'encarregarà de mostrar-nos el component corresponent. El `v-slide-x-transition` farà una animació d'entrada i sortida entre components per a fer-ho més agradable visualment.
 
 #### Mètodes
 
-- **logout**: Crida a la funció `LOGOUT` del fitxer `actions.js` , que s'encarregarà de fer el logout de l'usuari i enviar-lo al landing page
-- **onResize**: Es crida constantment a través del mounted() del component, i l'únic que fa és actualitzar l'atribut **windowSize** amb les mides de la finestra del navegador, per a que si la finestra és molt petita, la barra de navegació estigui amagada per defecte i guanyar espai.
+- **logout**: Crida a la funció `LOGOUT` del fitxer `actions.js` , que s'encarregarà de fer el logout de l'usuari i enviar-lo al landing page.
 
 ### AdminDashboard.vue (TODO)
 
-Pàgina principal de la part d'administració, amb un resum d'activitats, entitats i voluntaris, amb
-possibilitat d'accedir individualment a cada objecte, obtenir més informació o crear-ne de nous.
+Pàgina principal de la part d'administració, amb un resum d'activitats, entitats i voluntaris, amb possibilitat d'accedir individualment a cada objecte, obtenir més informació o crear-ne de nous.
 
 ### AllActivitiesContainer.vue
 
-Container del component `AllActivities.vue`, s'encarrega de provisionar de la informació que necessita el component `AllActivities.vue` i executa les funcions cridades des del mateix.
+Container del component **AllActivities.vue**, s'encarrega de provisionar de l'informació que necessita el component **AllActivities.vue** i executa les funcions cridades des del mateix.
+
+#### Atributs
+
+- **dialog**: Boolean que serveix per mostrar o amagar el `v-dialog`.
+- **activitat**: Conté l'objecte `activitat` que està seleccionada.
+
+#### Computed
+
+- **activiats**: Conté les totes les activitats de l'aplicació.
+- **loading**: Conté un boolean que determina si la pàgina esta carregant o no.
+
+#### Estructura
+
+Aquest component serveix com a contenidor del component **AllActivities.vue**, al qual se li passen els atributs **activitats** i **loading** a través del `router-view` , i se l'escolta en cas de que ens enviï un event **redirect** o **delete**. [més informació sobre router-view](https://router.vuejs.org/en/essentials/nested-routes.html)
+
+Aquest component basicament consta de 2 parts, el `router-view`, que fa referencia al component **AllActivities.vue**, i el `v-dialog`, que apareixerà en cas de voler eliminar una activitat. [més informació sobre dialogs amb vuetify](https://vuetifyjs.com/en/components/dialogs)
+
+```vue
+<v-app>
+  <transition name="fade">
+    <router-view>
+    </router-view>
+  </transition>
+  <v-dialog v-model="dialog">
+    <v-card>
+      <v-card-title></v-card-title>
+      <v-card-actions>
+        <v-btn @click.native="dialog = false">Cancel·la</v-btn>
+        <v-btn 
+               @click="destroy(activitat)"
+               @click.native="dialog = false">Elimina</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+</v-app>
+```
+
+#### Mètodes
+
+- **deleteActivitat**: Quan es dispara un event `delete`  des del component fill (**AllActivities.vue**), aquest es passa amb l'activitat que es vol eliminar. Aquesta funció captura l'activitat i la desa a l'atribut **activitat** i cambia el valor de **dialog** a true, el que fa que es mostri el `v-dialog` que pregunta si realment es vol eliminar l'activitat seleccionada.
+- **destroy**: Aquesta funció agafa l'atribut **activitat** i la passa a la funció `DELETE_ACTIVITY` del fitxer `actions.js` que s'encarrega d'eliminar l'activitat definitivament i actualitzar el component.
+- **redirect**: Quan es dispara un event `redirect` des del component fill (**AllActivities.vue**), aquest es passa amb l'id de l'activitat a la que es vol accedir. Aquesta funció utilitza aquest id per redirigir-nos a la pàgina de l'activitat seleccionada.
+
+#### Mounted
+
+Manté actulitzades les activitats de l'aplicació cridant continuament a la funció `FETCH_ACTIVITATS` , que agafa les activitats registrades a l'aplicació i les desa a la variable **activitats** del `store`, que després és utilitzada per l'atribut **activitats** d'aquest component.
 
 ### AllActivities.vue
 
-Mostra una taula amb totes les activitats de l'aplicació, permetent eliminar i accedir a cadascuna d'elles individualment
+Mostra una taula amb totes les activitats de l'aplicació, permetent eliminar i accedir a cadascuna d'elles individualment.
+
+#### Atributs
+
+- **headers**: Conté objectes que defineixen el `nom`, `valor` i opcions de disseny de cada columna de la taula. [més informació sobre v-data-table](https://vuetifyjs.com/en/components/data-tables)
+
+#### Props
+
+- **activitats**: Recull les activitats passades des del component pare (**AllActivitiesContainer.vue**) per a poder utilitzar-les dins aquest component.
+- **loading**: Recull un boolea passat des del component pare (**AllActivititesContainer.vue**) per a poder utilitzar-lo dins aquest component.
+
+#### Estructura
+
+Aquest component consta d'una simple taula que mostra totes les activitats registrades a l'aplicació amb opció de veure i eliminar una activitat individualment.
+
+```vue
+<v-container>
+  <v-slide-y-transition>
+    <v-layout>
+      <h1>Activitats</h1> 
+      <div v-if="loading"> // en cas d'estar en estat "loading" es mostrarà una icona de loading
+        <v-progress-circular></v-progress-circular>
+      </div>
+      <v-data-table :headers="headers"
+          			:items="activitats">
+        <template slot="items" 
+                  slot-scope="props">
+            <tr @click="sendEmit('redirect', props.item.id)">
+              <td>{{ props.item.nom }}</td>
+              <td>{{ props.item.destinataris }}</td>
+              <td>{{ String(props.item.hora_inici).substring(0, 5) }} - {{ String(props.item.hora_fi).substring(0, 5) }}</td>
+              <td>{{ props.item.num_voluntaris_necessaris }}</td>
+              <td>
+                <v-btn icon 
+                       :loading="loading"
+                       @click.stop="sendEmit('delete', props.item)">
+                  <v-icon>clear</v-icon>
+                </v-btn>
+              </td>
+            </tr>
+          </template>
+      </v-data-table>
+    </v-layout>
+  </v-slide-y-transition>
+</v-container>
+```
+
+El `v-data-table` rep la els headers que li serviran per dibuixa les colunmes de la taula, també rep els items que haurà d'utilitzar, en aquest cas les activitats.
+
+El `v-template` actua com una mena de "foreach", agafa els objectes passats per l'atribut `slot` (normalment **items**, fent referència als **items** definits al `v-data-table`), i els assigna a `props`, que és el nom que li hem passat per l'atribut `slot-scope`, per a que els puguem declara un per un fent servir `props.item` dins el `v-template`.
+
+Com es veu a la taula hi ha afegida una columna de més amb un `v-btn` per cada línia de la taula, que no és més que una simple icona que al clicar-la crida a la funció **sendEmit** amb els atributs 'delete' i l'activitat pertanyent a la fila.
+
+####Mètodes
+
+- **sendEmit**: Envia un event al component pare, en aquest cas **AllActivitiesContainer.vue** passant 2 paràmetres, `message` que serà el nom del event, i `value` que serà el valor que es passa per paràmetre. [més informació sobre $emits](https://vuejs.org/v2/api/#vm-emit)
 
 ### ActivitatContainer.vue
 

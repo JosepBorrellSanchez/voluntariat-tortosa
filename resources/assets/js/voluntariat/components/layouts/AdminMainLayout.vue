@@ -1,5 +1,5 @@
 <template>
-  <v-app v-resize="onResize">
+  <v-app>
     <v-navigation-drawer
       persistent
       :mini-variant="miniVariant"
@@ -109,10 +109,6 @@ export default {
       ],
       miniVariant: false,
       title: 'Voluntariat Tortosa',
-      windowSize: {
-        x: 0,
-        y: 0
-      },
       menu: false,
     }
   },
@@ -135,15 +131,9 @@ export default {
     }
   },
   methods: {
-    onResize () {
-      this.windowSize = { x: window.innerWidth, y: window.innerHeight }
-    },
     logout () {
       this.$store.dispatch(actionTypes.LOGOUT)
     }
-  },
-  mounted () {
-    this.onResize()
   }
 }
 </script>
