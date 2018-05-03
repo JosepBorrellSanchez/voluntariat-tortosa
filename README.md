@@ -634,7 +634,7 @@ Aquest component consta d'una simple taula que mostra totes les activitats regis
         <v-progress-circular></v-progress-circular>
       </div>
       <v-data-table :headers="headers"
-          			:items="activitats">
+                    :items="activitats">
         <template slot="items" 
                   slot-scope="props">
             <tr @click="sendEmit('redirect', props.item.id)">
@@ -665,39 +665,470 @@ Com es veu a la taula hi ha afegida una columna de més amb un `v-btn` per cada 
 
 #### Mètodes
 
-- **sendEmit**: Envia un event al component pare, en aquest cas **AllActivitiesContainer.vue** passant 2 paràmetres, `message` que serà el nom del event, i `value` que serà el valor que es passa per paràmetre. [més informació sobre $emits](https://vuejs.org/v2/api/#vm-emit)
+- **sendEmit**: Envia un event al component pare, en aquest cas **AllActivitiesContainer.vue** passant 2 paràmetres, `message` que serà el nom de l'event, i `value` que serà el valor que es passa per paràmetre. [més informació sobre $emits](https://vuejs.org/v2/api/#vm-emit)
 
 ### ActivitatContainer.vue
 
-Container del component `Activitat.vue`, s'encarrega de provisionar de la informació que necessita el component `Activitat.vue` i executa les funcions cridades des del mateix.
+Container del component `Activitat.vue`, s'encarrega de provisionar de l'informació que necessita el component `Activitat.vue` i executa les funcions cridades des del mateix.
+
+#### Atributs
+
+- **dialog**: Boolean que serveix per mostrar o amagar el `v-dialog`.
+- **user**: Conté l'usuari seleccionat ja sigui `entity` o `volunteer` que està a punt de ser eliminat de l'activitat. Als apartats que venen a continuació es veu el funcionament més detalladament.
+
+#### Computed
+
+- **loading**: Conté un boolean que determina si la pàgina esta carregant o no.
+- **activitat**: Conté l'activitat que es vol mostrar.
+- **activity_volunteers**: Conté tots els voluntaris inscrits a l'activitat.
+- **activity_entities**: Conté totes les entitats organitzatives de l'activitats.
+
+#### Props
+
+- **id**: Aquesta id correspon a l'id de l'activitat que esta escrit a la ruta de la pàgina (/activitats/:id).
+
+#### Estructura
+
+Aquest component serveix com a contenidor del component **Activitat.vue**, al qual se li passen els atributs **activitat**, **activity_volunteers**, **activity_entities** i **loading** a través del `router-view` , i se l'escolta en cas de que ens enviï un event **redirectToVolunteer**, **redirectToEntity** o **deleteUser**. [més informació sobre router-view](https://router.vuejs.org/en/essentials/nested-routes.html)
+
+Aquest component basicament consta de 2 parts, el `router-view`, que fa referencia al component **Activitats.vue**, i el `v-dialog`, que apareixerà en cas de voler eliminar una activitat. [més informació sobre dialogs amb vuetify](https://vuetifyjs.com/en/components/dialogs)
+
+```vue
+<v-app>
+  <router-view>
+  </router-view>
+  <v-dialog>
+    <v-card v-if="user !== null">
+      <v-card-title class="headline"></v-card-title></v-card-title>
+      <v-card-actions>
+        <v-btn @click.native="dialog = false">Cancel·la</v-btn>
+        <v-btn @click="destroy( user, id)" @click.native="dialog = false">Elimina</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+</v-app>
+```
+
+#### Mètodes
+
+- **redirectToVolunteer**: Redirigeix a la pàgina d'informació del voluntari seleccionat.
+- **redirectToEntity**: Redirigeix a la pàgina d'informació de l'entitat seleccionada.
+- **deleteUser**: Assigna el valor **dialog** a `true` per a que es mostri el `v-dialog` i es desa l'usuari seleccionat al valor **user**.
+- **destroy**: Elimina definitivament l'usuari seleccionat de l'activitat. Depenent de si es tracta d'un voluntari o una entitat, es crida a execució la funció `DETACH_ENTITY` en cas de les entitats i la funció `DETACH_VOLUNTEER` del fitxer `actions.js`.
+
+#### Mounted
+
+Quan es carrega el component, es criden les funcions `GET_ACTIVITAT`, `FETCH_ACTIVITY_USERS` i `FETCH_ACTIVITY_ENTITIES` del fitxer `actions.js`.
 
 ### Activitat.vue
 
 Mostra informació detallada d'una activitat identificada per el seu id i permet afegir, modificar i eliminar els diferents voluntaris inscrits a l'activitat i les entitats que organitzen la mateixa.
 
+#### Props
+
+- **activitat**: Conté l'activitat que es mostra a la pàgina, passada des del component pare **ActivitatContainer.vue**.
+- **activity_volunteers**: Conté els voluntaris inscrits a l'activitat, passats des del component pare **ActivitatContainer.vue**.
+- **activity_entities**: Conté les entitats organitzatives de l'activitat, passades des del component pare **ActivitatContainer.vue**.
+- **loading**: Valor boolean que determina si el component està carregant o no passat directament del component pare **ActivitatContainer.vue**.
+
+#### Estructura
+
+Aquest component mostra tota la informació, requisits, voluntaris inscrits i entitats organitzatives  d'una activitat determinada. Es basa en 4 `v-cards`, el primer és senzillament un bloc amb el nom, informació ràpida i una petita descripció de l'activitat. El següent bloc mostra els requisits necessaris d'inscripció a l'activitat. I per últim es mostren els blocs amb una llista de voluntaris inscrits i entitats organitzatives. 
+
+Si es clica damunt d'un voluntari de la llista el component envia un event `redirectToVolunteer` el qual es rebut per el component pare **ActivitatContainer.vue** el qual executa la redirecció cap a la pàgina del voluntari, amb les entitats organitzatives passaria el mateix però l'emit envia un event `redirectToEntity` en ves de `redirectToVolunteer`.
+
+A la llista també es mostra una creueta com a botó el qual si es premut envia un event `deleteUser` que es rebut per el component pare **ActivitatContainer.vue** i executa la funció `deleteUser` del mateix. 
+
+```vue
+<v-app>
+    <v-container>
+        <v-layout>
+            <v-flex>
+                <v-card>
+                    // Aquest v-card correspon al primer apartat de la pàgina
+                    // el qual mostra el nom, informació i descripció de l'activitat
+                </v-card>
+            </v-flex>
+        </v-layout>
+        <v-layout>
+            <v-flex>
+                <v-card>
+                    // Aquest altre v-card mostra els requisits per a inscriure's a 
+                    // l'activitat
+                    <v-card-title>
+                        <h3>Requisits:</h3>
+                    </v-card-title>
+                    <v-card-text>
+                        <ul>
+                           // Llista amb els requisits
+                        </ul>
+                    </v-card-text>
+                </v-card>
+            </v-flex>
+            <v-flex>
+                <v-card>
+                    // Mostra una llista dels voluntaris inscrits
+                    <v-card-title>
+                        <h3>Voluntaris inscrits:</h3>
+                    </v-card-title>
+                    <v-card-text> // En cas de no haver voluntaris inscrits es mostra el contingut d'aquest v-card-text
+                        <span></span>
+                    </v-card-text>
+                    <v-list> // En cas d'haver voluntaris es genera un v-list-tile per cada un d'ells
+                        <v-list-tile>
+                            <v-list-tile-avatar>
+                                // Mostra l'avatar de l'usuari
+                            </v-list-tile-avatar>
+                            <v-list-tile-content>
+                                // Mostra el nom de l'usuari
+                            </v-list-tile-content>
+                            <v-list-tile-action>
+                               // Mostra una creu com a botó que al clicar-la permet eliminar a l'usuari al que pertany
+                            </v-list-tile-action>
+                        </v-list-tile>
+                    </v-list>
+                </v-card>
+               	<v-card>
+                	// Es repeteix el contingut de l'v-card anterior però per a les entitats organitzatives
+                </v-card>
+            </v-flex>
+        </v-layout>
+    </v-container>
+</v-app>
+```
+
+#### Mètodes
+
+- **sendEmit**:  Envia un event al component pare, en aquest cas **ActivitatContainer.vue** passant 2 paràmetres, `message` que serà el nom de l'event, i `value` que serà el valor que es passa per paràmetre. [més informació sobre $emits](https://vuejs.org/v2/api/#vm-emit)
+
 ### EntitiesContainer.vue
 
 Container del component `Entities.vue`, s'encarrega de provisionar de la informació que necessita el component `Entities.vue` i executa les funcions cridades des del mateix.
+
+#### Atributs
+
+- **dialog**: Boolean que serveix per mostrar o amagar el `v-dialog`.
+- **entity**: Conté l'entitat seleccionada a l'hora de realitzar una acció.
+
+#### Computed
+
+- **entities**: Conté totes les entitats de l'aplicació carregades des de l'`store`.
+- **loading**: Valor boolean que determina si el component està carregant o no passat directament de l'`store`.
+
+#### Estructura
+
+Aquest component serveix com a contenidor del component **Entities.vue**, al qual se li passen els atributs **entities** i **loading** a través del `router-view` , i se l'escolta en cas de que ens enviï un event **redirect** o **delete**. [més informació sobre router-view](https://router.vuejs.org/en/essentials/nested-routes.html)
+
+Aquest component basicament consta de 2 parts, el `router-view`, que fa referencia al component **Entities.vue**, i el `v-dialog`, que apareixerà en cas de voler eliminar una activitat. [més informació sobre dialogs amb vuetify](https://vuetifyjs.com/en/components/dialogs)
+
+```vue
+<v-app>
+  <transition>
+    <router-view>
+    </router-view>
+  </transition>
+  <v-dialog>
+    <v-card>
+      <v-card-title></v-card-title>
+      <v-card-actions>
+        <v-btn @click.native="dialog = false">Cancel·la</v-btn>
+        <v-btn @click="destroy(entity)" flat @click.native="dialog = false">Elimina</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+</v-app>
+```
+
+#### Mètodes
+
+- **deleteEntity**: Assigna el valor **dialog** a `true` per a que es mostri el `v-dialog` i es desa l'entitat seleccionada al valor **entity**.
+- **destroy**: Crida a execució la funció `DELETE_ENTITY` del fitxer `actions.js`, la qual s'encarrega d'esborrar l'entitat.
+- **redirect**: Redirigeix fins a la pàgina de l'entitat seleccionada.
+
+#### Mounted
+
+Quan es carrega el component es crida la funció `FETCH_ENTITIES` del fitxer `actions.js`.
 
 ### Entities.vue
 
 Mostra una taula amb totes les entitats registrades a l'aplicació, permetent eliminar i accedir a cadascuna d'elles individualment
 
+#### Atributs
+
+- **headers**: Conté objectes que defineixen el `nom`, `valor` i opcions de disseny de cada columna de la taula. [més informació sobre v-data-table](https://vuetifyjs.com/en/components/data-tables)
+
+#### Props
+
+- **entities**: Conté totes les entitats registrades a l'aplicació passades directament des del component pare **EntitiesContainer.vue**.
+- **loading**: Valor boolean que determina si el component està carregant o no passat directament del component pare **EntitiesContainer.vue**.
+
+#### Estructura
+
+Aquest component consta d'una simple taula que mostra totes les entitats registrades a l'aplicació amb opció de veure i eliminar individualment a cadascuna.
+
+```vue
+<v-container>
+  <v-slide-y-transition>
+    <v-layout>
+      <h1>Entitats</h1>
+      <div> // Mostra una icona de càrrega en cas de loading = true
+        <v-progress-circular></v-progress-circular>
+      </div>
+      <v-data-table
+        v-bind:headers="headers"
+        :items="entities"
+      >
+        // Genera una taula amb tots els items passats
+        // en aquest cas els items fan referència a les entitats
+        <template slot="items" slot-scope="props">
+          <tr>
+            <td>{{ props.item.name }}</td>
+            <td>{{ props.item.email }}</td>
+            <td>
+              <v-btn>
+                // Icona com a botó delete
+              </v-btn>
+            </td>
+          </tr>
+        </template>
+      </v-data-table>
+    </v-layout>
+  </v-slide-y-transition>
+</v-container>
+```
+
+#### Mètodes
+
+- **sendEmit**: Envia un event al component pare, en aquest cas **EntitiesContainer.vue** passant 2 paràmetres, `message` que serà el nom de l'event, i `value` que serà el valor que es passa per paràmetre. [més informació sobre $emits](https://vuejs.org/v2/api/#vm-emit)
+
 ### EntityContainer.vue
 
 Container del component `Entities.vue`, s'encarrega de provisionar de la informació que necessita el component `Entities.vue` i executa les funcions cridades des del mateix.
+
+#### Atributs
+
+- **activitat**: Conté l'activitat seleccionada.
+- **dialog**: Boolean que serveix per mostrar o amagar el `v-dialog`.
+
+#### Computed
+
+- **entity**: Conté l'entitat proporcionada per l'`store` que esta determinada per l'id passat per la ruta (/entitats/:id).
+- **info**: Conté la info proporcionada per l'`store`, corresponent a l'entitat.
+- **loading**: Valor boolean que determina si el component està carregant o no passat directament des de l'`store`.
+- **user_activities**: Conté les activitats passades per l'`store`, corresponents a l'entitat.
+
+#### Props
+
+- **id**: Id de l'entitat passat per la ruta (/entitats/:id). [més informació](https://router.vuejs.org/en/essentials/passing-props.html)
+
+#### Estructura
+
+Aquest component serveix com a contenidor del component **Entity.vue**, al qual se li passen els atributs **entities** i **loading** a través del `router-view` , i se l'escolta en cas de que ens enviï un event **redirect** o **delete**. [més informació sobre router-view](https://router.vuejs.org/en/essentials/nested-routes.html)
+
+Aquest component basicament consta de 2 parts, el `router-view`, que fa referencia al component **Entity.vue**, i el `v-dialog`, que apareixerà en cas de voler eliminar una activitat. [més informació sobre dialogs amb vuetify](https://vuetifyjs.com/en/components/dialogs)
+
+```vue
+<v-app>
+  <router-view>
+  </router-view>
+  <v-dialog>
+    <v-card>
+      <v-card-title></v-card-title>
+      <v-card-actions>
+        <v-btn @click.native="dialog = false">Cancel·la</v-btn>
+        <v-btn @click="destroy(activitat)" @click.native="dialog = false">Elimina</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+</v-app>
+```
+
+#### Mètodes
+
+- **deleteActivity**: Assigna el valor **dialog** a `true` per a que es mostri el `v-dialog` i es desa l'entitat seleccionada al valor **activitat**.
+- **destroy**: Crida a la funció `DELETE_ACTIVITAT` del fitxer `actions.js` que s'encarrega d'eliminar l'activitat seleccionada.
+- **redirect**: Redirecciona cap a la pàgina de l'activitat seleccionada.
+
+#### Mounted
+
+Al carregar el component es crida a les funcions `GET_ENTITY`, `GET_INFO` i  `FETCH_ENTITY_ACTIVITIES` des del fitxer `actions.js`.
 
 ###  Entity.vue
 
 Mostra informació detallada d'una entitat identificada per el seu id i permet afegir, modificar i eliminar les seves activitats.
 
+#### Atributs
+
+- **headers**: Conté objectes que defineixen el `nom`, `valor` i opcions de disseny de cada columna de la taula. [més informació sobre v-data-table](https://vuetifyjs.com/en/components/data-tables)
+
+#### Props
+
+- **entity**: Conté l'entitat passada per el component pare **EntityContainer.vue**.
+- **user_activities**: Conté les activitats de l'entitat passades per el component pare **EntityContainer.vue**.
+- **info**: Conté la info de l'entitat passada per el component pare **EntityContainer.vue**.
+- **loading**: Valor boolean que determina si el component està carregant o no passat directament des del component **EntityContainer.vue**.
+
+#### Estructura
+
+Aquest component consta d'una card amb el **nom i informació principal de l'usuari**, una altra amb **informació detallada de l'usuari** i una última amb una **taula que conté totes les activitats que organitza l'usuari**.
+
+També, en cas de que l'usuari no hagi omplert i validat la seva info, no es mostrarà ni la seva informació detallada ni les seves activitats, i apareixerà una alerta comunicant que no s'ha validat el compte.
+
+```vue
+<v-app>
+    <v-container>
+        <v-layout>
+            <v-flex>
+                <v-alert>
+                  // En cas de que l'usuari no hagi omplert la seva info i validat el seu compte, apareixerà una alerta amb el missatge que es posi aquí dins
+                </v-alert>
+                <v-card>
+                    // Conté el nom de l'entitat, informació principal i una petita descripció
+                </v-card>
+            </v-flex>
+        </v-layout>
+        <v-layout>
+            <v-flex>
+                <v-card>
+                    <v-card-title>
+                        <h2>Info</h2>
+                    </v-card-title>
+                    <v-card-text>
+                        // Conté una llista amb tota la info de l'entitat (en cas de que la info s'hagi omplert per l'usuari)
+                    </v-card-text>
+                </v-card>
+            </v-flex>
+            <v-flex>
+              <v-card>
+                <v-card-title>
+                	<h2>Activitats organitzades:</h2>
+                </v-card-title>
+                <v-data-table
+                  :headers="headers"
+                  :items="user_activities">
+                    // Mostra una taula amb totes les activitats organitzades per l'usuari
+                  <template slot="items" slot-scope="props">
+                    <tr>
+                      <td>{{ props.item.nom }}</td>
+                      <td>
+                        <v-btn >
+                            // Icona com a botó delete
+                        </v-btn>
+                      </td>
+                    </tr>
+                  </template>
+                </v-data-table>
+              </v-card>
+            </v-flex>
+        </v-layout>
+    </v-container>
+</v-app>
+```
+
+#### Mètodes
+
+- **sendEmit**: Envia un event al component pare, en aquest cas **EntityContainer.vue** passant 2 paràmetres, `message` que serà el nom de l'event, i `value` que serà el valor que es passa per paràmetre. [més informació sobre $emits](https://vuejs.org/v2/api/#vm-emit)
+
 ### VolunteersContainer.vue
 
 Container del component `Volunteers.vue`, s'encarrega de provisionar de l'informació que necessita el component `Volunteers.vue` i executa les funcions cridades des del mateix.
 
+#### Atributs
+
+- **dialog**: Boolean que serveix per mostrar o amagar el `v-dialog`.
+- **volunteer**: Conté el voluntari seleccionat.
+
+#### Computed
+
+- **volunteers**: Conté tots els voluntaris passats des de l'`store`.
+- **loading**: Valor boolean que determina si el component està carregant o no passat directament des de l'`store`.
+
+#### Estructura
+
+Aquest component serveix com a contenidor del component **Volunteers.vue**, al qual se li passen els atributs **volunteers** i **loading** a través del `router-view` , i se l'escolta en cas de que ens enviï un event **redirect** o **delete**. [més informació sobre router-view](https://router.vuejs.org/en/essentials/nested-routes.html)
+
+Aquest component basicament consta de 2 parts, el `router-view`, que fa referencia al component **Volunteers.vue**, i el `v-dialog`, que apareixerà en cas de voler eliminar una activitat. [més informació sobre dialogs amb vuetify](https://vuetifyjs.com/en/components/dialogs)
+
+```vue
+<v-app>
+  <transition>
+    <router-view>
+    </router-view>
+  </transition>
+  <v-dialog>
+    <v-card>
+      <v-card-title></v-card-title>
+      <v-card-actions>
+        <v-btn @click.native="dialog = false">Cancel·la</v-btn>
+        <v-btn @click="destroy(volunteer)" @click.native="dialog = false">Elimina</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+</v-app>
+```
+
+#### Mètodes
+
+- **deleteVolunteer**: Assigna el valor **dialog** a `true` per a que es mostri el `v-dialog` i es desa l'entitat seleccionada al valor **volunteer**.
+- **destroy**: Crida a la funció `DELETE_VOLUNTEER` del fitxer `actions.js` que s'encarrega d'eliminar el voluntari seleccionat.
+- **redirect**: Redirecciona cap a la pàgina del voluntari seleccionat.
+
+#### Mounted
+
+Al carregar el component es crida a la funció `FETCH_VOLUNTEERS` del fitxer `actions.js`.
+
 ### Volunteers.vue
 
 Mostra una taula amb tots els voluntaris registrats a l'aplicació, permetent eliminar i accedir a cadascun d'ells individualment.
+
+#### Atributs
+
+- **headers**: Conté objectes que defineixen el `nom`, `valor` i opcions de disseny de cada columna de la taula. [més informació sobre v-data-table](https://vuetifyjs.com/en/components/data-tables)
+
+#### Props
+
+- **volunteers**: Conté tots els voluntaris registrats passats des del component pare **VolunteersContainer.vue**.
+- **loading**: Valor boolean que determina si el component està carregant o no passat directament des del component pare **VolunteersContainer.vue**.
+
+#### Estructura
+
+Aquest component consta d'una simple taula que mostra tote els voluntaris registrats a l'aplicació amb opció de veure i eliminar individualment a cadascun.
+
+```vue
+<v-container fluid>
+  <v-slide-y-transition>
+    <v-layout>
+      <h1>Voluntaris</h1>
+      <div>
+          // Si loading = true es mostrarà una icona de càrrega
+        <v-progress-circular></v-progress-circular>
+      </div>
+      <v-data-table
+        v-bind:headers="headers"
+        :items="volunteers"
+        class="elevation-1"
+      >
+          // Mostra una taula que conté tots el voluntaris
+        <template slot="items" slot-scope="props">
+          <tr @click="sendEmit('redirect', props.item.id)">
+            <td>{{ props.item.name }}</td>
+            <td>{{ props.item.email }}</td>
+            <td>
+              <v-btn>
+                // Icon com a botó delete
+              </v-btn>
+            </td>
+          </tr>
+        </template>
+      </v-data-table>
+    </v-layout>
+  </v-slide-y-transition>
+</v-container>
+```
+
+#### Mètodes
+
+- **sendEmit**: Envia un event al component pare, en aquest cas **VolunteersContainer.vue** passant 2 paràmetres, `message` que serà el nom de l'event, i `value` que serà el valor que es passa per paràmetre. [més informació sobre $emits](https://vuejs.org/v2/api/#vm-emit)
 
 ### VolunteerContainer.vue
 

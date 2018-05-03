@@ -52,7 +52,6 @@
     name: 'Entities',
     data () {
       return {
-        dialog: false,
         headers: [
           { text: 'Nom', value: 'nom', align: 'left' },
           { text: 'Email', value: 'email', align: 'left'}
@@ -60,8 +59,7 @@
           // { text: 'Hora Inici', value: 'hora_inici' },
           // { text: 'Hora Fi', value: 'hora_fi' },
           // { text: 'Voluntaris necessaris', value: 'num_voluntaris_necessaris' }
-        ],
-        dialog: false
+        ]
       }
     },
     props: [

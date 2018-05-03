@@ -5,7 +5,7 @@
         :entities="entities"
         :loading="loading"
         @redirect="redirect"
-        @delete="deleteActivitat">
+        @delete="deleteEntity">
       </router-view>
     </transition>
     <v-dialog v-model="dialog" persistent max-width="290">
@@ -22,10 +22,7 @@
 
 <script>
   import * as actions from '../store/action-types'
-  import createApi from '../api/api_crud_entities'
   import * as mutations from '../store/mutation-types'
-
-  const crud = createApi('/api/entitats')
 
   export default {
     data () {
@@ -53,7 +50,7 @@
       }
     },
     methods: {
-      deleteActivitat: function (entity) {
+      deleteEntity: function (entity) {
         this.dialog = true
         this.entity = entity
       },

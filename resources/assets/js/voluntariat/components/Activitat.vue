@@ -88,7 +88,7 @@
                                    <v-list-tile-title v-text="entity.name"></v-list-tile-title>
                                </v-list-tile-content>
                                <v-list-tile-action>
-                                   <v-btn icon :loading="loading" @click.stop="sendEmit('deleteEntity', entity)">
+                                   <v-btn icon :loading="loading" @click.stop="sendEmit('deleteUser', entity)">
                                        <v-icon>clear</v-icon>
                                    </v-btn>
                                </v-list-tile-action>
@@ -117,14 +117,6 @@
 
 <script>
     export default {
-        data () {
-            return {
-                show: false,
-                items: [
-                  { title: 'hey', avatar: 'http://via.placeholder.com/50x50'}
-                ]
-            }
-        },
         props: [
           'activitat',
           'activity_volunteers',

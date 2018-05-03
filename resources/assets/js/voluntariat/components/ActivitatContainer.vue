@@ -7,15 +7,14 @@
       :loading="loading"
       @redirectToVolunteer="redirectToVolunteer"
       @redirectToEntity="redirectToEntity"
-      @deleteUser="deleteUser"
-      @deleteEntity="deleteEntity">
+      @deleteUser="deleteUser">
     </router-view>
     <v-dialog v-model="dialog" persistent max-width="290">
       <v-card v-if="user !== null">
         <v-card-title class="headline">Segur que vols eliminar l'usuari "{{ user.name }}" d'aquesta activitat?</v-card-title>
         <v-card-actions>
           <v-btn color="green darken-1" flat @click.native="dialog = false">Cancel·la</v-btn>
-          <v-btn color="green darken-1" @click="destroy( user, activityId)" flat @click.native="dialog = false">Elimina</v-btn>
+          <v-btn color="green darken-1" @click="destroy( user, id)" flat @click.native="dialog = false">Elimina</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -31,8 +30,6 @@
       return {
         dialog: false,
         user: null,
-        activityId: null,
-        role: null
       }
     },
     computed: {
@@ -78,27 +75,20 @@
         let path = '/entitats/' + id
         this.$router.push({ path: path })
       },
-      deleteUser(volunteer) {
+      deleteUser(user) {
         this.dialog = true
-        this.user = volunteer
-        this.role = 'volunteer'
+        this.user = user
       },
-      deleteEntity(entity) {
-        this.dialog = true
-        this.user = entity
-        this.role = 'entity'
-      },
-      destroy( user, activityId) {
-        if(this.role === 'entity') {
+      destroy(user, activityId) {
+        if(this.user.role === 'entity') {
           this.$store.dispatch(actions.DETACH_ENTITY, { user: user, activityId: activityId })
-        } else if (this.role === 'volunteer') {
+        } else if (this.user.role === 'volunteer') {
           this.$store.dispatch(actions.DETACH_VOLUNTEER, { user: user, activityId: activityId })
         }
       }
     },
     props: ['id'],
     mounted () {
-      this.activityId = this.id
       this.$store.dispatch(actions.GET_ACTIVITAT, this.id)
       this.$store.dispatch(actions.FETCH_ACTIVITY_USERS, this.id)
       this.$store.dispatch(actions.FETCH_ACTIVITY_ENTITIES, this.id)
