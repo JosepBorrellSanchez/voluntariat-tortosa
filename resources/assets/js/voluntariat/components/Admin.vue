@@ -37,11 +37,6 @@
 <script>
 
     export default {
-        data () {
-            return {
-                show: false,
-            }
-        },
-        props: ['admin'],
+        props: ['admin']
     }
 </script>

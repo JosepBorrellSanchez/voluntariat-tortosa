@@ -92,7 +92,6 @@
   export default {
     data () {
       return {
-        show: false,
         headers: [
           { text: 'Nom', align: 'left', value: 'name' },
         ]

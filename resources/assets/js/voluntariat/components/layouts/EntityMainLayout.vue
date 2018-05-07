@@ -105,13 +105,7 @@ export default {
         { icon: 'account_box', title: 'El meu compte' }
       ],
       miniVariant: false,
-      right: true,
-      rightDrawer: false,
       title: 'Voluntariat Tortosa',
-      windowSize: {
-        x: 0,
-        y: 0
-      },
       menu: false,
       // user: this.$store.state.user
     }
@@ -127,28 +121,9 @@ export default {
     }
   },
   methods: {
-    onResize () {
-      this.windowSize = { x: window.innerWidth, y: window.innerHeight }
-    },
     logout () {
-      // let config = {
-      //   headers: { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') }
-      // }
       this.$store.dispatch(actionTypes.LOGOUT)
-
-      // let config = {
-      //   headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
-      // }
-      // axios.post('logout').then((response) => {
-      //   console.log('Logout!')
-      // }).catch((error) => {
-      //   console.log(error);
-      // });
     }
-  },
-  mounted () {
-    this.onResize()
-    // this.$store.dispatch(actionTypes.FETCH_USER, 1);
   }
 }
 </script>

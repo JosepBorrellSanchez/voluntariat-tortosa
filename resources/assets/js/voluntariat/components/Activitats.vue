@@ -48,14 +48,12 @@
     name: 'Activitats',
     data () {
       return {
-        dialog: false,
         headers: [
           { text: 'Nom', value: 'nom', align: 'left' },
           { text: 'Destinataris', value: 'destinataris', align: 'left' },
           { text: 'Horari', value: 'horari' },
           { text: 'Voluntaris necessaris', value: 'num_voluntaris_necessaris' }
-        ],
-        dialog: false
+        ]
       }
     },
     props: [

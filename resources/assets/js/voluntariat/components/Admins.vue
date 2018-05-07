@@ -53,12 +53,10 @@
     name: 'Admins',
     data () {
       return {
-        dialog: false,
         headers: [
           { text: 'Nom', value: 'nom', align: 'left' },
           { text: 'Email', value: 'email', align: 'left'}
-        ],
-        dialog: false
+        ]
       }
     },
     props: [
