@@ -48,7 +48,7 @@ Projecte creat amb Laravel i Vue.
     - [ActivitatContainer.vue](#activitatcontainervue) -> [Activitat.vue](#activitatvue)
     - [CreateActivity.vue (TODO)](#createactivityvue-todo)
   - [Inbox.vue (TODO)](#inboxvue-todo)
-  - [NotFoundComponent.vue (TODO)](#notfoundcomponentvue-todo)
+  - [NotFoundComponent.vue (TODO)](#notfoundcomponent-todo)
 
 ## Eines
 
@@ -69,6 +69,8 @@ Paquets i frameworks necessaris per a correr l'aplicació
 
 - Vue-router (js): https://router.vuejs.org/en/
 - Vuex (js): https://vuex.vuejs.org/en/
+
+[index](#index)
 
 # Instal·lació
 
@@ -116,6 +118,8 @@ En cas de voler omplir la base de dades amb dades de mostra, executarem aquesta 
 
 Trobaràs més informació sobre les dades de mostra aqui.
 
+[index](#index)
+
 # Fitxers i directoris d'interés
 
 - /App/Providers/AppServiceProvider.php [ més info ](https://laravel.com/docs/5.6/providers)
@@ -126,6 +130,8 @@ Trobaràs més informació sobre les dades de mostra aqui.
 - /App/Http/Controllers [ més info ](https://laravel.com/docs/5.6/controllers)
 - /database/factories [ més info ](https://laravel.com/docs/5.6/seeding#using-model-factories)
 - /database [ más info ](https://laravel.com/docs/5.6/migrations)
+
+[index](#index)
 
 # Estructura de dades Store (Vuex)
 
@@ -138,17 +144,14 @@ el que conté totes les variables dins l'[ state ](https://vuex.vuejs.org/en/sta
 A continuació és fa un petit resum de cadascun: ([ informació més detallada sobre el funcionament d'aquest paquet ](https://vuex.vuejs.org/en/))
 
 - **index.js**: Carrega tots els fitxers i conté tots els valors que requereix l'aplicació
-
 - **actions.js**: Conté totes les [ actions ](https://vuex.vuejs.org/en/actions.html) disponibles per a ús de l'aplicació
-
 - **action-types.js**: Conté tots els noms de totes les [ actions ](https://vuex.vuejs.org/en/actions.html) definides al fitxer `actions.js`, actua d'enllaç entre el fitxer `actions.js` i qualsevol component que vulgui utilitzar alguna "action".
-
 - **mutations.js**: Conté totes les [ mutations ](https://vuex.vuejs.org/en/mutations.html) disponibles per a ús de l'aplicació
-
 - **mutation-types.js**: Conté tots els noms de totes les [ mutations ](https://vuex.vuejs.org/en/mutations.html)  definides al fitxer `mutations.js`, actua d'enllaç entre
   el fitxer `mutations.js` i qualsevol component que vulgui fer ús de qualsevol "mutació"
-
 - **getters.js**: Conté tots els [ getters ](https://vuex.vuejs.org/en/getters.html) per a cada una de les variables d'state
+
+[index](#index)
 
 # Models
 
@@ -279,6 +282,8 @@ Funció DETERMINATE_ROLE del Store:
 },
 ```
 
+[index](#index)
+
 # Activitat
 
 Les activitats parteixen del mateix model `Activitat.php`, que es troba al directory `/App`. [ Més informació sobre els models Eloquent ](https://laravel.com/docs/5.6/eloquent)
@@ -307,8 +312,9 @@ Atributs:
 #### Funcions
 
 - entitat: Retorna una [ col·lecció ](https://laravel.com/docs/5.6/collections) de totes les entitats propietàries de l'activitat
-
 - volunteers: Retorna una [ col·lecció ](https://laravel.com/docs/5.6/collections) de tots els voluntaris inscrits a l'activitat
+
+[index](#index)
 
 ## EntityInfo
 
@@ -353,6 +359,8 @@ Atributs:
 - validat: És un boleà guardat a `false` per defecte, i que unicament hauría de passar a true en cas de que l'usuari validi les seves dades des del correu
 
 
+[index](#index)
+
 ## VolunteerInfo
 Els objectes VolunteerInfo parteixen del mateix model `VolunteerInfo.php`, que es troba al directory `/App`. [ Més informació sobre els models Eloquent ](https://laravel.com/docs/5.6/eloquent)
 
@@ -378,6 +386,8 @@ Atributs:
  - franges_edat_preferents: Les franges d'edat amb les quals l'usuari esta disposat a treballar
  - condicio_fisica
  - validat: És un boleà guardat a `false` per defecte, i que unicament hauría de passar a true en cas de que l'usuari validi les seves dades des del correu
+
+[index](#index)
 
 # Base de dades
 
@@ -406,6 +416,8 @@ de generar una nova entrada a la taula `volunteer_infos` relacionada amb l'usuar
 a través de l'id. Cada vegada que el voluntari s'inscriu a una activitat, es genera una nova
 entrada a la taula `activitat_usuaris` que relaciona el voluntari amb l'activitat.
 
+[index](#index)
+
 # Rutes
 
 Gestionades per paquet [ vue-router ](https://router.vuejs.org/en/) es troben a `resources/assets/js/voluntariat/router/index.js`
@@ -430,7 +442,9 @@ Els components vue són carregats amb [ Lazy loading ](https://router.vuejs.org/
     - /activitats_user/:id : [ActivitatContainer.vue](#activitatcontainervue) -> [Activitat.vue](#activitatvue)
     - /crear_activitat: [CreateActivity.vue (TODO)](#createactivityvue-todo)
 - /inbox: [Inbox.vue (TODO)](#inboxvue-todo)
-- '*' : [NotFoundComponent.vue (TODO)](#notfoundcomponentvue-todo)
+- '*' : [NotFoundComponent.vue (TODO)](#notfoundcomponent-todo)
+
+[index](#index)
 
 ## Components Vue
 
@@ -1454,6 +1468,8 @@ Mostra informació detallada d'un admin identificat per el id.
     </v-container>
 </v-app>
 ```
+
+[index](#index)
 
 ### EntityMainLayout.vue
 
