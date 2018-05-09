@@ -391,12 +391,12 @@ entrada a la taula `activitat_usuaris` que relaciona el voluntari amb l'activita
 Gestionades per paquet [ vue-router ](https://router.vuejs.org/en/) es troben a `resources/assets/js/voluntariat/router/index.js`
 Els components vue són carregats amb [ Lazy loading ](https://router.vuejs.org/en/advanced/lazy-loading.html)
 
-- /: [Landing.vue](#Landing.vue)
-- (TODO)/register: Register.vue
-- /login: Pàgina de login
-- /admin: AdminMainLayout.vue
-    - /admin: AdminDashboard.vue
-    - /activitats: AllActivitiesContainer.vue -> AllActivities.vue
+- /: [Landing.vue](#landingvue-todo)
+- (TODO)/register: [Register.vue](#registervue-todo)
+- /login: [Login.vue](#loginvue)
+- /admin: [AdminMainLayout.vue](#adminmainlayoutvue)
+    - /admin: [AdminDashboard.vue](#admindashboardvue)
+    - /activitats: [AllActivitiesContainer.vue](#allactivitiescontainervue) -> [AllActivities.vue](#allactivitiesvue)
     - /activitats/:id : ActivitatContainer.vue 
     - /entitats: EntitiesContainer.vue -> Entities.vue
     - /entitats/:id : EntityContainer.vue -> Entity.vue 
