@@ -76,7 +76,7 @@ Paquets i frameworks necessaris per a correr l'aplicació
 
 (Important tenir composer i node.js abans d'instal·lar el projecte)
 
-Obrir un terminal i accedir a la carpeta on es desarà el projecte i clonar el projecte amb la comanda clone:
+Obrir un terminal i accedir a la carpeta on es desara el projecte i clonar el projecte amb la comanda clone:
         
 ```bash
     $ git clone git@github.com:GreyGonz/voluntariat-tortosa.git
@@ -116,7 +116,7 @@ En cas de voler omplir la base de dades amb dades de mostra, executarem aquesta 
     $ php artisan migrate:fresh --seed
 ```
 
-Trobaràs més informació sobre les dades de mostra aqui.
+Les dades de mostres es carreguen a través dels `seeders` que es troben al directori `database/seeds`. [Més informació sobre els seeders](https://laravel.com/docs/5.6/seeding)
 
 [index](#index)
 
@@ -129,14 +129,13 @@ Trobaràs més informació sobre les dades de mostra aqui.
 - /App/Events [ més info ](https://laravel.com/docs/5.6/events)
 - /App/Http/Controllers [ més info ](https://laravel.com/docs/5.6/controllers)
 - /database/factories [ més info ](https://laravel.com/docs/5.6/seeding#using-model-factories)
-- /database [ más info ](https://laravel.com/docs/5.6/migrations)
+- /database [ més info ](https://laravel.com/docs/5.6/migrations)
 
 [index](#index)
 
 # Estructura de dades Store (Vuex)
 
-Aquest paquet ajuda a l'hora de tenir variables i funcions globals, que podrán ser obtenides i executades 
-des de qualsevol component vue que ho requereixi.
+Aquest paquet ajuda a l'hora de tenir variables i funcions globals, que podrán ser obtenides i executades des de qualsevol component vue que ho requereixi.
 
 El fitxer principal que carrega aquest paquet es troba a `resources/assets/js/voluntariat/store/index.js`, aquest és 
 el que conté totes les variables dins l'[ state ](https://vuex.vuejs.org/en/state.html) i el qual carrega els demes fitxers necessaris. Els quals es troben tots a dins la mateixa carpeta `resources/assets/js/voluntariat/store/`.
@@ -165,23 +164,22 @@ Els usuaris parteixen del mateix model `User.php`, que es troba al directory `/A
 
 #### Funcions
 
-- activitats: Retorna una [ col·lecció ](https://laravel.com/docs/5.6/collections) de les activitats pertanyents a un usuari amb el rol d'entitat
+- activitats: Retorna una [ col·lecció ](https://laravel.com/docs/5.6/collections) de les activitats pertanyents a un usuari amb el rol `entity`.
 
-- registeredActivities: Retorna un [ col·lecció ](https://laravel.com/docs/5.6/collections) de les activitats on es troba registrat un usuari amb el rol de voluntari
+- registeredActivities: Retorna un [ col·lecció ](https://laravel.com/docs/5.6/collections) de les activitats on es troba registrat un usuari amb el rol `volunteer`.
 
-- assignEntitat: Assigna un usuari amb un rol voluntari a un usuari amb rol entitat
+- assignEntitat: Assigna un usuari amb un rol `volunteer` a un usuari amb rol `entity`.
 
-- info: Retorna un objecte EntityInfo/VolunteerInfo relacionat amb l'usuari depenent del seu rol
+- info: Retorna un objecte `EntityInfo`/`VolunteerInfo` relacionat amb l'usuari depenent del seu rol.
 
 ### Rols
 
-- SuperAdmin: Controla tota l'aplicació i pot gestionar els administradors, entitats i voluntaris 
-- Admin: Controla tota l'aplicació menys la possibilitat de gestionar altres administradors i pot gestionar les entitats i voluntaris 
-- Entity: Controla el seu usuari, pot crear i gestionar les seves activitats
-- Volunteer: Controla el seu usuari, pot inscriures i desinscriure's de vàries activitat
+- **SuperAdmin**: Controla tota l'aplicació i pot gestionar els administradors, entitats i voluntaris .
+- **Admin**: Controla tota l'aplicació menys la possibilitat de gestionar altres administradors i pot gestionar les entitats i voluntaris.
+- **Entity**: Controla el seu usuari, pot crear i gestionar les seves activitats
+- **Volunteer**: Controla el seu usuari, pot inscriures i desinscriure's de vàries activitats.
 
-Un usuari pertany a un únic rol (superAdmin, Admin, Entity o Volunteer) el qual li és assignat 
-a través de l'atribut `role` quan es crea el nou usuari.
+Un usuari pertany a un únic rol (superAdmin, Admin, Entity o Volunteer) el qual li és assignat a través de l'atribut `role` quan es crea el nou usuari.
 
 Exemple de creació d'usuari:
 
@@ -194,14 +192,12 @@ User::create([
 ])
 ```
 
-Al crear l'usuari, l'`UserObserver`  llença l'event `UserCreated` que s'encarrega d'assignar el rol
-a través de l'atribut `role` amb el que s'ha creat l'usuari.
+Al crear l'usuari, l'`UserObserver`  llença l'event `UserCreated` que s'encarrega d'assignar el rol a través de l'atribut `role` amb el que s'ha creat l'usuari.
 
 ### Autentificació
 
 Quan l'usuari es dirigeix a la ruta `/login` es carrega el component `resources/assets/js/voluntariat/components/Login.vue`.
-Apareix un formulari simple que demana email i contrasenya, un cop insertats, al prèmer el botó `Login`, sexecuta la funció 
-que es mostra a continuació.
+Apareix un formulari simple que demana email i contrasenya, un cop insertats, al prèmer el botó `Login`, sexecuta la funció que es mostra a continuació, en cas de que les dades siguin correctes redigirà a la pàgina principal de l'aplicació.
 
 ```javascript
   login () {
@@ -400,21 +396,17 @@ però fa falta llegir les migracions per a entendre correctament el seu funciona
 
 ![database](database_croquis.png)
 
-Com es pot veure la taula principal és `usuaris`. L'aplicació, depenent del rol de l'usuari, determina quines
-realacions de taules hi haurà a la base de dades.
+Com es pot veure la taula principal és `usuaris`. L'aplicació, depenent del rol de l'usuari, determina quines realacions de taules hi haurà a la base de dades.
 
-Quan es crea un usuari amb el rol `admin` o `superAdmin`, unicament es crea un registre
-`usuari` sense cap tipus de relació.
+Quan es crea un usuari amb el rol `admin` o `superAdmin`, unicament es crea un registre `usuari` sense cap tipus de relació.
     
-En el cas de que es creï un usuari amb el rol `entitat`, l'aplicació s'encarrega de generar una
-nova entrada a la taula `entity_infos` relacionada amb l'usuari a través de l'id.
+En el cas de que es creï un usuari amb el rol `entitat`, l'aplicació s'encarrega de generar una nova entrada a la taula `entity_infos` relacionada amb l'usuari a través de l'id.
+
 Cada vegada que l'entitat creï una activitat, es genera una nova entrada a la taula 
 `activitats` relacionada amb l'usuari també a través del seu id.
 
 En el cas de que es creï un usuari amb el rol `volunteer`, l'aplicació s'encarrega
-de generar una nova entrada a la taula `volunteer_infos` relacionada amb l'usuari
-a través de l'id. Cada vegada que el voluntari s'inscriu a una activitat, es genera una nova
-entrada a la taula `activitat_usuaris` que relaciona el voluntari amb l'activitat.
+de generar una nova entrada a la taula `volunteer_infos` relacionada amb l'usuari a través de l'id. Cada vegada que el voluntari s'inscriu a una activitat, es genera una nova entrada a la taula `activitat_usuaris` que relaciona el voluntari amb l'activitat.
 
 [index](#index)
 
@@ -424,7 +416,7 @@ Gestionades per paquet [ vue-router ](https://router.vuejs.org/en/) es troben a 
 Els components vue són carregats amb [ Lazy loading ](https://router.vuejs.org/en/advanced/lazy-loading.html)
 
 - /: [Landing.vue (TODO)](#landingvue-todo)
-- (TODO)/register: [Register.vue (TODO)](#registervue-todo)
+- /register: [Register.vue (TODO)](#registervue-todo)
 - /login: [Login.vue](#loginvue)
 - /admin: [AdminMainLayout.vue](#adminmainlayoutvue)
     - /admin: [AdminDashboard.vue (TODO)](#admindashboardvue-todo)
@@ -475,7 +467,7 @@ De moment aquesta pàgina només conté un títol amb 1 botò `Login` que ens re
 
 Formulari per a registrar-se com a voluntari i poder accedir a l'aplicació
 
-Aquesta component encara s'ha de crear, però hauría de ser un senzill formulari que, per exemple, demanés:
+Aquest component encara s'ha de crear, però hauría de ser un senzill formulari que, per exemple, demanés:
 
 - Nom
 - Email
@@ -490,8 +482,8 @@ Pàgina de login senzilla amb formulari d'accés (email i contrasenya) (Possibil
 
 #### Atributs
 
-- **email**: Contindrà l'email passat a través del formulari
-- **password**: Contindrà el password passat a través del formulari
+- **email**: Contindrà l'email passat a través del formulari.
+- **password**: Contindrà el password passat a través del formulari.
 
 #### Estructura
 
@@ -512,12 +504,12 @@ A continuació es mostra un exemple d'un dels `v-text-field` per entendre millor
 
 A continuació s'expliquen resumidament els atributs de `v-text-field`:
 
-- **name**: nom que tindrà el component
-- **label**: Text que es mostrarà per defecte dins l'input
-- **v-model**: Atribut on es desaran les dades introduïdes a l'input
-- **id**: identificador
+- **name**: nom que tindrà el component.
+- **label**: Text que es mostrarà per defecte dins l'input.
+- **v-model**: Atribut on es desaran les dades introduïdes a l'input.
+- **id**: identificador.
 - **type**: `v-text-field` ens ofereix la possibilitat d'assignar-li un tipus, en aquest cas li hem assignat un **type** `email`, per tant, si l'usuari intenta escriure un valor dins el text-field que no sigui un email, el formulari mostrará un error. El mateix passaría amb l'altre `v-text-field` que tenim dins el component, el qual té assignat el **type** `password`, els caràcters entrats no es mostaran i en cas de ser una password massa curta el formulari no validarà.
-- **required**: Determina que el formulari no podrà ser enviat sense aquest camp omplert
+- **required**: Determina que el formulari no podrà ser enviat sense aquest camp omplert.
 
 #### Mètodes
 
@@ -538,8 +530,8 @@ Layout de la part administrativa. Conté el menú de navegació amb tots els lin
 - **mobileBreakPoint**: Determina a quina mida el model de l'aplicació cambiarà de desktop a mòbil.
 - **items**: Objectes que apareixeran al `v-list` del drawer (Barra de navegació) com a links als diferents apartats de l'aplicació. Els objectes **item** consta de 3 parts:
   - icon: icona que apareixerà davant el nom. (Vue utilitza [Font awesome](https://fontawesome.com/) per defecte)
-  - title: Títol que apareixerà com a opció
-  - href: Ruta a la que fa referencia
+  - title: Títol que apareixerà com a opció.
+  - href: Ruta a la que fa referencia.
 - **miniVariant**: Boolean que determina si es farà servir l'opció "petita" del drawer, la qual només mostra les icones dels links. (False per defecte)
 - **title**: Títol del `v-toolbar`.
 - **menu**: Boolean que serveix per mostrar o amagar el `v-menú` amb la informació d'usuari i el botó de logout.
