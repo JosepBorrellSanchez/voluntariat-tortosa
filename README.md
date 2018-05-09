@@ -40,12 +40,12 @@ Projecte creat amb Laravel i Vue.
     - [EntityContainer.vue](#entitycontainervue) -> [Entity.vue](#entityvue) 
     - [VolunteersContainer.vue](#volunteerscontainervue) -> [Volunteers.vue](#volunteersvue)
     - [VolunteerContainer.vue](#volunteercontainervue) -> [Volunteer.vue](#volunteervue) 
-    - [AdminsContainer.vue](#adminscontainervue) -> [Admins.vue](adminsvue)
-    - [AdminContainer.vue](admincontainervue) -> [Admin.vue](#adminvue)
-  - [EntityMainLayout.vue](entitymainlayoutvue)
+    - [AdminsContainer.vue](#adminscontainervue) -> [Admins.vue](#adminsvue)
+    - [AdminContainer.vue](#admincontainervue) -> [Admin.vue](#adminvue)
+  - [EntityMainLayout.vue](#entitymainlayoutvue)
     - [EntityDashboard.vue (TODO)](#entitydashboardvue-todo)
     - [ActivitatsContainer.vue](#activitatscontainervue) -> [Activitats.vue](#activitatsvue)
-    - [ActivitatContainer.vue](activitatcontainervue) -> [Activitat.vue](#activitatvue)
+    - [ActivitatContainer.vue](#activitatcontainervue) -> [Activitat.vue](#activitatvue)
     - [CreateActivity.vue (TODO)](#createactivityvue-todo)
   - [Inbox.vue (TODO)](#inboxvue-todo)
   - [NotFoundComponent.vue (TODO)](#notfoundcomponentvue-todo)
@@ -422,12 +422,12 @@ Els components vue són carregats amb [ Lazy loading ](https://router.vuejs.org/
     - /entitats/:id : [EntityContainer.vue](#entitycontainervue) -> [Entity.vue](#entityvue) 
     - /voluntaris: [VolunteersContainer.vue](#volunteerscontainervue) -> [Volunteers.vue](#volunteersvue)
     - /voluntaris/:id : [VolunteerContainer.vue](#volunteercontainervue) -> [Volunteer.vue](#volunteervue) 
-    - /admins : [AdminsContainer.vue](#adminscontainervue) -> [Admins.vue](adminsvue)
-    - /admins/:id : [AdminContainer.vue](admincontainervue) -> [Admin.vue](#adminvue)
-- /entity: [EntityMainLayout.vue](entitymainlayoutvue)
+    - /admins : [AdminsContainer.vue](#adminscontainervue) -> [Admins.vue](#adminsvue)
+    - /admins/:id : [AdminContainer.vue](#admincontainervue) -> [Admin.vue](#adminvue)
+- /entity: [EntityMainLayout.vue](#entitymainlayoutvue)
     - /entity: [EntityDashboard.vue (TODO)](#entitydashboardvue-todo)
     - /activitats_user: [ActivitatsContainer.vue](#activitatscontainervue) -> [Activitats.vue](#activitatsvue)
-    - /activitats_user/:id : [ActivitatContainer.vue](activitatcontainervue) -> [Activitat.vue](#activitatvue)
+    - /activitats_user/:id : [ActivitatContainer.vue](#activitatcontainervue) -> [Activitat.vue](#activitatvue)
     - /crear_activitat: [CreateActivity.vue (TODO)](#createactivityvue-todo)
 - /inbox: [Inbox.vue (TODO)](#inboxvue-todo)
 - '*' : [NotFoundComponent.vue (TODO)](#notfoundcomponentvue-todo)
@@ -636,6 +636,8 @@ Aquest component basicament consta de 2 parts, el `router-view`, que fa referenc
 #### Mounted
 
 Manté actulitzades les activitats de l'aplicació cridant continuament a la funció `FETCH_ACTIVITATS` , que agafa les activitats registrades a l'aplicació i les desa a la variable **activitats** del `store`, que després és utilitzada per l'atribut **activitats** d'aquest component.
+
+[index](#index)
 
 ### AllActivities.vue
 
@@ -1651,7 +1653,7 @@ Notificacions d'usuari, tipus safata email.
 
 [index](#index)
 
-### NotFoundComponent(TODO)
+### NotFoundComponent (TODO)
 
 Component que mostrarà una pàgina tipus **404** en cas d'intentar accedir a una ruta que no estigui definida al fitxer `index.js` del **Router**.
 
