@@ -29,6 +29,26 @@ Projecte creat amb Laravel i Vue.
 - [ Base de dades ](#base-de-dades)
 - [ Rutes ](#rutes)
 - [ Components Vue ](#components-vue)
+  - [Landing.vue (TODO)](#landingvue-todo)
+  - [Register.vue (TODO)](#registervue-todo)
+  - [Login.vue](#loginvue)
+  - [AdminMainLayout.vue](#adminmainlayoutvue)
+    - [AdminDashboard.vue (TODO)](#admindashboardvue-todo)
+    - [AllActivitiesContainer.vue](#allactivitiescontainervue) -> [AllActivities.vue](#allactivitiesvue)
+    - [ActivitatContainer.vue](#activitatcontainervue) 
+    - [EntitiesContainer.vue](#entitiescontainervue) -> [Entities.vue](#entitiesvue)
+    - [EntityContainer.vue](#entitycontainervue) -> [Entity.vue](#entityvue) 
+    - [VolunteersContainer.vue](#volunteerscontainervue) -> [Volunteers.vue](#volunteersvue)
+    - [VolunteerContainer.vue](#volunteercontainervue) -> [Volunteer.vue](#volunteervue) 
+    - [AdminsContainer.vue](#adminscontainervue) -> [Admins.vue](adminsvue)
+    - [AdminContainer.vue](admincontainervue) -> [Admin.vue](#adminvue)
+  - [EntityMainLayout.vue](entitymainlayoutvue)
+    - [EntityDashboard.vue (TODO)](#entitydashboardvue-todo)
+    - [ActivitatsContainer.vue](#activitatscontainervue) -> [Activitats.vue](#activitatsvue)
+    - [ActivitatContainer.vue](activitatcontainervue) -> [Activitat.vue](#activitatvue)
+    - [CreateActivity.vue (TODO)](#createactivityvue-todo)
+  - [Inbox.vue (TODO)](#inboxvue-todo)
+  - [NotFoundComponent.vue (TODO)](#notfoundcomponentvue-todo)
 
 ## Eines
 
@@ -448,6 +468,8 @@ Aquesta component encara s'ha de crear, però hauría de ser un senzill formular
 - Repetir email
 - Password
 
+[index](#index)
+
 ### Login.vue 
 
 Pàgina de login senzilla amb formulari d'accés (email i contrasenya) (Possibilitat de social login amb google)
@@ -486,6 +508,8 @@ A continuació s'expliquen resumidament els atributs de `v-text-field`:
 #### Mètodes
 
 - **login**: agafa els valors dels atributs **email** i **password** i li passa a la funció `LOGIN` del fitxer `actions.js` per a que fagi el login. Si el login es correcte, a continuació executa la funció `DETERMINATE_ROLE` del `actions.js` que redireccionarà a l'usuari a la seva pàgina. En cas de fallar durant el login mostra un error per consola.
+
+[index](#index)
 
 ### AdminMainLayout.vue
 
@@ -555,9 +579,13 @@ L'estructura d'aquest component ve a ser una mica més complexa encara que la po
 
 - **logout**: Crida a la funció `LOGOUT` del fitxer `actions.js` , que s'encarregarà de fer el logout de l'usuari i enviar-lo al landing page.
 
+[index](#index)
+
 ### AdminDashboard.vue (TODO)
 
 Pàgina principal de la part d'administració, amb un resum d'activitats, entitats i voluntaris, amb possibilitat d'accedir individualment a cada objecte, obtenir més informació o crear-ne de nous.
+
+[index](#index)
 
 ### AllActivitiesContainer.vue
 
@@ -668,6 +696,8 @@ Com es veu a la taula hi ha afegida una columna de més amb un `v-btn` per cada 
 
 - **sendEmit**: Envia un event al component pare, en aquest cas **AllActivitiesContainer.vue** passant 2 paràmetres, `message` que serà el nom de l'event, i `value` que serà el valor que es passa per paràmetre. [més informació sobre $emits](https://vuejs.org/v2/api/#vm-emit)
 
+[index](#index)
+
 ### ActivitatContainer.vue
 
 Container del component `Activitat.vue`, s'encarrega de provisionar de l'informació que necessita el component `Activitat.vue` i executa les funcions cridades des del mateix.
@@ -720,6 +750,8 @@ Aquest component basicament consta de 2 parts, el `router-view`, que fa referenc
 #### Mounted
 
 Quan es carrega el component, es criden les funcions `GET_ACTIVITAT`, `FETCH_ACTIVITY_USERS` i `FETCH_ACTIVITY_ENTITIES` del fitxer `actions.js`.
+
+[index](#index)
 
 ### Activitat.vue
 
@@ -802,6 +834,8 @@ A la llista també es mostra una creueta com a botó el qual si es premut envia 
 
 - **sendEmit**:  Envia un event al component pare, en aquest cas **ActivitatContainer.vue** passant 2 paràmetres, `message` que serà el nom de l'event, i `value` que serà el valor que es passa per paràmetre. [més informació sobre $emits](https://vuejs.org/v2/api/#vm-emit)
 
+[index](#index)
+
 ### EntitiesContainer.vue
 
 Container del component `Entities.vue`, s'encarrega de provisionar de la informació que necessita el component `Entities.vue` i executa les funcions cridades des del mateix.
@@ -849,6 +883,8 @@ Aquest component basicament consta de 2 parts, el `router-view`, que fa referenc
 #### Mounted
 
 Quan es carrega el component es crida la funció `FETCH_ENTITIES` del fitxer `actions.js`.
+
+[index](#index)
 
 ### Entities.vue
 
@@ -902,6 +938,8 @@ Aquest component consta d'una simple taula que mostra totes les entitats registr
 
 - **sendEmit**: Envia un event al component pare, en aquest cas **EntitiesContainer.vue** passant 2 paràmetres, `message` que serà el nom de l'event, i `value` que serà el valor que es passa per paràmetre. [més informació sobre $emits](https://vuejs.org/v2/api/#vm-emit)
 
+[index](#index)
+
 ### EntityContainer.vue
 
 Container del component `Entities.vue`, s'encarrega de provisionar de la informació que necessita el component `Entities.vue` i executa les funcions cridades des del mateix.
@@ -953,6 +991,8 @@ Aquest component basicament consta de 2 parts, el `router-view`, que fa referenc
 #### Mounted
 
 Al carregar el component es crida a les funcions `GET_ENTITY`, `GET_INFO` i  `FETCH_ENTITY_ACTIVITIES` des del fitxer `actions.js`.
+
+[index](#index)
 
 ###  Entity.vue
 
@@ -1030,6 +1070,8 @@ També, en cas de que l'usuari no hagi omplert i validat la seva info, no es mos
 
 - **sendEmit**: Envia un event al component pare, en aquest cas **EntityContainer.vue** passant 2 paràmetres, `message` que serà el nom de l'event, i `value` que serà el valor que es passa per paràmetre. [més informació sobre $emits](https://vuejs.org/v2/api/#vm-emit)
 
+[index](#index)
+
 ### VolunteersContainer.vue
 
 Container del component `Volunteers.vue`, s'encarrega de provisionar de l'informació que necessita el component `Volunteers.vue` i executa les funcions cridades des del mateix.
@@ -1077,6 +1119,8 @@ Aquest component basicament consta de 2 parts, el `router-view`, que fa referenc
 #### Mounted
 
 Al carregar el component es crida a la funció `FETCH_VOLUNTEERS` del fitxer `actions.js`.
+
+[index](#index)
 
 ### Volunteers.vue
 
@@ -1131,6 +1175,8 @@ Aquest component consta d'una simple taula que mostra tote els voluntaris regist
 
 - **sendEmit**: Envia un event al component pare, en aquest cas **VolunteersContainer.vue** passant 2 paràmetres, `message` que serà el nom de l'event, i `value` que serà el valor que es passa per paràmetre. [més informació sobre $emits](https://vuejs.org/v2/api/#vm-emit)
 
+[index](#index)
+
 ### VolunteerContainer.vue
 
 Container del component `Volunteer.vue`, s'encarrega de provisionar de la informació que necessita el component `Volunteer.vue` i executa les funcions cridades des del mateix.
@@ -1182,6 +1228,8 @@ Aquest component basicament consta de 2 parts, el `router-view`, que fa referenc
 #### Mounted
 
 S'executen les funcions `GET_VOLUNTEER`, `GET_INFO` i `FETCH_ACTIVITATS_USER` del fitxer `actions.js`. La primera agafa l'usuari amb el que es vol treballar, la segona agafa la info d'aquest usuari i la tercera les seves activitats, i desa aquesta informació a les variables `volunteer`, `info` i `activitats` de l'`store` respectivament.
+
+[index](#index)
 
 ### Volunteer.vue
 
@@ -1250,6 +1298,8 @@ Mostra informació detallada d'un voluntari identificat per el seu id i permet a
 
 - **sendEmit**: Envia un event al component pare, en aquest cas **VolunteerContainer.vue** passant 2 paràmetres, `message` que serà el nom de l'event, i `value` que serà el valor que es passa per paràmetre. [més informació sobre $emits](https://vuejs.org/v2/api/#vm-emit)
 
+[index](#index)
+
 ### AdminsContainer.vue
 
 Container del component `Admins.vue`, s'encarrega de provisionar de la informació que necessita el component `Admins.vue` i executa les funcions cridades des del mateix.
@@ -1297,6 +1347,8 @@ Aquest component basicament consta de 2 parts, el `router-view`, que fa referenc
 #### Mounted
 
 Quan arranca el component, s'executa la funció `FETCH_ADMINS` del fitxer `actions.js`, el qual desa tots els admins registrats a l'aplicació dins la variable **admins** de l'`store`.
+
+[index](#index)
 
 ### Admins.vue
 
@@ -1347,6 +1399,8 @@ Mostra una taula amb tots els admins registrats a l'aplicació, permetent elimin
 
 - **sendEmit**: Envia un event al component pare, en aquest cas **AdminsContainer.vue** passant 2 paràmetres, `message` que serà el nom de l'event, i `value` que serà el valor que es passa per paràmetre. [més informació sobre $emits](https://vuejs.org/v2/api/#vm-emit)
 
+[index](#index)
+
 ### AdminContainer.vue
 
 Container del component `Admin.vue`, s'encarrega de provisionar de la informació que necessita el component `Admin.vue` i executa les funcions cridades des del mateix.
@@ -1372,6 +1426,8 @@ L'únic que fa aquest component és passar el admin al component **Admin.vue** p
 #### Mounted
 
 Quan arranca el component, s'executa la funció `GET_ADMIN` del fitxer `actions.js`, la qual desa l'admin passat a partir del su id a la variable **admin** de l'`store`.
+
+[index](#index)
 
 ### Admin.vue
 
@@ -1464,10 +1520,14 @@ L'estructura d'aquest component ve a ser una mica més complexa encara que la po
 
 **logout**: Crida a la funció `LOGOUT` del fitxer `actions.js` , que s'encarregarà de fer el logout de l'usuari i enviar-lo al landing page.
 
-#### EntityDashboard.vue (TODO)
+[index](#index)
+
+### EntityDashboard.vue (TODO)
 
 Pàgina princiapal de l'aplicació per a entitats, amb un resum de les últimes activitats a les que s'ha inscrit algun usuari,
 amb possibilitat de acceptar/denegar voluntaris que han demanat solicitud, veure i eliminar activitats.
+
+[index](#index)
 
 ### ActivitatsContainer.vue
 
@@ -1522,6 +1582,8 @@ Quan es carrega l'aplicació, s'executa la funció `FETCH_ACTIVITATS_USER` del f
 
 També desa l'usuari logat a la variable **user**.
 
+[index](#index)
+
 ### Activitats.vue
 
 Mostra una taula amb totes les activitats relacionades amb l'usuari. Per a una entitat, aquest component mostrarà totes les activitats en propietat,
@@ -1575,17 +1637,25 @@ Aquest component mostra una senzilla taula amb les activitats de l'usuari logat,
 
 - **sendEmit**: Envia un event al component pare, en aquest cas **AdminsContainer.vue** passant 2 paràmetres, `message` que serà el nom de l'event, i `value` que serà el valor que es passa per paràmetre. [més informació sobre $emits](https://vuejs.org/v2/api/#vm-emit)
 
+[index](#index)
+
 ### CreateActivity.vue (TODO)
 
 Formulari que es mostrarà per crear una nova activitat.
+
+[index](#index)
 
 ### Inbox.vue (TODO)
 
 Notificacions d'usuari, tipus safata email.
 
+[index](#index)
+
 ### NotFoundComponent(TODO)
 
 Component que mostrarà una pàgina tipus **404** en cas d'intentar accedir a una ruta que no estigui definida al fitxer `index.js` del **Router**.
+
+[index](#index)
 
 # Base de dades
 
