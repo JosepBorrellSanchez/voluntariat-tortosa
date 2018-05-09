@@ -82,8 +82,7 @@ Obrir un terminal i accedir a la carpeta on es desara el projecte i clonar el pr
     $ git clone git@github.com:GreyGonz/voluntariat-tortosa.git
 ```
 
-Un cop baixat el projecte executarem les comandes que ens baixaran els paquets i dependencies
-necessaris:
+Un cop baixat el projecte executarem les comandes que ens baixaran els paquets i dependencies necessaris:
 
 ```bash
     $ cd voluntariat-tortosa
@@ -307,8 +306,8 @@ Atributs:
 - sexe_req
 #### Funcions
 
-- entitat: Retorna una [ col·lecció ](https://laravel.com/docs/5.6/collections) de totes les entitats propietàries de l'activitat
-- volunteers: Retorna una [ col·lecció ](https://laravel.com/docs/5.6/collections) de tots els voluntaris inscrits a l'activitat
+- entitat: Retorna una [ col·lecció ](https://laravel.com/docs/5.6/collections) de totes les entitats propietàries de l'activitat.
+- volunteers: Retorna una [ col·lecció ](https://laravel.com/docs/5.6/collections) de tots els voluntaris inscrits a l'activitat.
 
 [index](#index)
 
@@ -413,7 +412,7 @@ de generar una nova entrada a la taula `volunteer_infos` relacionada amb l'usuar
 # Rutes
 
 Gestionades per paquet [ vue-router ](https://router.vuejs.org/en/) es troben a `resources/assets/js/voluntariat/router/index.js`
-Els components vue són carregats amb [ Lazy loading ](https://router.vuejs.org/en/advanced/lazy-loading.html)
+( Els components vue són carregats amb [ Lazy loading ](https://router.vuejs.org/en/advanced/lazy-loading.html) )
 
 - /: [Landing.vue (TODO)](#landingvue-todo)
 - /register: [Register.vue (TODO)](#registervue-todo)
@@ -457,7 +456,7 @@ Vue.use(Vuetify)
 
 Pàgina web principal de presentació.
 
-**Pàgina senzilla de presentació**, on es mostrarán totes les **activitats actualitzades**, botó de **registre** i **login**
+**Pàgina senzilla de presentació**, on es mostrarán totes les **activitats actualitzades**, botó de **registre** i **login**.
 
 De moment aquesta pàgina només conté un títol amb 1 botò `Login` que ens redirigeix a la pàgina de `/login` al clicar a sobre.
 
@@ -465,7 +464,7 @@ De moment aquesta pàgina només conté un títol amb 1 botò `Login` que ens re
 
 ### Register.vue (TODO)
 
-Formulari per a registrar-se com a voluntari i poder accedir a l'aplicació
+Formulari per a registrar-se com a voluntari i poder accedir a l'aplicació.
 
 Aquest component encara s'ha de crear, però hauría de ser un senzill formulari que, per exemple, demanés:
 
@@ -1476,8 +1475,8 @@ Layout de l'aplicació per a les entitats.
 - **mobileBreakPoint**: Determina a quina mida el model de l'aplicació cambiarà de desktop a mòbil.
 - **items**: Objectes que apareixeran al `v-list` del drawer (Barra de navegació) com a links als diferents apartats de l'aplicació. Els objectes **item** consta de 3 parts:
   - icon: icona que apareixerà davant el nom. (Vue utilitza [Font awesome](https://fontawesome.com/) per defecte)
-  - title: Títol que apareixerà com a opció
-  - href: Ruta a la que fa referencia
+  - title: Títol que apareixerà com a opció.
+  - href: Ruta a la que fa referencia.
 - **miniVariant**: Boolean que determina si es farà servir l'opció "petita" del drawer, la qual només mostra les icones dels links. (False per defecte)
 - **title**: Títol del `v-toolbar`.
 - **menu**: Boolean que serveix per mostrar o amagar el `v-menú` amb la informació d'usuari i el botó de logout.
@@ -1534,8 +1533,7 @@ L'estructura d'aquest component ve a ser una mica més complexa encara que la po
 
 ### EntityDashboard.vue (TODO)
 
-Pàgina princiapal de l'aplicació per a entitats, amb un resum de les últimes activitats a les que s'ha inscrit algun usuari,
-amb possibilitat de acceptar/denegar voluntaris que han demanat solicitud, veure i eliminar activitats.
+Pàgina princiapal de l'aplicació per a entitats, amb un resum de les últimes activitats a les que s'ha inscrit algun usuari, amb possibilitat de acceptar/denegar voluntaris que han demanat solicitud, veure i eliminar activitats.
 
 [index](#index)
 
@@ -1666,35 +1664,3 @@ Notificacions d'usuari, tipus safata email.
 Component que mostrarà una pàgina tipus **404** en cas d'intentar accedir a una ruta que no estigui definida al fitxer `index.js` del **Router**.
 
 [index](#index)
-
-# Base de dades
-
-## Notes
-
-- Les activitats preferents de cada voluntari vindràn de la relació entre la taula "voluntaris" i la taula "tipus_activitats"
-
-- Menú Admins (Login requerit):
-    - Inbox
-    - Dashboard
-    - Activitats
-    - Entitats
-    - Voluntaris
-    - Admins
-    - Configuració del compte
-
-- Menú Entitats (Login requerit):
-    - Inbox
-    - Les meves activitats
-    - Els meus voluntaris
-    - Configuració del compte
-
-- Menú Voluntaris (Login requerit):
-    - Inbox
-    - Activitats (a les que el voluntari es troba inscrit)
-    - Configuració del compte
-
-- Menú General:
-    - Home
-    - Activitats
-    - Entitats
-    - Preguntes Freqüents
