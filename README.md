@@ -109,28 +109,26 @@ Trobaràs més informació sobre les dades de mostra aqui.
 
 # Estructura de dades Store (Vuex)
 
-Aquest paquet ajuda a l'hora de tenir variables i funcions globals, que podran ser obtenides i executades 
+Aquest paquet ajuda a l'hora de tenir variables i funcions globals, que podrán ser obtenides i executades 
 des de qualsevol component vue que ho requereixi.
 
 El fitxer principal que carrega aquest paquet es troba a `resources/assets/js/voluntariat/store/index.js`, aquest és 
-el que conté totes les variables dins l'[ state ](https://vuex.vuejs.org/en/state.html) i el qual carrega els demes fitxers necessaris. Els quals es troben tots
-a dins la mateixa carpeta `resources/assets/js/voluntariat/store/`.
+el que conté totes les variables dins l'[ state ](https://vuex.vuejs.org/en/state.html) i el qual carrega els demes fitxers necessaris. Els quals es troben tots a dins la mateixa carpeta `resources/assets/js/voluntariat/store/`.
 
 A continuació és fa un petit resum de cadascun: ([ informació més detallada sobre el funcionament d'aquest paquet ](https://vuex.vuejs.org/en/))
 
-- index.js: Carrega tots els fitxers i conté tots els valors que requereix l'aplicació
+- **index.js**: Carrega tots els fitxers i conté tots els valors que requereix l'aplicació
 
-- actions.js: Conté totes les [ actions ](https://vuex.vuejs.org/en/actions.html) disponibles per a ús de l'aplicació
+- **actions.js**: Conté totes les [ actions ](https://vuex.vuejs.org/en/actions.html) disponibles per a ús de l'aplicació
 
-- action-types.js: Conté tots els noms de totes les [ actions ](https://vuex.vuejs.org/en/actions.html) definides al fitxer `actions.js`, actua d'enllaç entre el
-fitxer `actions.js` i qualsevol component que vulgui utilitzar alguna "action".
+- **action-types.js**: Conté tots els noms de totes les [ actions ](https://vuex.vuejs.org/en/actions.html) definides al fitxer `actions.js`, actua d'enllaç entre el fitxer `actions.js` i qualsevol component que vulgui utilitzar alguna "action".
 
-- mutations.js: Conté totes les [ mutations ](https://vuex.vuejs.org/en/mutations.html) disponibles per a ús de l'aplicació
+- **mutations.js**: Conté totes les [ mutations ](https://vuex.vuejs.org/en/mutations.html) disponibles per a ús de l'aplicació
 
-- mutation-types.js: Conté tots els noms de totes les [ mutations ](https://vuex.vuejs.org/en/mutations.html)  definides al fitxer `mutations.js`, actua d'enllaç entre
-el fitxer `mutations.js` i qualsevol component que vulgui fer ús de qualsevol "mutació"
+- **mutation-types.js**: Conté tots els noms de totes les [ mutations ](https://vuex.vuejs.org/en/mutations.html)  definides al fitxer `mutations.js`, actua d'enllaç entre
+  el fitxer `mutations.js` i qualsevol component que vulgui fer ús de qualsevol "mutació"
 
-- getters.js: Conté tots els [ getters ](https://vuex.vuejs.org/en/getters.html) per a cada una de les variables d'state
+- **getters.js**: Conté tots els [ getters ](https://vuex.vuejs.org/en/getters.html) per a cada una de les variables d'state
 
 # Models
 
@@ -364,19 +362,19 @@ Atributs:
 # Base de dades
 
 Cal destacar que el següent apartat descriu la DB i el seu funcionament en l'estat
-actual de l'aplicació, però és molt probable que la DB hagi de cambiar de forma o
-creixer.
+actual de l'aplicació, però és molt probable que la DB hagi de canviar de forma o
+créixer.
 
 A continuació es mostra un petit resum de com funcionaria la base de dades, 
 però fa falta llegir les migracions per a entendre correctament el seu funcionament
 
 ![database](database_croquis.png)
 
-Com es pot veure la taula principal és usuaris, l'aplicació depenent del rol de l'usuari determina quines
+Com es pot veure la taula principal és `usuaris`. L'aplicació, depenent del rol de l'usuari, determina quines
 realacions de taules hi haurà a la base de dades.
 
 Quan es crea un usuari amb el rol `admin` o `superAdmin`, unicament es crea un registre
-usuari sense cap tipus de relació.
+`usuari` sense cap tipus de relació.
     
 En el cas de que es creï un usuari amb el rol `entitat`, l'aplicació s'encarrega de generar una
 nova entrada a la taula `entity_infos` relacionada amb l'usuari a través de l'id.
@@ -385,7 +383,7 @@ Cada vegada que l'entitat creï una activitat, es genera una nova entrada a la t
 
 En el cas de que es creï un usuari amb el rol `volunteer`, l'aplicació s'encarrega
 de generar una nova entrada a la taula `volunteer_infos` relacionada amb l'usuari
-a través de l'id. Cada vegada que el voluntari creï s'inscriu a una activitat, es genera una nova
+a través de l'id. Cada vegada que el voluntari s'inscriu a una activitat, es genera una nova
 entrada a la taula `activitat_usuaris` que relaciona el voluntari amb l'activitat.
 
 # Rutes
@@ -393,7 +391,7 @@ entrada a la taula `activitat_usuaris` que relaciona el voluntari amb l'activita
 Gestionades per paquet [ vue-router ](https://router.vuejs.org/en/) es troben a `resources/assets/js/voluntariat/router/index.js`
 Els components vue són carregats amb [ Lazy loading ](https://router.vuejs.org/en/advanced/lazy-loading.html)
 
-- /: Landing.vue
+- /: [Landing.vue](#Landing.vue)
 - (TODO)/register: Register.vue
 - /login: Pàgina de login
 - /admin: AdminMainLayout.vue
@@ -413,7 +411,7 @@ Els components vue són carregats amb [ Lazy loading ](https://router.vuejs.org/
     - /crear_activitat: CreateActivity.vue
 - '*' : NotFoundComponent.vue
 
-## Components Vue (Pàgines)
+## Components Vue
 
 Trobareu tots els components desats al directori `/resources/assets/js/voluntariat/components`.
 
@@ -1574,53 +1572,17 @@ Aquest component mostra una senzilla taula amb les activitats de l'usuari logat,
 
 - **sendEmit**: Envia un event al component pare, en aquest cas **AdminsContainer.vue** passant 2 paràmetres, `message` que serà el nom de l'event, i `value` que serà el valor que es passa per paràmetre. [més informació sobre $emits](https://vuejs.org/v2/api/#vm-emit)
 
-### CreateActivity.vue
+### CreateActivity.vue (TODO)
 
-Formulari que es mostrarà per crear una nova activitat
-
-#### Atributs
-
-#### Computed
-
-#### Props
-
-#### Estructura
-
-#### Mètodes
-
-#### Mounted
+Formulari que es mostrarà per crear una nova activitat.
 
 ### Inbox.vue (TODO)
 
-Notificacions d'usuari
-
-#### Atributs
-
-#### Computed
-
-#### Props
-
-#### Estructura
-
-#### Mètodes
-
-#### Mounted
+Notificacions d'usuari, tipus safata email.
 
 ### NotFoundComponent(TODO)
 
 Component que mostrarà una pàgina tipus **404** en cas d'intentar accedir a una ruta que no estigui definida al fitxer `index.js` del **Router**.
-
-#### Atributs
-
-#### Computed
-
-#### Props
-
-#### Estructura
-
-#### Mètodes
-
-#### Mounted
 
 # Base de dades
 
