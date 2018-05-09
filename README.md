@@ -391,25 +391,26 @@ entrada a la taula `activitat_usuaris` que relaciona el voluntari amb l'activita
 Gestionades per paquet [ vue-router ](https://router.vuejs.org/en/) es troben a `resources/assets/js/voluntariat/router/index.js`
 Els components vue són carregats amb [ Lazy loading ](https://router.vuejs.org/en/advanced/lazy-loading.html)
 
-- /: [Landing.vue](#landingvue-todo)
-- (TODO)/register: [Register.vue](#registervue-todo)
+- /: [Landing.vue (TODO)](#landingvue-todo)
+- (TODO)/register: [Register.vue (TODO)](#registervue-todo)
 - /login: [Login.vue](#loginvue)
 - /admin: [AdminMainLayout.vue](#adminmainlayoutvue)
-    - /admin: [AdminDashboard.vue](#admindashboardvue)
+    - /admin: [AdminDashboard.vue (TODO)](#admindashboardvue-todo)
     - /activitats: [AllActivitiesContainer.vue](#allactivitiescontainervue) -> [AllActivities.vue](#allactivitiesvue)
-    - /activitats/:id : ActivitatContainer.vue 
-    - /entitats: EntitiesContainer.vue -> Entities.vue
-    - /entitats/:id : EntityContainer.vue -> Entity.vue 
-    - /voluntaris: VolunteersContainer.vue -> Volunteers.vue
-    - /voluntaris/:id : VolunteerContainer.vue -> Volunteer.vue 
-    - /admins : AdminsContainer.vue -> Admins.vue
-    - /admins/:id : AdminContainer.vue -> Admin.vue
-- /entity: EntityMainLayout.vue
-    - /entity: EntityDashboard.vue (TODO)
-    - /activitats_user: ActivitatsContainer.vue -> Activitats.vue
-    - /activitats_user/:id : ActivitatContainer.vue -> Activitat.vue
-    - /crear_activitat: CreateActivity.vue
-- '*' : NotFoundComponent.vue
+    - /activitats/:id : [ActivitatContainer.vue](#activitatcontainervue) 
+    - /entitats: [EntitiesContainer.vue](#entitiescontainervue) -> [Entities.vue](#entitiesvue)
+    - /entitats/:id : [EntityContainer.vue](#entitycontainervue) -> [Entity.vue](#entityvue) 
+    - /voluntaris: [VolunteersContainer.vue](#volunteerscontainervue) -> [Volunteers.vue](#volunteersvue)
+    - /voluntaris/:id : [VolunteerContainer.vue](#volunteercontainervue) -> [Volunteer.vue](#volunteervue) 
+    - /admins : [AdminsContainer.vue](#adminscontainervue) -> [Admins.vue](adminsvue)
+    - /admins/:id : [AdminContainer.vue](admincontainervue) -> [Admin.vue](#adminvue)
+- /entity: [EntityMainLayout.vue](entitymainlayoutvue)
+    - /entity: [EntityDashboard.vue (TODO)](#entitydashboardvue-todo)
+    - /activitats_user: [ActivitatsContainer.vue](#activitatscontainervue) -> [Activitats.vue](#activitatsvue)
+    - /activitats_user/:id : [ActivitatContainer.vue](activitatcontainervue) -> [Activitat.vue](#activitatvue)
+    - /crear_activitat: [CreateActivity.vue (TODO)](#createactivityvue-todo)
+- /inbox: [Inbox.vue (TODO)](#inboxvue-todo)
+- '*' : [NotFoundComponent.vue (TODO)](#notfoundcomponentvue-todo)
 
 ## Components Vue
 
@@ -433,6 +434,8 @@ Pàgina web principal de presentació.
 **Pàgina senzilla de presentació**, on es mostrarán totes les **activitats actualitzades**, botó de **registre** i **login**
 
 De moment aquesta pàgina només conté un títol amb 1 botò `Login` que ens redirigeix a la pàgina de `/login` al clicar a sobre.
+
+[index](#index)
 
 ### Register.vue (TODO)
 
